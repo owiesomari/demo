@@ -1,0 +1,53 @@
+table{
+    max-width: 100%;
+}
+
+.search_div{
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+#search_btn:hover{
+    background-color:#1e7e34 !important;
+}
+
+#search_btn {
+    background-color:#67CF94;
+    border-radius: 8px;
+}
+td{
+    text-align: center;
+    padding: 30px;
+    
+}
+th{
+    text-align: center;
+}
+
+.rd-50{
+    border-radius: 50%;
+    margin-left: 4px;
+}
+
+.bg-success {
+    background-color: #67CF94 !important;
+    }
+
+    .bg-danger{
+        background-color: #D66B53 !important;
+    }
+
+    .bg-danger:hover{
+        background-color: #BA472E !important;
+    }
+
+    .bg-success:hover{
+        background-color: #1BB71B !important;
+    }
+
+    .badge-danger {
+        color: #fff;
+        background-color: #dc3545;
+        }

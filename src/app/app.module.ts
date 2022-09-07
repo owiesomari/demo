@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CatalogComponent } from './components/catalog/catalog.component';
+import { ProductsComponent } from './components/products/products.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HeaderComponent,
     SidenavComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    CatalogComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

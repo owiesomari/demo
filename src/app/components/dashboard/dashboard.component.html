@@ -1,178 +1,181 @@
 <div style="padding: 20px">
-<div class="row" >
-    <div class="col-md-2">
-        <label class="toggle">
-            <input class="toggle-checkbox" type="checkbox" (change)="showDropphiSupport($event)">
-            <div class="toggle-switch"></div>
-            <span class="toggle-label" style="margin-right:10px;">دليلك لتبدأ مع Dropphi</span>
-        </label>
+    <div class="row">
+        <div class="col-md-2">
+            <label class="toggle">
+                <input class="toggle-checkbox" type="checkbox" (change)="showDropphiSupport($event)">
+                <div class="toggle-switch"></div>
+                <span class="toggle-label" style="margin-right:10px;">دليلك لتبدأ مع Dropphi</span>
+            </label>
+        </div>
+
+        <div class="col-md-10 d-flex justify-content-end" style="float: left">
+            <button class="btn btn-danger corner-btn">دليل الاستخدام</button>
+        </div>
     </div>
 
-    <div class="col-md-10 d-flex justify-content-end" style="float: left">
-        <button class="btn btn-danger corner-btn">دليل الاستخدام</button>
-    </div>
-</div>
+    <div class="row" id="info" style="display: block; margin-top: 15px;" *ngIf="idInfoVisibile">
 
-<div class="row" id="info" style="display: block; margin-top: 15px;" *ngIf="idInfoVisibile">
-
-    <div>
-        <div class="card" style="width: 100%;">
-            <div class="card-body">
-                <div class="crad-title" style="border-bottom: 
+        <div>
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <div class="crad-title" style="border-bottom: 
                 5px solid red;">
-                    <i class="bi bi-headset"></i> <span
-                        style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">تعرف على Dropphi </span>
-                </div>
-
-                <div class="accordion" id="accordionExample" style="margin-top: 20px; margin-bottom: 30px;">
-
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                ما هو Dropphi
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="description-content">
-                                            <p>إذا كان لديك متجر الكتروني أو حساب على السوشل ميديا تبيع من خلاله أو تريد
-                                                أن تبدأ التجارة الالكترونية فإن دروبفاي المكان المناسب لتبدأ مشروعك.
-                                                <br>
-                                                دروبفاي توفر لك المنتجات من أفضل الموردين في الأردن بأسعار الجملة لتختار
-                                                ما تريد بيعه منها و عرضه في المكان الذي تريده ( متجر – سوشل ميديا – واتس
-                                                اب )
-                                                وستقوم دروبفاي بتوصيل الطلبات للزبائن في مختلف أنحاء المملكة
-                                                مع دروبفاي لا يوجد مخاطر ولا حاجة لرأس مال ، كل ما تحتاجه هو التركيز
-                                                والاهتمام لتنمية عملك
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <img src="../../assets/why1.png" width="455 " height="260">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <i class="bi bi-headset"></i> <span
+                            style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">تعرف على Dropphi
+                        </span>
                     </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                كيف تبدا
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="../../assets/why2.png" width="455 " height="260">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="description-content">
-                                            <ul style="list-style-type:circle">
-                                                <li>اختر المنتجات المناسبة لك للتسويق من صفحة كتالوج المنتجات واضفها الى
-                                                    (منتجاتي)</li>
-                                                <li>أعرض صور هذه المنتجات على صفحتك أو متجرك</li>
-                                                <li>أطلب المنتجات التي طلبها الزبائن من صفحة (منتجاتي)</li>
-                                                <li>أدخل إلى(سلة المشتريات) و أضف سعر بيع القطع</li>
-                                                <li>أدخل معلومات الشحن لعميلك</li>
-                                            </ul>
-                                            <p>و هكذا تكون أتممت الطلب ببساطة و سيكون بإمكانك طلب الارباح بعد أن يتم
-                                                تسليم الطلب</p>
-                                            <p>
-                                            </p>
+                    <div class="accordion" id="accordionExample" style="margin-top: 20px; margin-bottom: 30px;">
+
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    ما هو Dropphi
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="description-content">
+                                                <p>إذا كان لديك متجر الكتروني أو حساب على السوشل ميديا تبيع من خلاله أو
+                                                    تريد
+                                                    أن تبدأ التجارة الالكترونية فإن دروبفاي المكان المناسب لتبدأ مشروعك.
+                                                    <br>
+                                                    دروبفاي توفر لك المنتجات من أفضل الموردين في الأردن بأسعار الجملة
+                                                    لتختار
+                                                    ما تريد بيعه منها و عرضه في المكان الذي تريده ( متجر – سوشل ميديا –
+                                                    واتس
+                                                    اب )
+                                                    وستقوم دروبفاي بتوصيل الطلبات للزبائن في مختلف أنحاء المملكة
+                                                    مع دروبفاي لا يوجد مخاطر ولا حاجة لرأس مال ، كل ما تحتاجه هو التركيز
+                                                    والاهتمام لتنمية عملك
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <img src="../../assets/why1.png" width="455 " height="260">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    كيف تبدا
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src="../../assets/why2.png" width="455 " height="260">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="description-content">
+                                                <ul style="list-style-type:circle">
+                                                    <li>اختر المنتجات المناسبة لك للتسويق من صفحة كتالوج المنتجات واضفها
+                                                        الى
+                                                        (منتجاتي)</li>
+                                                    <li>أعرض صور هذه المنتجات على صفحتك أو متجرك</li>
+                                                    <li>أطلب المنتجات التي طلبها الزبائن من صفحة (منتجاتي)</li>
+                                                    <li>أدخل إلى(سلة المشتريات) و أضف سعر بيع القطع</li>
+                                                    <li>أدخل معلومات الشحن لعميلك</li>
+                                                </ul>
+                                                <p>و هكذا تكون أتممت الطلب ببساطة و سيكون بإمكانك طلب الارباح بعد أن يتم
+                                                    تسليم الطلب</p>
+                                                <p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
 
-
-</div>
-
-<div class="row gy-5" style="margin-top: 10px;">
-    <div class="col-md-4" style="margin-bottom: 8px">
-        <div class="card" style="width: 100%;">
-            <div class="card-body">
-                <div class="crad-title" style="border-bottom: 
+    <div class="row gy-5" style="margin-top: 10px;">
+        <div class="col-md-4" style="margin-bottom: 8px">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <div class="crad-title" style="border-bottom: 
             5px solid red;">
-                    <i class="bi bi-wallet-fill"></i> <span
-                        style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">المحفظة المالية</span>
-                </div>
+                        <i class="bi bi-wallet-fill"></i> <span
+                            style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">المحفظة المالية</span>
+                    </div>
 
-                <div class="crad-text" style="text-align: center; padding-bottom: 30px;">
-                    <h1><i style="color: green" class="bi bi-patch-check-fill"></i></h1>
-                    <p>إجمالي الرصيد المتاح</p>
-                    <p style="color: green">0 د.آ</p>
-                    <span>ارباح المبيعات</span> <label
-                        style="background-color: #408955; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
-                    <span style="margin-right: 10px;"> رصيد مرجع</span> <label
-                        style="background-color: #7dc897; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
-                    <span style="margin-right: 10px;">ارباح الجوائز</span> <label
-                        style="background-color: #f9d749; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
+                    <div class="crad-text" style="text-align: center; padding-bottom: 30px;">
+                        <h1><i style="color: green" class="bi bi-patch-check-fill"></i></h1>
+                        <p>إجمالي الرصيد المتاح</p>
+                        <p style="color: green">0 د.آ</p>
+                        <span>ارباح المبيعات</span> <label
+                            style="background-color: #408955; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
+                        <span style="margin-right: 10px;"> رصيد مرجع</span> <label
+                            style="background-color: #7dc897; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
+                        <span style="margin-right: 10px;">ارباح الجوائز</span> <label
+                            style="background-color: #f9d749; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-8" style="margin-bottom: 8px">
-        <div class="card" style="width: 100%;">
-            <div class="card-body">
-                <div class="crad-title" style="border-bottom: 
+        <div class="col-md-8" style="margin-bottom: 8px">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <div class="crad-title" style="border-bottom: 
                 5px solid red;">
-                    <i class="bi bi-headset"></i> <span
-                        style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">مركز دعم Dropphi </span>
-                </div>
-
-                <div class="accordion" id="accordionExample" style="margin-top: 20px; margin-bottom: 30px;">
-                    <div class="accordion-item" onClick="window.open('https://blog.dropphi.com');">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                مركز الدعم
-                            </button>
-                        </h2>
+                        <i class="bi bi-headset"></i> <span
+                            style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">مركز دعم Dropphi
+                        </span>
                     </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                ارسل طلب
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <form class="support-form" action="#" method="POST">
-                                    <input type="text" class="form-control mb-3" name="name" placeholder="الاسم *"
-                                        required="">
-                                    <input type="email" class="form-control mb-3" name="email"
-                                        placeholder="البريد الإلكتروني *" required="">
-                                    <input type="text" class="form-control mb-3" name="subject" placeholder="الموضوع *"
-                                        required="">
-                                    <textarea class="form-control mb-3" rows="12" name="details"
-                                        placeholder="تفاصيل الطلب *" required=""></textarea>
-                                    <button type="submit" class="btn bg-primary"><i class="bi bi-envelope"></i>
-                                        إرسال</button>
+                    <div class="accordion" id="accordionExample" style="margin-top: 20px; margin-bottom: 30px;">
+                        <div class="accordion-item" onClick="window.open('https://blog.dropphi.com');">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    مركز الدعم
+                                </button>
+                            </h2>
+                        </div>
 
-                                </form>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    ارسل طلب
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <form class="support-form" action="#" method="POST">
+                                        <input type="text" class="form-control mb-3" name="name" placeholder="الاسم *"
+                                            required="">
+                                        <input type="email" class="form-control mb-3" name="email"
+                                            placeholder="البريد الإلكتروني *" required="">
+                                        <input type="text" class="form-control mb-3" name="subject"
+                                            placeholder="الموضوع *" required="">
+                                        <textarea class="form-control mb-3" rows="12" name="details"
+                                            placeholder="تفاصيل الطلب *" required=""></textarea>
+                                        <button type="submit" class="btn bg-primary"><i class="bi bi-envelope"></i>
+                                            إرسال</button>
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -180,39 +183,38 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="row" style="margin-top: 30px;">
-    <div class="col-md-6" style="margin-bottom: 8px">
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-md-6" style="margin-bottom: 8px">
 
-        <div class="container border-20" style="background-color: white;">
-            <div class="centered-element">
-                <p>الطلبات خلال الشهر 0/غير محدود</p>
+            <div class="container border-20" style="background-color: white;">
+                <div class="centered-element">
+                    <p>الطلبات خلال الشهر 0/غير محدود</p>
 
+                </div>
+                <div class="col-md-11 d-flex justify-content-end centered-element">
+                    <!--<button class="btn btn-danger corner-btn">ترقية الاشتراك </button>-->
+                </div>
             </div>
-            <div class="col-md-11 d-flex justify-content-end centered-element">
-                <!--<button class="btn btn-danger corner-btn">ترقية الاشتراك </button>-->
+
+        </div>
+
+        <div class="col-md-3" style="margin-bottom: 8px">
+            <div class="container border-20" style="background-color: white;">
+                <div class="centered-element">
+                    <p>اجمالي الطلبات المسلمة</p>
+                    <h2 style="color: #FF81A3">0</h2>
+                </div>
             </div>
         </div>
 
-    </div>
-
-    <div class="col-md-3" style="margin-bottom: 8px">
-        <div class="container border-20" style="background-color: white;">
-            <div class="centered-element">
-                <p>اجمالي الطلبات المسلمة</p>
-                <h2 style="color: #FF81A3">0</h2>
+        <div class="col-md-3" style="margin-bottom: 8px">
+            <div class="container border-20" style="background-color: white;">
+                <div class="centered-element">
+                    <p>اجمالي المبيعات</p>
+                    <h2 style="color: #ce0000; font-weight: 700; ">0 د.ا</h2>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="col-md-3" style="margin-bottom: 8px">
-        <div class="container border-20" style="background-color: white;">
-            <div class="centered-element">
-                <p>اجمالي المبيعات</p>
-                <h2 style="color: #ce0000; font-weight: 700; ">0 د.ا</h2>
-            </div>
-        </div>
-    </div>
-</div>
 </div>

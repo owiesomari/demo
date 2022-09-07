@@ -1,0 +1,40 @@
+
+
+#search_div{
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+#search_btn:hover{
+    background-color:#1e7e34 !important;
+}
+
+#search_btn {
+    background-color:#67CF94;
+    border-radius: 8px;
+}
+
+#filter_form{
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+#slider-div {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+  }
+  
+  #slider-div>div {
+    margin: 8px;
+  }
+  
+  .slider-label {
+    position: absolute;
+    background-color: #eee;
+    padding: 4px;
+    font-size: 0.75rem;
+  }
