@@ -1,0 +1,129 @@
+
+
+#tab {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.form-control {
+    background-color: #f0f0f0;
+    height: 40px;
+    border-radius: 7px;
+}
+
+button {
+    margin-right: 5px;
+}
+
+.pending {
+    background-color: #FC7383;
+}
+
+.waiting {
+    background-color: #FFB959;
+}
+
+.family {
+    background-color: #67CFA2;
+}
+
+.cancelled {
+    background-color: #CE0000;
+}
+
+.status-btn {
+    border-radius: 100px;
+    border: 1px solid darkgrey;
+    padding: 10px;
+    font-size: 12px;
+    width: 100px;
+    margin-bottom: 4px;
+}
+
+.filter-button {
+    border-radius: 100px;
+    border: 1px solid blue;
+    padding: 10px;
+    font-size: 12px;
+    width: 100px;
+    margin-bottom: 4px;
+}
+
+.status-btn:hover {
+    border: 1px solid red;
+    background-color: #fff;
+    color: red;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545 !important;
+}
+
+.bg-danger:hover {
+    background-color: #BA472E !important;
+}
+
+.bg-success:hover {
+    background-color: #1BB71B !important;
+}
+
+.prodTable {
+    margin-top: 30px;
+}
+
+.btn-primary:hover {
+    background-color: #87B2ED !important;
+}
+
+.effect-9 {
+    border: 1px solid #ccc;
+    padding: 7px 14px 9px;
+    transition: 0.4s;
+}
+
+.effect-9~.focus-border:before,
+.effect-9~.focus-border:after {
+    top: auto;
+    bottom: 0;
+    right: auto;
+    left: 0;
+    transition-delay: 0.6s;
+}
+
+.effect-9~.focus-border i:before,
+.effect-9~.focus-border i:after {
+    left: auto;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    transition-delay: 0.4s;
+}
+
+.effect-9:focus~.focus-border:before,
+.effect-9:focus~.focus-border:after {
+    width: 100%;
+    transition: 0.2s;
+    transition-delay: 0.6s;
+}
+
+.effect-9:focus~.focus-border:after {
+    transition-delay: 0.2s;
+}
+
+.effect-9:focus~.focus-border i:before,
+.effect-9:focus~.focus-border i:after {
+    height: 100%;
+    transition: 0.2s;
+}
+
+.effect-9:focus~.focus-border i:after {
+    transition-delay: 0.4s;
+}
+
+label{
+    font-weight: 700;
+}
+

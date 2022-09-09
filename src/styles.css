@@ -1,5 +1,91 @@
-body{
-  text-align: right ;
+body {
+  text-align: right;
 
 }
 
+button {
+  border: 1px solid;
+  box-shadow: 5px 10px 18px #888888;
+}
+
+.margin-top-xs {
+  margin-top: 2px;
+}
+
+.margin-left-xs {
+  margin-left: 2px;
+}
+
+.margin-right-xs {
+  margin-right: 2px;
+}
+
+.margin-bottom-xs {
+  margin-bottom: 2px;
+}
+
+.margin-top-s {
+  margin-top: 4px;
+}
+
+.margin-left-s {
+  margin-left: 4px;
+}
+
+.margin-right-s {
+  margin-right: 4px;
+}
+
+.margin-bottom-s {
+  margin-bottom: 4px;
+}
+
+.margin-top-m {
+  margin-top: 8px;
+}
+
+.margin-left-m {
+  margin-left: 8px;
+}
+
+.margin-right-m {
+  margin-right: 8px;
+}
+
+.margin-bottom-m {
+  margin-bottom: 8px;
+}
+
+
+.margin-top-l {
+  margin-top: 12px;
+}
+
+.margin-left-l {
+  margin-left: 12px;
+}
+
+.margin-right-l {
+  margin-right: 12px;
+}
+
+.margin-bottom-l {
+  margin-bottom: 12px;
+}
+
+
+.margin-top-xl {
+  margin-top: 16px;
+}
+
+.margin-left-xl {
+  margin-left: 16px;
+}
+
+.margin-right-xl {
+  margin-right: 16px;
+}
+
+.margin-bottom-xl {
+  margin-bottom: 16px;
+}

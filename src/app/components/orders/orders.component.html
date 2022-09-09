@@ -1,0 +1,75 @@
+<div style="padding: 20px;" >
+
+    <h2>قائمة الطلبات</h2>
+    <div id="content margin-top-l">
+        <div id="tab">
+            <div class="row">
+                <label>الحالة</label>
+                <div class="col-md-6 col-sm-6 margin-top-s">
+                    <div class="btn-group flex-wrap" role="group" aria-label="Basic example">
+                        <button type="button" class=" status-btn col-md-1" style="background-color: #fff">الكل</button>
+                        <button type="button" class=" pending status-btn  col-md-1">معلقه</button>
+                        <button type="button" class=" waiting status-btn  col-md-1">قيد التسليم</button>
+                        <button type="button" class=" family status-btn  col-md-1">مكتملة </button>
+                        <button type="button" class=" cancelled status-btn  col-md-1">ملغية </button>
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row margin-top-xl">
+                <label>فرز حسب</label>
+
+                <div class="col-md-6 margin-top-s">
+                    <div class="btn-group flex-wrap" role="group" aria-label="Basic example">
+                        <button type="button" class=" filter-button  btn-primary ">اليوم</button>
+                        <button type="button" class="filter-button  btn-primary ">الامس</button>
+                        <button type="button" class="filter-button  btn-primary ">اخر 7ايام</button>
+                        <button type="button" class="filter-button  btn-primary "> يوم30يوم</button>
+                        <button type="button" class="filter-button  btn-primary ">هذا الشهر </button>
+                        <button type="button" class="filter-button  btn-primary ">اخر شهر</button>
+                        <button type="button" class="filter-button  btn-primary ">نطاق مخصص</button>
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row margin-top-xl">
+                <label for="orderNumber">الوصول السريع للطلب</label>
+                <input class="effect-9 col-md-5 margin-top-s" type="text" style="width: 300px;border-radius: 10px;" id="orderNumber"
+                    placeholder="اسم العميل" (keyup)="filterTable($event)">
+                <button class="btn btn-primary col-md-1 margin-right-xl" style=" width: 100px; border-radius: 20px;">بحث </button>
+            </div>
+            <div class="row prodTable margin-top-xl">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">رقم الطلب</th>
+                                <th scope="col">تاريخ الطلب</th>
+                                <th scope="col">اسم العميل</th>
+                                <th scope="col">الإجمالي</th>
+                                <th scope="col">رابط الشحنة</th>
+                                <th scope="col">طريقة الدفع</th>
+                                <th scope="col">عدد المنتجات</th>
+                                <th scope="col">الحالة</th>
+                                <th scope="col">الاجراءات </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let x of tempOrders">
+                                <td>{{x.getID()}}</td>
+                                <td>{{x.getDate()}}</td>
+                                <td>{{x.getCustomerName()}}</td>
+                                <td>{{x.getTotal()}}</td>
+                                <td>{{x.geturl()}}</td>
+                                <td>{{x.getPaymentMethod()}}</td>
+                                <td>{{x.getQuantity()}}</td>
+                                <td>{{x.getStatus()}}</td>
+                                <td>{{x.getPaymentMethod()}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
