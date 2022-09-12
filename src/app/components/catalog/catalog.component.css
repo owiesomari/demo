@@ -1,40 +1,32 @@
-
-
-#search_div{
+#idButton{
     background-color: #fff;
-    padding: 12px;
-    border-radius: 8px;
+    border: 1px solid red;
+    color: #ce0000;
 }
 
-#search_btn:hover{
-    background-color:#1e7e34 !important;
+#idButton:hover{
+   background-color:  #ce0000!important;
+   color: #fff !important;
 }
 
-#search_btn {
-    background-color:#67CF94;
-    border-radius: 8px;
-}
 
-#filter_form{
-    background-color: #fff;
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 12px;
-}
+.product-grid-item .product-content {
+    padding: 10px 20px;
+    }
 
-#slider-div {
-    display: flex;
-    flex-direction: row;
-    margin-top: 30px;
-  }
-  
-  #slider-div>div {
-    margin: 8px;
-  }
-  
-  .slider-label {
-    position: absolute;
-    background-color: #eee;
-    padding: 4px;
-    font-size: 0.75rem;
-  }
+    .product-grid-item .bottom-btns {
+        margin: 10px 0;
+        text-align: center;
+        }
+
+        .justify-content-between {
+            -ms-flex-pack: justify!important;
+            justify-content: space-between!important;
+            }
+
+            .d-flex {
+                display: -ms-flexbox!important;
+                display: flex!important;
+                }
+
+              

@@ -18,7 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { ProductsComponent } from './components/products/products.component';
 import { OrdersComponent } from './components/orders/orders.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { OrdersComponent } from './components/orders/orders.component';
     DashboardComponent,
     CatalogComponent,
     ProductsComponent,
-    OrdersComponent
+    OrdersComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { OrdersComponent } from './components/orders/orders.component';
     MatIconModule,
     MatDividerModule,
     MatListModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
