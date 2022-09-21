@@ -1,8 +1,8 @@
-
 <div class="row">
-  <div class="col-md-3" *ngFor="let c of catalogs" >
-    <div class="card margin-top-xl" >
+  <div class="col-md-3" *ngFor="let c of catalogs">
+    <div class="card margin-top-xl">
       <img class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}" alt="Card image cap">
+      <hr>
       <div class="card-body">
         <h5 class="card-title">{{c.getTitle()}}</h5>
         <div class="card-text">
@@ -26,12 +26,12 @@
             </div>
           </div>
         </div>
-        <hr>
-        <div >
-          <div class="bottom-btns d-flex justify-content-between" >
-            <button  id="idButton" class="btn  catalog-btn add-to-products" style="width: 70%"><i class="bi bi-plus"></i> أضف إلى منتجاتي</button>
+        <div>
+          <div class="bottom-btns d-flex justify-content-between">
+            <button id="idButton" class="btn  catalog-btn add-to-products" style="width: 70%"><i class="bi bi-plus"></i>
+              أضف إلى منتجاتي</button>
             <button id="idButton" class="btn  add-to-cart"><i class="bi bi-cart-plus"></i></button>
-        </div> 
+          </div>
         </div>
       </div>
     </div>

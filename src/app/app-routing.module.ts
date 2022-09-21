@@ -6,6 +6,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { ProductsComponent } from './components/products/products.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { WalletComponent } from './components/wallet/wallet.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,9 @@ const routes: Routes = [
   {path: "dashboard", component: DashboardComponent},
   {path: "catalog", component: CatalogComponent},
   {path: "orders", component: OrdersComponent},
-  {path: "userProfile", component: UserProfileComponent}
+  {path: "userProfile", component: UserProfileComponent},
+  {path: "wallet", component: WalletComponent}
+
 
 ];
 

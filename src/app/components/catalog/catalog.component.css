@@ -1,32 +1,30 @@
-#idButton{
+#idButton {
     background-color: #fff;
     border: 1px solid red;
     color: #ce0000;
 }
 
-#idButton:hover{
-   background-color:  #ce0000!important;
-   color: #fff !important;
+#idButton:hover {
+    background-color: #ce0000 !important;
+    color: #fff !important;
 }
 
 
 .product-grid-item .product-content {
     padding: 10px 20px;
-    }
+}
 
-    .product-grid-item .bottom-btns {
-        margin: 10px 0;
-        text-align: center;
-        }
+.product-grid-item .bottom-btns {
+    margin: 10px 0;
+    text-align: center;
+}
 
-        .justify-content-between {
-            -ms-flex-pack: justify!important;
-            justify-content: space-between!important;
-            }
+.justify-content-between {
+    -ms-flex-pack: justify !important;
+    justify-content: space-between !important;
+}
 
-            .d-flex {
-                display: -ms-flexbox!important;
-                display: flex!important;
-                }
-
-              
+.d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important;
+}

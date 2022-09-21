@@ -1,0 +1,303 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 border-rad-8">
+            <h4 class="font-20 mb-20">المحفظة المالية</h4>
+            <div class="row">
+                <div class="col-md-8 wallet-info">
+                    <div class="card border-rad-8">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="profile-pic ml-3 mt-0">
+                                        <img src="../../../assets/profile-pic.jpeg" class="w-100" alt="prifle picture">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>الاسم</td>
+                                                <td>owies.omari3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>رقم الهاتف</td>
+                                                <td class="phone">0797048997</td>
+                                            </tr>
+                                            <tr>
+                                                <td>البريد الإلكتروني</td>
+                                                <td>owies.omari3@gmail.com</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row total-balance mt-2 border-rad-8">
+                                        <div class="col-sm-12 border-none p-0 m-0">
+                                            <h4>إجمالي المبالغ المسحوبة</h4>
+                                            <p class="mb-0">0 د.أ</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-20 border-rad-8">
+                        <div class="col-12">
+                            <div class="card pb-2 border-rad-8">
+                                <div class="p-4">
+                                    <div class="row">
+                                        <div class="col-xl-12 mb-40">
+                                            <h4 class="mb-3">المعاملات المالية</h4>
+                                            <p>يتم عرض كافة المعاملات المالية التي جرت على حسابك منذ بدء اشتراكك بالموقع
+                                            </p>
+                                        </div>
+
+                                        <div class="col-xl-12">
+                                            <div id="timeline-wrap">
+                                                <div class="no-results">
+                                                    <p>لا يوجد معاملات مالية</p>
+                                                </div>
+                                                <div class="row d-flex justify-content-center">
+                                                    <div id="pagination">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mb-4 border-rad-8" style="width: 100%;">
+                        <div class="card-body">
+                            <div class="crad-title" style="border-bottom: 5px solid red;">
+                                <i class="bi bi-wallet-fill"></i> <span
+                                    style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">المحفظة
+                                    المالية</span>
+                            </div>
+
+                            <div class="crad-text" style="text-align: center; padding-bottom: 30px;">
+                                <h1><i style="color: green" class="bi bi-patch-check-fill"></i></h1>
+                                <p>إجمالي الرصيد المتاح</p>
+                                <p style="color: green">0 د.آ</p>
+                                <span>ارباح المبيعات</span> <label
+                                    style="background-color: #408955; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
+                                <span style="margin-right: 10px;"> رصيد مرجع</span> <label
+                                    style="background-color: #7dc897; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
+                                <span style="margin-right: 10px;">ارباح الجوائز</span> <label
+                                    style="background-color: #f9d749; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card withdraw-balance-card border-rad-8">
+                        <div class="card-body">
+                            <h4 class="font-20 mb-20">سحب الرصيد</h4>
+                            <div class="row justify-content-center">
+
+                                <p class="green-text font-bold min-amount">أقل مبلغ للسحب هو 6 د.أ</p>
+                                <div class="col-md-"> 
+                                    <input class="effect-9 5 margin-top-s" type="text" style="width: 300px;border-radius: 10px;" id="orderNumber"
+                                    placeholder="ادخل المبلغ المراد سحبه">
+    
+                                    <input id="idButton" type="button" value="سحب" class="margin-right-m">
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="withdrawModal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">طلب سحب الرصيد</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <h4 mb-2="">اختر طريقة السحب</h4>
+                    <div class="d-flex justify-content-center">
+                        <div class="withdraw-item active" data-target=".bank-account-form">
+                            <img src="https://dropphi.com/assets/img/withdraw/bank-account.png" title="حساب بنكي">
+                            <p>حساب بنكي</p>
+                        </div>
+                        <div class="withdraw-item" data-target=".e-wallet-form">
+                            <img src="https://dropphi.com/assets/img/withdraw/e-wallet.png" title="حساب بنكي">
+                            <p>محفظة إلكترونية</p>
+                        </div>
+                        <div class="withdraw-item" data-target=".western-union-form">
+                            <img src="https://dropphi.com/assets/img/withdraw/western-union.png" title="حساب بنكي">
+                            <p>ويسترن يونيون</p>
+                        </div>
+                    </div>
+
+                    <form action="#" class="bank-account-form">
+                        <div class="flex-column flex-sm-row">
+                            <p class="text-center font-bold bordered">رسوم التحويل : دينار ونصف</p>
+                            <p class="text-center bordered green-text">أقل قيمة للسحب 100 دينار أردني وتأخذ فترة التحويل
+                                من 3-5 أيام عمل</p>
+                            <input type="hidden" name="type" value="bank">
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="account_name">اسم صاحب الحساب</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="text" name="account_name" id="account_name" class="form-control pl-1"
+                                        required="" placeholder="أدخل اسم صاحب الحساب هنا">
+                                </div>
+                            </div>
+                            <p class="small-note green-text">كما هو مسجل في البنك بالانجليزي</p>
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="iban">رقم IBAN</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="text" name="iban" id="iban" class="form-control pl-1" required=""
+                                        placeholder="أدخل رقم IBAN هنا">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="swift">رمز السويفت كود</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="text" name="swift" id="swift" class="form-control pl-1" required=""
+                                        placeholder="أدخل رمز سويفت كود هنا">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <button type="submit" class="btn ml-4 withdraw-submit">تقديم طلب السحب
+                                </button><button class="cancel font-14 bold" data-dismiss="modal">إلغاء
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <form action="#" class="e-wallet-form" style="display: none;">
+                        <div class="flex-column flex-sm-row">
+
+                            <p class="text-center font-bold bordered">رسوم التحويل : دينار</p>
+                            <input type="hidden" name="type" value="wallet">
+
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="wallet_name">اسم المحفظة</label>
+
+                                <div class="input-group flex-column">
+                                    <select name="wallet_name" id="wallet_name" class="form-control pl-1" required="">
+                                        <option value="زين كاش">زين كاش</option>
+                                        <option value="uWallet">uWallet</option>
+                                        <option value="أورانج موني">أورانج موني</option>
+                                        <option value="دينارك">دينارك</option>
+                                        <option value="قدها شركة إيلاف">قدها شركة إيلاف</option>
+                                        <option value="مدفوعاتكم">مدفوعاتكم</option>
+                                        <option value="مارد">مارد</option>
+                                        <option value="ميبس الوطنية">ميبس الوطنية</option>
+                                        <option value="نتورك انترناشيونال سيرفيسز">نتورك انترناشيونال سيرفيسز</option>
+                                        <option value="شركة آية لخدمات الدفع الإلكتروني">شركة آية لخدمات الدفع
+                                            الإلكتروني</option>
+                                        <option value="شركة سداد للخدمات اللوجستية">شركة سداد للخدمات اللوجستية</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="wallet_number">رقم المحفظة</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="number" name="wallet_number" id="wallet_number"
+                                        class="form-control pl-1" required="" placeholder="أدخل رقم المحفظة هنا">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <button type="submit" class="btn ml-4 withdraw-submit">تقديم طلب السحب
+                                </button><button class="cancel font-14 bold" data-dismiss="modal">إلغاء
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <form action="#" class="western-union-form" style="display: none;">
+                        <div class="flex-column flex-sm-row">
+
+                            <p class="text-center font-bold bordered">رسوم التحويل : دينارين ونصف</p>
+                            <input type="hidden" name="type" value="western">
+
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="english_name">الاسم باللغة الإنجليزية</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="text" name="english_name" id="english_name" class="form-control pl-1"
+                                        required="" placeholder="أدخل الاسم باللغة الإنجليزية">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="mobile_number">رقم الجوال</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="number" name="mobile_number" id="mobile_number"
+                                        class="form-control pl-1" required="" placeholder="أدخل رقم الجوال هنا">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="country">الدولة</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="text" name="country" id="country" class="form-control pl-1" required=""
+                                        placeholder="أدخل الدولة هنا">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="font-14 bold mb-2" for="city">المدينة</label>
+
+                                <div class="input-group flex-column">
+
+                                    <input type="text" name="city" id="city" class="form-control pl-1" required=""
+                                        placeholder="أدخل المدينة هنا">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <button type="submit" class="btn ml-4 withdraw-submit">تقديم طلب السحب
+                                </button><button class="cancel font-14 bold" data-dismiss="modal">إلغاء
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <!-- End Modal Body -->
+            </div>
+        </div>
+    </div>
+</div>
