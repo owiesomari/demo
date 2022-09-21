@@ -101,13 +101,12 @@
 
                                 <p class="green-text font-bold min-amount">أقل مبلغ للسحب هو 6 د.أ</p>
                                 <div class="col-md-"> 
-                                    <input class="effect-9 5 margin-top-s" type="text" style="width: 300px;border-radius: 10px;" id="orderNumber"
-                                    placeholder="ادخل المبلغ المراد سحبه">
-    
-                                    <input id="idButton" type="button" value="سحب" class="margin-right-m">
-                                </div>
+                                    <input class="effect-9 5 margin-top-s"type="text" style="width: 300px;border-radius: 10px;" id="withdrow"
+                                    placeholder="ادخل المبلغ المراد سحبه" (keyup)="clearValidations($event)">
+                                   <p> <small style="color: red" id="infotext" class="form-text "></small></p>
+                                    <button id="idButton" type="button" value="سحب" class="margin-right-m" (click)="withdrowClick()">سحب</button>
 
-                                
+                                </div>                       
                             </div>
                         </div>
                     </div>

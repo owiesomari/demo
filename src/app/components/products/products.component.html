@@ -1,66 +1,46 @@
 <div style="padding: 50px;" id="content_continer">
-    <div class="search row search_div" id="">
-        <div class="input-group ">
-            <input type="text" class="form-control" placeholder="البحث عن منتج عن طريق الاسم أو SKU" aria-label="search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn" type="button" id="search_btn">بحث</button>
-            </div>
-          </div>
+  <h2>طلباتي </h2>
+  <br>
+  <div class="search row search_div" id="">
+    <div class="input-group ">
+      <input style="background-color: #f0f0f0;" type="text" class="form-control" placeholder="ادخل اسم المنتج أو SKU" aria-label="search"
+        aria-describedby="basic-addon2" (keyup)="filterTable($event)">
+      
     </div>
+  </div>
 
-    <div class="row search_div">
-        <h2>منتجاتي</h2>
-        <br>
-        <div class="table-responsive">
+  <div class="row search_div">
+    <h2>منتجاتي</h2>
+    <br>
+    <div class="table-responsive">
 
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">الصورة</th>
-                <th scope="col">العنوان</th>
-                <th scope="col">سعر التكلفة</th>
-                <th scope="col">سعر البيع المقترح</th>
-                <th scope="col">الحالة </th>
-                <th scope="col">الاجراءات </th>
-              </tr>
-            </thead>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">الصورة</th>
+            <th scope="col">العنوان</th>
+            <th scope="col">سعر التكلفة</th>
+            <th scope="col">سعر البيع المقترح</th>
+            <th scope="col">الحالة </th>
+            <th scope="col">الاجراءات </th>
+          </tr>
+        </thead>
 
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td><img src=""></td>
-                <td>منظفة زجاج مزدوج الجوانب</td>
-                <td>1.88 د.أ</td>
-                <td>3.5 د.أ</td>
-                <td><span class="badge badge-danger">غير مفعل</span></td>
-                <td><span><button class="btn btn-small bg-success rd-50"><i class="bi bi-eye"></i> </button></span> <span><button class="rd-50 btn btn-small bg-danger"><i class="bi bi-trash"></i></button></span></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td><img src=""></td>
-                <td>منظفة زجاج مزدوج الجوانب</td>
-                <td>1.88 د.أ</td>
-                <td>3.5 د.أ</td>
-                <td><span class="badge badge-danger">غير مفعل</span></td>
-                <td><span><button class="btn btn-small bg-success rd-50"><i class="bi bi-eye"></i> </button></span> <span><button class="rd-50 btn btn-small bg-danger"><i class="bi bi-trash"></i></button></span></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td><img src=""></td>
-                <td>منظفة زجاج مزدوج الجوانب</td>
-                <td>1.88 د.أ</td>
-                <td>3.5 د.أ</td>
-                <td><span class="badge badge-danger">غير مفعل</span></td>
-                <td><span><button class="btn btn-small bg-success rd-50"><i class="bi bi-eye"></i> </button></span> <span><button class="rd-50 btn btn-small bg-danger"><i class="bi bi-trash"></i></button></span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <tbody>
+          <tr *ngFor="let x of tempProducts">
+            <td>{{x.getID()}}</td>
+            <td>change</td>
+            <td>{{x.getTitle()}}</td>
+            <td>{{x.getCost()}}</td>
+            <td>{{x.getSellingPrice()}}</td>
+            <td>{{x.getStatus()}}</td>
+            <td><span><button class="btn btn-small bg-success rd-50"><i class="bi bi-eye"></i> </button></span>
+              <span><button class="rd-50 btn btn-small bg-danger"><i class="bi bi-trash"></i></button></span></td>
 
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-
-
-
-    </div>
+  </div>
+</div>

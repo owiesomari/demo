@@ -1,98 +1,129 @@
-<div class=" rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                    width="150px"
-                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold">Owies Alomari</span><span
-                    class="text-black-50">owies.omari3@gmail.com</span><span> </span></div>
-        </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">اعدادات الحساب </h4>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">الاسم</label><input type="text" class="form-control"
-                            placeholder="الاسم" value=""></div>
-                    <div class="col-md-6"><label class="labels">الكنية</label><input type="text" class="form-control"
-                            value="" placeholder="الكنية"></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels"> الدولة</label><input type="text" class="form-control"
-                            placeholder="الدولة" value=""></div>
-                    <div class="col-md-12"><label class="labels">المدينة</label><input type="text" class="form-control"
-                            placeholder="المدينة" value=""></div>
-                    <div class="col-md-12"><label class="labels">المنطقة</label><input type="text" class="form-control"
-                            placeholder="المنطقة" value=""></div>
-                    <div class="col-md-12"><label class="labels">العنوان ١</label><input type="text"
-                            class="form-control" placeholder="العنوان ١" value=""></div>
-                    <div class="col-md-12"><label class="labels">العنوان ٢</label><input type="text"
-                            class="form-control" placeholder="العنوان ٢" value=""></div>
-                    <div class="col-md-12"><label class="labels">الرمز البريدي</label><input type="email"
-                            class="form-control" placeholder="الرمز البريدي" value=""></div>
-                    <div class="col-md-12"><label class="labels"> الشركة</label><input type="text" class="form-control"
-                            placeholder=" الشركة" value=""></div>
-                    <div class="col-md-12"><label class="labels">البريد الاكتروني*</label><input type="text"
-                            class="form-control" placeholder="البريد الاكتروني*" value=""></div>
-                    <div class="col-md-12"><label class="labels">رقم الهاتف*</label><input type="text"
-                            class="form-control" placeholder=" رقم الهاتف*" value=""></div>
+<div style="padding: 30px;">
+    <h2>اعدادات الحساب</h2>
+
+    <div class=" rounded bg-white mt-5 mb-5">
+
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+                        class="font-weight-bold">Owies Alomari</span><span
+                        class="text-black-50">owies.omari3@gmail.com</span><span> </span></div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">اعدادات الحساب </h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="labels">الاسم</label>
+                            <input id="fname" type="text" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">الكنية</label>
+                            <input id="lname" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels"> الدولة</label>
+                            <input type="text" class="form-control" placeholder="الدولة" id="country">
+
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">المدينة</label>
+                            <input type="text" class="form-control" placeholder="المدينة" id="city">
+
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">المنطقة</label>
+                            <input type="text" class="form-control" placeholder="المنطقة" id="place">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">العنوان ١</label>
+                            <input type="text" class="form-control" placeholder="العنوان ١" id="address1">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">العنوان ٢</label>
+                            <input type="text" class="form-control" placeholder="العنوان ٢" id="address2">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">الرمز البريدي</label>
+                            <input type="number" class="form-control" placeholder="الرمز البريدي" id="postal">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels"> الشركة</label>
+                            <input type="text" class="form-control" placeholder=" الشركة" id="company">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">البريد الاكتروني*</label>
+                            <input type="text" class="form-control" placeholder="البريد الاكتروني*" id="email">
+                            <p> <small style="color: red; display: none;" id="infotext1" class="form-text "></small></p>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">رقم الهاتف*</label>
+                            <input type="text" class="form-control" placeholder=" رقم الهاتف*" id="phone">
+                            <p> <small style="color: red;display: none;" id="infotext2" class="form-text "></small></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class=" rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                    width="150px"
-                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span>
-                </span></div>
-        </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">اعدادات روابط المتجر </h4>
-                </div>
+    <div class=" rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                        width="150px" src="../../../assets/online-store.png"></div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">اعدادات روابط المتجر </h4>
+                    </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">رابط Shopify</label><input type="text"
-                            class="form-control" placeholder="رابط Shopify" value=""></div>
-                    <div class="col-md-12"><label class="labels">رابط Facebook</label><input type="text"
-                            class="form-control" value="" placeholder="رابط Facebook"></div>
-                    <div class="col-md-12"><label class="labels"> رابط Instagram</label><input type="text"
-                            class="form-control" placeholder="رابط Instagram" value=""></div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">رابط Shopify</label><input type="text"
+                                class="form-control" placeholder="رابط Shopify" id="shopify"></div>
+                        <div class="col-md-12"><label class="labels">رابط Facebook</label><input type="text"
+                                class="form-control" id="facebook" placeholder="رابط Facebook"></div>
+                        <div class="col-md-12"><label class="labels"> رابط Instagram</label><input type="text"
+                                class="form-control" placeholder="رابط Instagram" id="insta"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class=" rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                    width="150px" src="../../../assets/ic_password.png"></div>
-        </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right"> تغيير كلمة المرور </h4>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">كلمة المرور القديمة</label><input type="password"
-                            class="form-control" placeholder="********" value=""></div>
-                    <div class="col-md-12"><label class="labels">كلمة المرور الجديدة</label><input type="password"
-                            class="form-control" value="" placeholder="******** "></div>
-                    <div class="col-md-12"><label class="labels"> اعادة كلمة المرور الجديدة </label><input
-                            type="password" class="form-control" placeholder="********" value=""></div>
+    <div class=" rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                        width="150px" src="../../../assets/ic_password.png"></div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right"> تغيير كلمة المرور </h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">كلمة المرور القديمة</label><input type="password"
+                                class="form-control" placeholder="********" id="oldPassword"></div>
+                        <div class="col-md-12"><label class="labels">كلمة المرور الجديدة</label><input type="password"
+                                class="form-control" id="newPassword" placeholder="******** "></div>
+                        <div class="col-md-12"><label class="labels"> اعادة كلمة المرور الجديدة </label><input
+                                type="password" class="form-control" placeholder="********" id="confirmNewPassword">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="mt-5 text-center" style="width: 200px; margin:auto">
+        <button style="width:100%" id="idButton" class="btn" type="button" (click)="saveChanges()">حفظ التغيرات</button>
+    </div>
+
 </div>
-<div class="mt-5 text-center" style="width: 200px; margin:auto"><button style="width:100%" id="idButton" class="btn "
-        type="button">حفظ التغيرات</button></div>
