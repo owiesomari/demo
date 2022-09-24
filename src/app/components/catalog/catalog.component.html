@@ -1,5 +1,13 @@
+<div class="container-fluid">
+  <div class="search row search_div" id="">
+    <div class="input-group ">
+      <input style="background-color: #f0f0f0;" type="text" class="form-control" placeholder="ادخل كلمات البحث هنا" aria-label="search"
+        aria-describedby="basic-addon2" (keyup)="filterCatalogs($event)">
+      
+    </div>
+  </div>
 <div class="row">
-  <div class="col-md-3" *ngFor="let c of catalogs">
+  <div class="col-md-3" *ngFor="let c of tempCatalogs">
     <div class="card margin-top-xl">
       <img class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}" alt="Card image cap">
       <hr>
@@ -38,3 +46,5 @@
   </div>
 </div>
 <div  id="pagination" ></div>
+</div>
+

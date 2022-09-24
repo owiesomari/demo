@@ -134,12 +134,5 @@
 }
 
 
-a :hover{
-  cursor: pointer;
-}
-
-li :hover{
-  cursor: pointer !important;
-}
 
 

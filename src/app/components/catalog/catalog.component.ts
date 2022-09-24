@@ -10,47 +10,49 @@ import { Catalog } from 'src/app/Entities/Catalog';
 export class CatalogComponent implements OnInit {
 
   catalogs: Catalog[] = [];
-  filteredData: Catalog[] = [];
   isFiltered: Boolean = false;
   NUMBER_OF_CARDS_PAIR_PAGE = 5;
   currentSelectedPage = 1;
-  private pages: number = 0;
+  pages: number = 0;
+  tempCatalogs: Catalog[] = [];
+  tempFilteredCatalogs: Catalog[] = [];
 
   constructor() {
     this.catalogs = [
-      new Catalog(1, "../../assets/cat1.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat2.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat3.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat4.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat5.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat1.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat2.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat3.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat4.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat5.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat1.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat2.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat3.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat4.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat5.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat1.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat2.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat3.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat4.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat5.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat1.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat2.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat3.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat4.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat5.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat1.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat2.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat3.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat4.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
-      new Catalog(1, "../../assets/cat5.jpeg", "مجموعة التحكم 4 في 1 لألعاب الهاتف ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 4", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 5", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 6", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 7", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 8", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 9", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 10", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 11", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 12", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 13", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 14", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 15", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 16", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 17", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 18", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم19 ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 20", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 21", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 22", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 23", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 24", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 25", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 26", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 27", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 28", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 29", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", "آويس العمري ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
 
     ];
 
+    this.tempCatalogs = this.catalogs;
     this.pages = Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE);
 
   }
@@ -58,46 +60,40 @@ export class CatalogComponent implements OnInit {
   createPagination(pages: number, page: number) {
     let str = document.createElement("ul")
     str.className = "pagination-list pagination"
-
     let active;
     let pageCutLow = page - 1;
     let pageCutHigh = page + 1;
-    // Show the Previous button only if you are on a page other than the first
     if (page > 1) {
       str.appendChild(this.createElement(pages, "page-item previous no pagination-item", "pagination-link page-link", 'page_' + (page - 1), "Previous", (page - 1)))
     }
 
-    // Show all the pagination elements if there are less than 6 pages total
     if (pages < 6) {
       for (let p = 1; p <= pages; p++) {
         active = page == p ? "active" : "no";
         str.appendChild(this.createElement(pages, active + " page-item  pagination-item", "pagination-link page-link", 'page_' + p, p.toString(), p))
       }
     }
-    // Use "..." to collapse pages outside of a certain range
+
     else {
-      // Show the very first page followed by a "..." at the beginning of the
-      // pagination section (after the Previous button)
       if (page > 2) {
         str.appendChild(this.createElement(pages, "no page-item pagination-item", "pagination-link page-link", 'page_' + 1, "1", 1))
         if (page > 3) {
           str.appendChild(this.createElement(pages, "out-of-range pagination-item", "pagination-link page-link", 'page_' + (page - 2), "...", (page - 2)))
         }
       }
-      // Determine how many pages to show after the current page index
+
       if (page === 1) {
         pageCutHigh += 2;
       } else if (page === 2) {
         pageCutHigh += 1;
       }
-      // Determine how many pages to show before the current page index
+
       if (page === pages) {
         pageCutLow -= 2;
       } else if (page === pages - 1) {
         pageCutLow -= 1;
       }
-      // Output the indexes for pages that fall inside the range of pageCutLow
-      // and pageCutHigh
+
       for (let p = pageCutLow; p <= pageCutHigh; p++) {
         if (p === 0) {
           p += 1;
@@ -108,8 +104,7 @@ export class CatalogComponent implements OnInit {
         active = page == p ? "active" : "no";
         str.appendChild(this.createElement(pages, "page-item pagination-item" + " " + active, "pagination-link page-link", 'page_' + p, p.toString(), p))
       }
-      // Show the very last page preceded by a "..." at the end of the pagination
-      // section (before the Next button)
+
       if (page < pages - 1) {
         if (page < pages - 2) {
           str.appendChild(this.createElement(pages, "out-of-range pagination-item", "pagination-link page-link", 'page_' + (Number(page) + 2), "...", Number(page) + 2))
@@ -117,7 +112,7 @@ export class CatalogComponent implements OnInit {
         str.appendChild(this.createElement(pages, "page-item no pagination-item", "pagination-link page-link", 'page_' + pages, pages.toString(), pages))
       }
     }
-    // Show the Next button only if you are on a page other than the last
+
     if (page < pages) {
       str.appendChild(this.createElement(pages, "page-item next no pagination-item", "pagination-link page-link", 'page_' + (Number(page) + 1), "Next", (Number(page) + 1)))
     }
@@ -133,23 +128,26 @@ export class CatalogComponent implements OnInit {
     li.className = liclasses
     if (aText == "Next") {
       let i = document.createElement("i");
+      li.id = "next"
       i.className = "bi bi-arrow-left-short " + aclasses
+      i.id = aId;
       i.addEventListener('click', () => {
         this.createPagination(pages, createPaginationSecondParameter)
-        this.page_onclick()
+        this.page_onclick(event)
       })
       li.appendChild(i);
     }
     else if (aText == "Previous") {
+      li.id = "prev"
       let i = document.createElement("i");
-      i.className = "bi bi-arrow-right-short "+ aclasses
+      i.className = "bi bi-arrow-right-short " + aclasses
+      i.id = aId;
       i.addEventListener('click', () => {
         this.createPagination(pages, createPaginationSecondParameter)
-        this.page_onclick()
+        this.page_onclick(event)
       })
       li.appendChild(i);
     }
-
     else {
       let a = document.createElement("a")
       a.className = aclasses
@@ -157,21 +155,94 @@ export class CatalogComponent implements OnInit {
       a.innerText = aText
       a.addEventListener('click', () => {
         this.createPagination(pages, createPaginationSecondParameter)
-        this.page_onclick()
+        this.page_onclick(event)
       })
       li.appendChild(a);
     }
     return li;
+  }
+
+  page_onclick(event: any) {
+    if (!(this.isFiltered)) {
+      this.currentSelectedPage = event.target.id.split("_")[1];
+      this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE)
+    }
+    else {
+      if (this.isFiltered && this.tempFilteredCatalogs.length != 0) {
+        this.tempCatalogs = this.tempFilteredCatalogs
+
+      }
+      this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), event.target.id.split("_")[1]);
+      this.displayCards(this.tempCatalogs, (event.target.id.split("_")[1] - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE)
+    }
+  }
+
+  displayCards(data_: Catalog[], start: number, lenght: number) {
+
+    if (data_.length == 0) {
+
+      //(document.getElementById("prev") as HTMLLIElement).style.display = "none";
+      //(document.getElementById("next") as HTMLLIElement).style.display = "none";
+
+
+      //if (!isFiltered)
+      //$("#search_pannel").hide();
+      // var emptydiv = "<div class='cont'> <h1>No data to display!</h1></div>"
+      // $("#main").html(emptydiv);
+      return;
+    } else {
+      //  (document.getElementById("prev") as HTMLLIElement).style.display = "block";
+      //(document.getElementById("next") as HTMLLIElement).style.display = "block";
+      //$("#prev").show();
+      //$("#next").show();
+      // $("#search_pannel").show();
+    }
+
+    if (data_.length <= start + lenght) {
+      this.drowCards(start, data_.length)
+    } else {
+      this.drowCards(start, start + lenght)
+    }
+  }
+
+  drowCards(start: number, end: number) {
+    debugger
+    if (!(this.isFiltered)) {
+      this.tempCatalogs = [];
+      for (var i = start; i < end; i++) {
+        this.tempCatalogs.push(this.catalogs[i]);
+      }
+    }
+    else {
+      this.tempFilteredCatalogs = this.tempCatalogs
+      this.tempCatalogs = [];
+      for (var i = start; i < end; i++) {
+        this.tempCatalogs.push(this.tempFilteredCatalogs[i]);
+      }
+    }
 
   }
 
-  page_onclick() {
-
+  filterCatalogs(event: any) {
+    if (event.target.value == "") {
+      this.tempCatalogs = this.catalogs;
+      this.isFiltered = false;
+      this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+      this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
+      return;
+    }
+    else {
+      this.isFiltered = true;
+      this.tempCatalogs = this.catalogs.filter((obj) => {
+        return obj.getTitle().includes(event.target.value);
+      });
+      this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
+      this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
+    }
   }
 
   ngOnInit(): void {
-    this.createPagination(15, this.currentSelectedPage);
+    this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+    this.displayCards(this.catalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
   }
 }
-
-
