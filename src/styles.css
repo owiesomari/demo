@@ -138,3 +138,44 @@ button {
 .effect-9:focus~.focus-border i:after {
   transition-delay: 0.4s;
 }
+
+.pagination-list {
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+a:hover {
+  cursor: pointer !important;
+}
+
+.pagination-item:hover{
+  cursor: pointer;
+}
+
+.pagination-item {
+  color: #fff;
+  display: flex;
+}
+
+.pagination-link {
+  background-color: #444B6E;
+  padding: 5px 10px;
+  border: 2px solid #3D315B;
+  border-right: 0;
+}
+
+.pagination-item.active a {
+  background-color: #9AB87A;
+}
+
+.pagination-item:first-child a {
+  border-radius: 5px 0 0 5px;
+}
+
+
+.pagination-item:last-child a {
+  border-radius: 0 5px 5px 0;
+  border-right: 2px solid #3D315B;
+}

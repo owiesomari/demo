@@ -26,7 +26,6 @@
     "ngx-pagination": "^6.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "twbs-pagination": "^1.4.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

@@ -1,30 +1,145 @@
 #idButton {
-    background-color: #fff;
-    border: 1px solid red;
-    color: #ce0000;
+  background-color: #fff;
+  border: 1px solid red;
+  color: #ce0000;
 }
 
 #idButton:hover {
-    background-color: #ce0000 !important;
-    color: #fff !important;
+  background-color: #ce0000 !important;
+  color: #fff !important;
 }
 
 
 .product-grid-item .product-content {
-    padding: 10px 20px;
+  padding: 10px 20px;
 }
 
 .product-grid-item .bottom-btns {
-    margin: 10px 0;
-    text-align: center;
+  margin: 10px 0;
+  text-align: center;
 }
 
 .justify-content-between {
-    -ms-flex-pack: justify !important;
-    justify-content: space-between !important;
+  -ms-flex-pack: justify !important;
+  justify-content: space-between !important;
 }
 
 .d-flex {
-    display: -ms-flexbox !important;
-    display: flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pagination {
+  float: right;
+  bottom: 0;
+  right: 10px;
+}
+
+.top-bar {
+  flex-shrink: 10000;
+}
+
+.top-bar * {
+  box-sizing: border-box;
+}
+
+.px12 {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+.fl-grow1 {
+  flex-grow: 1 !important;
+}
+
+.ps-relative {
+  position: relative !important;
+}
+
+.top-bar .searchbar .s-input {
+  box-shadow: none;
+  color: hsl(210, 8%, 24%);
+}
+
+.s-input.s-input__search,
+.s-input.s-input__creditcard {
+  padding-left: 32px;
+}
+
+.top-bar * {
+  box-sizing: border-box;
+}
+
+.s-input {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0;
+  padding: .6em .7em;
+  color: hsl(210, 8%, 75%);
+  border-radius: 3px;
+  background-color: hsl(0, 0, 100%);
+  color: hsl(210, 8%, 5%, 1);
+  font-size: 13px;
+  font-family: inherit;
+  border-radius: 20px;
+  height: 50px;
+}
+
+.s-input-icon.s-input-icon__search {
+  right: auto;
+  left: .7em;
+  color: hsl(210, 8%, 75%);
+}
+
+.svg-icon {
+  vertical-align: bottom;
+}
+
+.s-input-icon {
+  position: absolute;
+  top: 50%;
+  right: .7em;
+  margin-top: -9px;
+  pointer-events: none;
+}
+
+.svg-icon {
+  vertical-align: bottom;
+}
+
+.cont {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+
+a :hover{
+  cursor: pointer;
+}
+
+li :hover{
+  cursor: pointer !important;
+}
+
+
