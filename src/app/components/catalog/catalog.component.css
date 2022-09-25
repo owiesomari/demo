@@ -1,14 +1,22 @@
-#idButton {
-  background-color: #fff;
-  border: 1px solid red;
-  color: #ce0000;
+.idButton {
+  background-color: #fff !important;
+  border: 1px solid red !important;
+  color: #ce0000 !important;
+  cursor: pointer;
 }
 
-#idButton:hover {
+.idButton:hover {
   background-color: #ce0000 !important;
   color: #fff !important;
+  cursor: pointer !important;
 }
 
+.search_div {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
 
 .product-grid-item .product-content {
   padding: 10px 20px;
@@ -29,27 +37,17 @@
   display: flex !important;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#combo-tags {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
 
 #pagination {
-  float: right;
   bottom: 0;
   right: 10px;
+  width: 200px;
+  margin: auto;
 }
 
 .top-bar {
@@ -133,6 +131,16 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
+.combo-icon {
+  width: 40px;
+  height: 40px;
+}
 
-
-
+.filter-button {
+  padding: 25px !important;
+  border-radius: 50% !important;
+  margin-bottom: 4px;
+  margin-left: 10px;
+  background-color: #fff !important;
+  cursor: pointer;
+}

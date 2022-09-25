@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Modal } from 'bootstrap';
 import { Catalog } from 'src/app/Entities/Catalog';
 
 @Component({
@@ -11,14 +11,76 @@ export class CatalogComponent implements OnInit {
 
   catalogs: Catalog[] = [];
   isFiltered: Boolean = false;
-  NUMBER_OF_CARDS_PAIR_PAGE = 5;
+  NUMBER_OF_CARDS_PAIR_PAGE = 12;
   currentSelectedPage = 1;
   pages: number = 0;
   tempCatalogs: Catalog[] = [];
   tempFilteredCatalogs: Catalog[] = [];
+  modalElement: HTMLElement | undefined
+  modalComponent :Modal | undefined
 
   constructor() {
     this.catalogs = [
+      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 4", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 5", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 6", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 7", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 8", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 9", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 10", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 11", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 12", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 13", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 14", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 15", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 16", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 17", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 18", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم19 ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 20", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 21", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 22", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 23", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 24", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 25", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 26", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 27", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 28", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 29", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", "آويس العمري ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 4", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 5", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 6", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 7", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 8", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 9", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 10", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 11", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 12", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 13", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 14", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 15", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 16", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 17", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 18", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم19 ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 20", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 21", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 22", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 23", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 24", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 25", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 26", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 27", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 28", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 29", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
+      new Catalog(1, "../../assets/cat5.jpeg", "آويس العمري ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
       new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
       new Catalog(1, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
       new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", ""),
@@ -241,8 +303,20 @@ export class CatalogComponent implements OnInit {
     }
   }
 
+  openModal() {
+    this.modalElement = document.getElementById('modal') as HTMLElement;
+    this.modalComponent = new Modal(this.modalElement);
+    this.modalComponent.show();
+  }
+
+  closeModal(){
+    this.modalComponent?.hide();
+
+  }
+
   ngOnInit(): void {
     this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
     this.displayCards(this.catalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
+    this.openModal()
   }
 }
