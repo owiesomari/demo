@@ -11,78 +11,84 @@
 
 
   <div class="margin-top-xl" id="combo-tags">
-
     <div class="margin-top-xl">
       <h2>فرز حسب</h2>
+      <div class="col-md-8 margin-top-xl" >
+        <div class="btn btn-primary-group flex-wrap" role="group" aria-label="Basic example" id="buttons">
+          <div style="display: inline-block" >
+            <button type="button" class="filter-button btn btn-primary idButton" (click)="filterCategoty($event)" id="phone" ><img  (click)="filterCategoty($event)" id="phone" class="combo-icon"
+                src="../../../assets/iphone-icon.png"></button>
+            <p>هواتف</p>
+          </div>
+          <div style="display: inline-block">
+            <button type="button" class="filter-button btn btn-primary idButton" id="house" (click)="filterCategoty($event)"><img id="house" class="combo-icon"
+                src="../../../assets/Houseware-icon.png"></button>
+            <p>ادوات منزلية</p>
+          </div>
 
-      <div class="col-md-7 margin-top-xl">
-          <div class="btn btn-primary-group flex-wrap" role="group" aria-label="Basic example">
-            <div style="display: inline-block">
-              <button type="button" class="filter-button btn btn-primary idButton" ><img class="combo-icon" src="../../../assets/iphone-icon.png"></button>
-              <p>هواتف</p>
+          <div style="display: inline-block">
+            <button type="button" class="filter-button btn btn-primary idButton" id="cosmetic"  (click)="filterCategoty($event)"><img id="cosmetic" class="combo-icon"
+                src="../../../assets/Cosmetics-icon.png"></button>
+            <p>عناية شخصية</p>
+          </div>
 
-            </div>
-            <div style="display: inline-block">
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/Houseware-icon.png"></button>
-              <p>ادوات منزلية</p>
-            </div>
+          <div style="display: inline-block">
 
-            <div style="display: inline-block">
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/Cosmetics-icon.png"></button>
-              <p>عناية شخصية</p>
-            </div>
+            <button type="button" class="filter-button btn btn-primary idButton" id="gaming" (click)="filterCategoty($event)"><img id="gaming" class="combo-icon"
+                src="../../../assets/gaming-iocn.png"></button>
+            <p>العاب</p>
+          </div>
 
-            <div style="display: inline-block">
+          <div style="display: inline-block">
 
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/gaming-iocn.png"></button>
-              <p>العاب</p>
-
-            </div>
-
-            <div style="display: inline-block">
-
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/watch-icon.png.crdownload"></button>
-              <p>ساعات</p>
-
-              </div>
-
-            <div style="display: inline-block">
-
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/pafrum-icon.png"></button>
-              <p>عطور</p>
-              </div>
-
-            <div style="display: inline-block">
-
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/solar-icon.png"></button>
-              <p>طاقة شمسية</p>
-              </div>
-
-            <div style="display: inline-block">
-
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/electricity-icon.png"></button>
-              <p>ادوات كهربائية</p>
-              </div>
-
-            <div style="display: inline-block">
-
-              <button type="button" class="filter-button btn btn-primary idButton"><img class="combo-icon" src="../../../assets/others-icon.png"></button>
-              <p>اخرى</p>
-              </div>
-
+            <button type="button" class="filter-button btn btn-primary idButton" id="watch" (click)="filterCategoty($event)"><img id="watch" class="combo-icon"
+                src="../../../assets/watch-icon.png.crdownload"></button>
+            <p>ساعات</p>
 
           </div>
-      </div>
-      <div class="col-md-5"></div>
-  </div>
 
+          <div style="display: inline-block">
+
+            <button type="button" class="filter-button btn btn-primary idButton" id="pafrum" (click)="filterCategoty($event)"><img id="pafrum" class="combo-icon"
+                src="../../../assets/pafrum-icon.png"></button>
+            <p>عطور</p>
+          </div>
+
+          <div style="display: inline-block">
+
+            <button type="button" class="filter-button btn btn-primary idButton" id="solar" (click)="filterCategoty($event)"><img id="solar" class="combo-icon"
+                src="../../../assets/solar-icon.png"></button>
+            <p>طاقة شمسية</p>
+          </div>
+
+          <div style="display: inline-block">
+            <button type="button" class="filter-button btn btn-primary idButton" id="electricity" (click)="filterCategoty($event)"><img id="electricity" class="combo-icon"
+                src="../../../assets/electricity-icon.png"></button>
+            <p>ادوات كهربائية</p>
+          </div>
+          <div style="display: inline-block">
+            <button type="button" class="filter-button btn btn-primary idButton" id="others" (click)="filterCategoty($event)"><img id="others" class="combo-icon"
+                src="../../../assets/others-icon.png"></button>
+            <p>اخرى</p>
+          </div>
+
+          <div style="display: inline-block">
+            <button type="button" class="filter-button btn btn-primary idButton" id="clear" (click)="filterCategoty($event)"><img id="clear" class="combo-icon"
+                src="../../../assets/removeFilter.webp"></button>
+            <p>مسح الفرز</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
   </div>
 
 
   <div class="row margin-top-xl" style="margin-bottom: 35px">
     <div class="col-md-3" *ngFor="let c of tempCatalogs">
       <div class="card margin-top-xl">
-        <img class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}" alt="Card image cap">
+        <img [id]="c.getID()" class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}" alt="Card image cap" (click)="openModal($event)">
         <hr>
         <div class="card-body">
           <h5 class="card-title">{{c.getTitle()}}</h5>
@@ -109,8 +115,7 @@
           </div>
           <div>
             <div class="bottom-btn btn-primarys d-flex justify-content-between">
-              <button class="btn btn-primary idButton" style="width: 70%"><i
-                  class="bi bi-plus"></i>
+              <button class="btn btn-primary idButton" style="width: 70%"><i class="bi bi-plus"></i>
                 أضف إلى منتجاتي</button>
               <button class="btn btn-primary idButton"><i class="bi bi-cart-plus"></i></button>
             </div>
@@ -124,22 +129,154 @@
 
 
 
-<div class="modal" tabindex="-1" role="dialog" id="modal">
-  <div class="modal-dialog" role="document">
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  style="width: 100%">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
-          <span aria-hidden="true" >&times;</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-lg-4" id="catalogImages">
+            <!-- images-->
+            <img src="../../../assets/cat1.jpeg" id="mainImg" height="400" style="width: 80%;" />
+            <img src="../../../assets/cat2.jpeg" width="100" height="100" class="margin-top-xl">
+            <img src="../../../assets/cat2.jpeg" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" width="100" height="100">
+          </div><!-- End images-->
+
+          <div class="col-md-8 col-sm-8 col-lg-8 margin-top-xl">
+            <!--Content-->
+            <h2 id="title">ماكينة حلاقة الراس</h2>
+            <h4 id="cost">9 د.أ</h4>
+            <div class="row">
+
+              <div class="col-md-6">
+                <table>
+                  <tr>
+                    <td>
+                      <h5 style="color: green">الوزن</h5>
+                    </td>
+                    <td class="text-muted" id="wieght">0.6 كغ</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">SKU</h5>
+                    </td>
+                    <td class="text-muted" id="sku">PC-m1-01</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green; width: 80px;">بلد المنشا</h5>
+                    </td>
+                    <td class="text-muted" id="place">الصين</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">الجودة</h5>
+                    </td>
+                    <td class="text-muted" id="quality">ممتاز</td>
+                  </tr>
+
+
+                </table>
+
+
+              </div>
+
+
+              <div class="col-md-6">
+                <table>
+                  <tr>
+                    <td>
+                      <h5 style="color: green">سعر البيع المقترح</h5>
+                    </td>
+                    <td class="text-muted" id="siling">15 د.ا</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">الكفالة</h5>
+                    </td>
+                    <td class="text-muted" id="quaranty">تشغيلية </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green; width: 130px;">اصلي </h5>
+                    </td>
+                    <td class="text-muted" id="orginal">نعم</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">ابعاد المنتج</h5>
+                    </td>
+                    <td class="text-muted">20X40X56 مم</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <button id="downloadPhotos" class="btn  margin-top-xl"> <i class="bi bi-download"
+                style="margin-left: 10px"></i>تحميل صور المنتج</button>
+
+            <h4 class="margin-top-xxl" style="font-weight: 500;">الوصف</h4>
+            <textarea style="width: 100%; border-radius: 5px;" rows="8" class="form-control" disabled>
+              - يستخدم جهاز المساج لتخفيف تصلب العضلات ووجعها.
+              - محرك عالي الجودة: يستخدم جهاز التدليك محركات عالية الجودة ولديه وظيفة تبريد فائقة.
+              - جهاز المساج مزود ببطارية عالية الجودة للشحن السريع.
+              - التطبيق: التشغيل ، معدات اللياقة البدنية ، الاتجاه الرياضي ، اللياقة البدنية والجسم ، التدليك الصحي.
+              - اهتزاز تردد متغير 6 مستويات.
+              - بطارية ليثيوم قابلة للشحن.
+              - البطارية: 1800 مللي أمبير.
+              - عمر بطارية طويل الأمد.
+              - جهد الدخل: 5 فولت.
+              - نوع الإدخال: Type-C.
+              - الفولتية المقدرة: 7.4 فولت.
+              - قوة المحرك: 25 واط.
+              - الحد الأقصى للضوضاء: 45 ديسيبل.
+              - المادة: بلاستيك ABS.
+              - الحزمة تشمل:
+              1 × مسدس مدلك العضلات.
+              يمكن استبدال 4x والضغط على الرأس.
+              - يستخدم جهاز المساج لتخفيف تصلب العضلات ووجعها.
+              - محرك عالي الجودة: يستخدم جهاز التدليك محركات عالية الجودة ولديه وظيفة تبريد فائقة.
+              - جهاز المساج مزود ببطارية عالية الجودة للشحن السريع.
+              - التطبيق: التشغيل ، معدات اللياقة البدنية ، الاتجاه الرياضي ، اللياقة البدنية والجسم ، التدليك الصحي.
+              - اهتزاز تردد متغير 6 مستويات.
+              - بطارية ليثيوم قابلة للشحن.
+              - البطارية: 1800 مللي أمبير.
+              - عمر بطارية طويل الأمد.
+              - جهد الدخل: 5 فولت.
+              - نوع الإدخال: Type-C.
+              - الفولتية المقدرة: 7.4 فولت.
+              - قوة المحرك: 25 واط.
+              - الحد الأقصى للضوضاء: 45 ديسيبل.
+              - المادة: بلاستيك ABS.
+              - الحزمة تشمل:
+              1 × مسدس مدلك العضلات.
+              يمكن استبدال 4x والضغط على الرأس.
+            </textarea>
+
+            <div class="margin-top-xl">
+              <button type="button" class="btn footer-btn"><i class="bi bi-plus-square"></i> اضف الى منتجاتي</button>
+              <button type="button" class="btn footer-btn"><i class="bi bi-cart-plus-fill"></i> اضافة الى السلة</button>
+            </div>
+
+          </div>
+          <!--End Content-->
+
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-      </div>
+
     </div>
   </div>
 </div>

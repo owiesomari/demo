@@ -1,5 +1,5 @@
 .idButton {
-  background-color: #fff !important;
+  background-color: #fff ;
   border: 1px solid red !important;
   color: #ce0000 !important;
   cursor: pointer;
@@ -10,6 +10,7 @@
   color: #fff !important;
   cursor: pointer !important;
 }
+
 
 .search_div {
   background-color: #fff;
@@ -141,6 +142,31 @@
   border-radius: 50% !important;
   margin-bottom: 4px;
   margin-left: 10px;
-  background-color: #fff !important;
+  background-color: #fff ;
   cursor: pointer;
+}
+
+#cost {
+  color: #ce0000;
+}
+
+#downloadPhotos {
+  background-color: #67CF94 !important;
+  width: 200px;
+  padding: 12px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+#downloadPhotos:hover {
+  background-color: #1e7e34 !important;
+}
+
+.footer-btn{
+  background-color: #ce0000;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  width: 180px;
+  margin-left: 15px;
 }

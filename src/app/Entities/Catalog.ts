@@ -10,8 +10,9 @@ export class Catalog {
     private guaranty: string;
     private quality: string;
     private discription: string;
+    private category: string;
 
-    constructor(id: number, img: string, title: string, cost: number, sellingPrice: string, weight: number, SKU: string, countryOfManufacture: string, guaranty: string, quality: string, discription: string) {
+    constructor(id: number, img: string, title: string, cost: number, sellingPrice: string, weight: number, SKU: string, countryOfManufacture: string, guaranty: string, quality: string, discription: string, category: string) {
         this.id = id;
         this.img = img;
         this.title = title;
@@ -23,11 +24,14 @@ export class Catalog {
         this.guaranty = guaranty;
         this.quality = quality;
         this.discription = discription;
+        this.category = category;
     }
 
     getID(): number { return this.id; }
 
     getImg(): string { return this.img; }
+
+    getCategory(): string { return this.category; }
 
     getTitle(): string { return this.title; }
 
