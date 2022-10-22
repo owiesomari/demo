@@ -99,7 +99,7 @@
     <div class="col-md-3" *ngFor="let c of tempCatalogs">
       <div class="card margin-top-xl">
         <img [id]="c.getID()" class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}"
-          alt="Card image cap" (click)="openModal($event)">
+          alt="Card image cap" (click)="openModal($event)" style="cursor: pointer;">
         <hr>
         <div class="card-body">
           <h5 class="card-title">{{c.getTitle()}}</h5>
@@ -147,7 +147,7 @@
   <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+        <button type="button" class="close" data-dismiss="modal" style="border: none;background-color:#fff;" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

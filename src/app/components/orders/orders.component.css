@@ -82,3 +82,7 @@ label{
     font-weight: 700;
 }
 
+.rd-50{
+    border-radius: 50%;
+    margin-left: 4px;
+}
