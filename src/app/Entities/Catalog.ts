@@ -11,6 +11,8 @@ export class Catalog {
     private quality: string;
     private discription: string;
     private category: string;
+    //TODO(add dimentions)
+     //TODO (add totoruial)
 
     constructor(id: number, img: string, title: string, cost: number, sellingPrice: string, weight: number, SKU: string, countryOfManufacture: string, guaranty: string, quality: string, discription: string, category: string) {
         this.id = id;
@@ -51,23 +53,8 @@ export class Catalog {
 
     getCountryOfManufacture(): string { return this.countryOfManufacture; }
 
+    getDimentions(): string {return this.SKU}// TODO(add dimentions)
 
-    /* setID(id: number) { this.id = id; }
-   
-     setDate(date: Date) { this.date = date; }
-   
-     setTotal(total: number) { this.total = total; }
-   
-     seturl(url: string) { this.url = url; }
-   
-     setPaymentMethod(paymentMethod: string) { this.paymentMethod = paymentMethod; }
-   
-     setQuantity(quantity: number) { this.quantity = quantity; }
-   
-     setStatus(status: string) { this.status = status; }
-   
-     setCustomerName(customerName: string) { this.customerName = customerName; }
- 
-     */
+    getTotorial():string {return this.SKU} //TODO (add totoruial)
 
 }

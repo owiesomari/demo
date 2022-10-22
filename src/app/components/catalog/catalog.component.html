@@ -8,40 +8,43 @@
     </div>
   </div>
 
-
-
   <div class="margin-top-xl" id="combo-tags">
     <div class="margin-top-xl">
       <h2>فرز حسب</h2>
-      <div class="col-md-8 margin-top-xl" >
+      <div class="col-md-8 margin-top-xl">
         <div class="btn btn-primary-group flex-wrap" role="group" aria-label="Basic example" id="buttons">
-          <div style="display: inline-block" >
-            <button type="button" class="filter-button btn btn-primary idButton" (click)="filterCategoty($event)" id="phone" ><img  (click)="filterCategoty($event)" id="phone" class="combo-icon"
+          <div style="display: inline-block">
+            <button type="button" class="filter-button btn btn-primary idButton" (click)="filterCategoty($event)"
+              id="phone"><img (click)="filterCategoty($event)" id="phone" class="combo-icon"
                 src="../../../assets/iphone-icon.png"></button>
             <p>هواتف</p>
           </div>
           <div style="display: inline-block">
-            <button type="button" class="filter-button btn btn-primary idButton" id="house" (click)="filterCategoty($event)"><img id="house" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="house"
+              (click)="filterCategoty($event)"><img id="house" class="combo-icon"
                 src="../../../assets/Houseware-icon.png"></button>
             <p>ادوات منزلية</p>
           </div>
 
           <div style="display: inline-block">
-            <button type="button" class="filter-button btn btn-primary idButton" id="cosmetic"  (click)="filterCategoty($event)"><img id="cosmetic" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="cosmetic"
+              (click)="filterCategoty($event)"><img id="cosmetic" class="combo-icon"
                 src="../../../assets/Cosmetics-icon.png"></button>
             <p>عناية شخصية</p>
           </div>
 
           <div style="display: inline-block">
 
-            <button type="button" class="filter-button btn btn-primary idButton" id="gaming" (click)="filterCategoty($event)"><img id="gaming" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="gaming"
+              (click)="filterCategoty($event)"><img id="gaming" class="combo-icon"
                 src="../../../assets/gaming-iocn.png"></button>
             <p>العاب</p>
           </div>
 
           <div style="display: inline-block">
 
-            <button type="button" class="filter-button btn btn-primary idButton" id="watch" (click)="filterCategoty($event)"><img id="watch" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="watch"
+              (click)="filterCategoty($event)"><img id="watch" class="combo-icon"
                 src="../../../assets/watch-icon.png.crdownload"></button>
             <p>ساعات</p>
 
@@ -49,31 +52,36 @@
 
           <div style="display: inline-block">
 
-            <button type="button" class="filter-button btn btn-primary idButton" id="pafrum" (click)="filterCategoty($event)"><img id="pafrum" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="pafrum"
+              (click)="filterCategoty($event)"><img id="pafrum" class="combo-icon"
                 src="../../../assets/pafrum-icon.png"></button>
             <p>عطور</p>
           </div>
 
           <div style="display: inline-block">
 
-            <button type="button" class="filter-button btn btn-primary idButton" id="solar" (click)="filterCategoty($event)"><img id="solar" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="solar"
+              (click)="filterCategoty($event)"><img id="solar" class="combo-icon"
                 src="../../../assets/solar-icon.png"></button>
             <p>طاقة شمسية</p>
           </div>
 
           <div style="display: inline-block">
-            <button type="button" class="filter-button btn btn-primary idButton" id="electricity" (click)="filterCategoty($event)"><img id="electricity" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="electricity"
+              (click)="filterCategoty($event)"><img id="electricity" class="combo-icon"
                 src="../../../assets/electricity-icon.png"></button>
             <p>ادوات كهربائية</p>
           </div>
           <div style="display: inline-block">
-            <button type="button" class="filter-button btn btn-primary idButton" id="others" (click)="filterCategoty($event)"><img id="others" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="others"
+              (click)="filterCategoty($event)"><img id="others" class="combo-icon"
                 src="../../../assets/others-icon.png"></button>
             <p>اخرى</p>
           </div>
 
           <div style="display: inline-block">
-            <button type="button" class="filter-button btn btn-primary idButton" id="clear" (click)="filterCategoty($event)"><img id="clear" class="combo-icon"
+            <button type="button" class="filter-button btn btn-primary idButton" id="clear"
+              (click)="filterCategoty($event)"><img id="clear" class="combo-icon"
                 src="../../../assets/removeFilter.webp"></button>
             <p>مسح الفرز</p>
           </div>
@@ -84,11 +92,14 @@
     </div>
   </div>
 
+  <h3 style="text-align: center; color:#727272; margin-top: 16px;" *ngIf="isCatalogsEmpty()">لا يوجد منتجات </h3>
+
 
   <div class="row margin-top-xl" style="margin-bottom: 35px">
     <div class="col-md-3" *ngFor="let c of tempCatalogs">
       <div class="card margin-top-xl">
-        <img [id]="c.getID()" class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}" alt="Card image cap" (click)="openModal($event)">
+        <img [id]="c.getID()" class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}"
+          alt="Card image cap" (click)="openModal($event)">
         <hr>
         <div class="card-body">
           <h5 class="card-title">{{c.getTitle()}}</h5>
@@ -117,7 +128,8 @@
             <div class="bottom-btn btn-primarys d-flex justify-content-between">
               <button class="btn btn-primary idButton" style="width: 70%"><i class="bi bi-plus"></i>
                 أضف إلى منتجاتي</button>
-              <button class="btn btn-primary idButton"><i class="bi bi-cart-plus"></i></button>
+              <button class="btn btn-primary idButton" [id]="c.getID()" (click)="openModal($event)"><i
+                  class="bi bi-cart-plus" [id]="c.getID()" (click)="openModal($event)"></i></button>
             </div>
           </div>
         </div>
@@ -185,13 +197,8 @@
                     </td>
                     <td class="text-muted" id="quality">ممتاز</td>
                   </tr>
-
-
                 </table>
-
-
               </div>
-
 
               <div class="col-md-6">
                 <table>
@@ -220,7 +227,14 @@
                     <td>
                       <h5 style="color: green">ابعاد المنتج</h5>
                     </td>
-                    <td class="text-muted">20X40X56 مم</td>
+                    <td class="text-muted" id="dimentions">20X40X56 مم</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">فيديو تسويقي للمنتج</h5>
+                    </td>
+                    <td class="text-muted"><a href="#" id="totoriul"></a></td>
                   </tr>
                 </table>
               </div>
@@ -229,42 +243,8 @@
                 style="margin-left: 10px"></i>تحميل صور المنتج</button>
 
             <h4 class="margin-top-xxl" style="font-weight: 500;">الوصف</h4>
-            <textarea style="width: 100%; border-radius: 5px;" rows="8" class="form-control" disabled>
-              - يستخدم جهاز المساج لتخفيف تصلب العضلات ووجعها.
-              - محرك عالي الجودة: يستخدم جهاز التدليك محركات عالية الجودة ولديه وظيفة تبريد فائقة.
-              - جهاز المساج مزود ببطارية عالية الجودة للشحن السريع.
-              - التطبيق: التشغيل ، معدات اللياقة البدنية ، الاتجاه الرياضي ، اللياقة البدنية والجسم ، التدليك الصحي.
-              - اهتزاز تردد متغير 6 مستويات.
-              - بطارية ليثيوم قابلة للشحن.
-              - البطارية: 1800 مللي أمبير.
-              - عمر بطارية طويل الأمد.
-              - جهد الدخل: 5 فولت.
-              - نوع الإدخال: Type-C.
-              - الفولتية المقدرة: 7.4 فولت.
-              - قوة المحرك: 25 واط.
-              - الحد الأقصى للضوضاء: 45 ديسيبل.
-              - المادة: بلاستيك ABS.
-              - الحزمة تشمل:
-              1 × مسدس مدلك العضلات.
-              يمكن استبدال 4x والضغط على الرأس.
-              - يستخدم جهاز المساج لتخفيف تصلب العضلات ووجعها.
-              - محرك عالي الجودة: يستخدم جهاز التدليك محركات عالية الجودة ولديه وظيفة تبريد فائقة.
-              - جهاز المساج مزود ببطارية عالية الجودة للشحن السريع.
-              - التطبيق: التشغيل ، معدات اللياقة البدنية ، الاتجاه الرياضي ، اللياقة البدنية والجسم ، التدليك الصحي.
-              - اهتزاز تردد متغير 6 مستويات.
-              - بطارية ليثيوم قابلة للشحن.
-              - البطارية: 1800 مللي أمبير.
-              - عمر بطارية طويل الأمد.
-              - جهد الدخل: 5 فولت.
-              - نوع الإدخال: Type-C.
-              - الفولتية المقدرة: 7.4 فولت.
-              - قوة المحرك: 25 واط.
-              - الحد الأقصى للضوضاء: 45 ديسيبل.
-              - المادة: بلاستيك ABS.
-              - الحزمة تشمل:
-              1 × مسدس مدلك العضلات.
-              يمكن استبدال 4x والضغط على الرأس.
-            </textarea>
+            <textarea style="width: 100%; border-radius: 5px;" rows="8" id="description" class="form-control"
+              disabled></textarea>
 
             <div class="margin-top-xl">
               <button type="button" class="btn footer-btn"><i class="bi bi-plus-square"></i> اضف الى منتجاتي</button>
@@ -276,7 +256,6 @@
 
         </div>
       </div>
-
     </div>
   </div>
 </div>

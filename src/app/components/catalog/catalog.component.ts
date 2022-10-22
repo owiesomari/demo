@@ -21,7 +21,7 @@ export class CatalogComponent implements OnInit {
 
   constructor() {
     this.catalogs = [
-      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
+      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "fgdfgdfgdfgdf\nrtrtrterrt\ntreterer", "h"),
       new Catalog(2, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
       new Catalog(3, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
       new Catalog(4, "../../assets/cat4.jpeg", " منتج رقم 4", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
@@ -242,24 +242,8 @@ export class CatalogComponent implements OnInit {
   displayCards(data_: Catalog[], start: number, lenght: number) {
 
     if (data_.length == 0) {
-
-      //(document.getElementById("prev") as HTMLLIElement).style.display = "none";
-      //(document.getElementById("next") as HTMLLIElement).style.display = "none";
-
-
-      //if (!isFiltered)
-      //$("#search_pannel").hide();
-      // var emptydiv = "<div class='cont'> <h1>No data to display!</h1></div>"
-      // $("#main").html(emptydiv);
       return;
-    } else {
-      //  (document.getElementById("prev") as HTMLLIElement).style.display = "block";
-      //(document.getElementById("next") as HTMLLIElement).style.display = "block";
-      //$("#prev").show();
-      //$("#next").show();
-      // $("#search_pannel").show();
     }
-
     if (data_.length <= start + lenght) {
       this.drowCards(start, data_.length)
     } else {
@@ -268,7 +252,6 @@ export class CatalogComponent implements OnInit {
   }
 
   drowCards(start: number, end: number) {
-    debugger
     if (!(this.isFiltered)) {
       this.tempCatalogs = [];
       for (var i = start; i < end; i++) {
@@ -324,6 +307,11 @@ export class CatalogComponent implements OnInit {
     (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString();
     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
     (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
+    (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.getDimentions().toString();
+    (document.getElementById("description") as HTMLTextAreaElement).value = a.getDiscription().toString();
+    (document.getElementById("totoriul") as HTMLAnchorElement).href = a.getTotorial().toString();
+    (document.getElementById("totoriul") as HTMLAnchorElement).innerHTML = a.getTotorial().toString();
+
   }
 
   private setImagesEvent() {
@@ -366,6 +354,35 @@ export class CatalogComponent implements OnInit {
         this.filterData("h");
       } break;
 
+      case "cosmetic": {
+        this.filterData("c");
+      } break;
+
+      case "gaming": {
+        this.filterData("g");
+      } break;
+
+      case "watch": {
+        this.filterData("w");
+      } break;
+
+      case "pafrum": {
+        this.filterData("p");
+      } break;
+
+      case "solar": {
+        this.filterData("s");
+      } break;
+
+      case "electricity": {
+        this.filterData("e");
+      } break;
+
+      case "others": {
+        this.filterData("o");
+      } break;
+
+
       case "clear": {
         this.tempCatalogs = this.catalogs;
         this.isFiltered = false;
@@ -383,6 +400,10 @@ export class CatalogComponent implements OnInit {
     });
     this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
     this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
+  }
+
+  isCatalogsEmpty(): Boolean {
+    return this.tempCatalogs.length == 0
   }
 
   private setFilterButtonBackground(id: string) {
