@@ -5,7 +5,7 @@
         <div class="row">
             <div class="table-responsive">
                 <table class="table table-striped" style="text-align: center;">
-                    <thead >
+                    <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">صورة</th>
@@ -46,6 +46,96 @@
                         </tr>
                     </tbody>
                 </table>
+                <br>
+                <hr>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="col-md-7">
+                <h2>تفاصيل الشحن</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="inputAddress">الإسم*</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="ادخل اسم العميل هنا">
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class=" col-md-6">
+                            <label for="inputEmail4">الدولة*</label>
+
+                            <select name="country" class="form-control" id="country" disabled>
+                                <option value="Jordan">الاردن</option>
+                            </select>       
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">المدينة*</label>
+                            <select name="shipping_city" class="form-control" id="city">
+                                <option value="Ajloon">Ajloon</option>
+                                <option value="Amman">Amman</option>
+                                <option value="Irbid">Irbid</option>
+                                <option value="Jerash">Jerash</option>
+                                <option value="Ma'An">Ma'An</option>
+                                <option value="Madaba">Madaba</option>
+                                <option value="Aqaba">Aqaba</option>
+                                <option value="Balqa">Balqa</option>
+                                <option value="Karak">Karak</option>
+                                <option value="Mafraq">Mafraq</option>
+                                <option value="Tafileh">Tafileh</option>
+                                <option value="Zarqa">Zarqa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">رقم الهاتف*</label>
+                            <input type="text" class="form-control" id="inputEmail4" placeholder="ادخل رقم الهاتف">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">اسم متجرك/صفحتك</label>
+                            <input type="text" class="form-control" id="inputEmail4" placeholder="اسم متجرك/صفحتك">
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="inputEmail4">العنوان*</label> <span class="note green-text">بالتفصيل (المنطقة,
+                                اسم الشارع, معلم مميز , رقم الشقة)</span>
+                            <textarea class="form-control" id="inputEmail4" rows="3"
+                                placeholder="ادخل تفاصيل العنوان الكاملة هنا" style="margin-top: 8px;"></textarea>
+                        </div>
+                        <span style="color: #ce0000;">كلما كان العنوان مفصل أكثر كان التوصيل أسرع للطلب </span>
+                    </div>
+                </form>
+            </div>
+        <div class="col-md-1"></div>
+
+            <div class="col-md-4" >
+
+                <h3>ملخص الطلب</h3>
+
+                <div class="row">
+                    <div class="col-md-7">إجمالي سعر تكلفة المنتجات	</div>
+                    <div class="col">32.82 د.أ</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-7">تكلفة شحن الطلب</div>
+                    <div class="col">2.82 د.أ</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-7">اجمالي التكلفة</div>
+                    <div class="col">35.82 د.أ</div>
+                </div>
+
+
+
             </div>
         </div>
     </div>

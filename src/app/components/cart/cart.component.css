@@ -17,3 +17,12 @@ table td {
 .pl-1, .px-1 {
     padding-left: 0.25rem!important;
 }
+
+.green-text {
+    color: #28a745;
+}
+
+.note {
+    padding: 8px 30px;
+    font-weight: 700;
+}
