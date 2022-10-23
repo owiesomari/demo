@@ -16,8 +16,7 @@ export class SidenavComponent implements OnInit {
     
   ]
 
-  owies(){
-    console.log("h")
+  initSideNav(){
     var navBar = document.querySelector("nav");
 
     var menuBtns = document.querySelectorAll(".menu-icon");
@@ -25,17 +24,15 @@ export class SidenavComponent implements OnInit {
 
   menuBtns.forEach((menuBtn) => {
     menuBtn.addEventListener("click", () => {
-      console.log("h")
      navBar?.classList.toggle("open");
     });
   });
 
   overlay?.addEventListener("click", () => {
-    console.log("h")
     navBar?.classList.remove("open");
   });
   }
-  constructor() {this.owies() }
+  constructor() {this.initSideNav() }
 
   ngOnInit(): void {
   }

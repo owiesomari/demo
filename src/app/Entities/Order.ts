@@ -1,14 +1,15 @@
 export class Order {
     private id: number;
-    private date: Date;
+    private date: string;
     private customerName;
     private total: number;
     private url: string;
     private paymentMethod: string;
     private quantity: number;
     private status: string;
+    private cellColor:string;
   
-    constructor(id: number, date: Date, customerName: string, total: number, url: string, paymentMethod: string, quantity: number, status: string) {
+    constructor(id: number, date: string, customerName: string, total: number, url: string, paymentMethod: string, quantity: number, status: string, cellColor:string) {
       this.id = id;
       this.date = date;
       this.total = total;
@@ -17,11 +18,12 @@ export class Order {
       this.quantity = quantity;
       this.status = status;
       this.customerName = customerName;
+      this.cellColor = cellColor;
     }
   
     getID(): number { return this.id; }
   
-    getDate(): Date { return this.date; }
+    getDate(): string { return this.date; }
   
     getTotal(): number { return this.total; }
   
@@ -34,10 +36,12 @@ export class Order {
     getStatus(): string { return this.status; }
   
     getCustomerName(): string { return this.customerName; }
+
+    getCellColor(): string{return this.cellColor;}
   
     setID(id: number) { this.id = id; }
   
-    setDate(date: Date) { this.date = date; }
+    setDate(date: string) { this.date = date; }
   
     setTotal(total: number) { this.total = total; }
   

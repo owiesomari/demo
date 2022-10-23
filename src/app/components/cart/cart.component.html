@@ -1,0 +1,52 @@
+<div style="padding: 20px;">
+
+    <div id="container">
+        <h2>سلة المشتريات</h2>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-striped" style="text-align: center;">
+                    <thead >
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">صورة</th>
+                            <th scope="col">الوصف</th>
+                            <th scope="col">سعر التكلفة</th>
+                            <th scope="col">سعر البيع</th>
+                            <th scope="col">الكمية</th>
+                            <th scope="col">الاجمالي</th>
+                            <th scope="col"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of cartData">
+                            <td style="padding-top: 40px;">{{c.getID()}}</td>
+                            <td style="padding-top: 40px;"><img src="{{c.getImage()}}" width="50" height="50"
+                                    style="border-radius: 50%"></td>
+                            <td style="padding-top: 40px;">{{c.getDecription()}}</td>
+                            <td style="padding-top: 40px;">
+                                {{c.getCost()}}
+                            </td>
+                            <td style="padding-top: 40px;">
+                                <input class="effect-9 5 " type="number"
+                                    style="width: 300px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
+                                    id="withdrow" min="0" [value]="c.getSellingPrice()"> <span
+                                    style="background-color: #f0f0f0;padding:12px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;">د.أ</span>
+
+                            </td>
+                            <td style="padding-top: 40px;">
+                                <input class="effect-9 5 " type="number"
+                                    style="width: 100px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
+                                    id="withdrow" min="0" [value]="c.getQantity()">
+
+                            </td>
+                            <td style="padding-top: 40px;">{{c.getTotal()}}</td>
+                            <td style="padding-top: 40px;">
+                                <span style="cursor: pointer;"><i class="bi bi-trash"></i></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

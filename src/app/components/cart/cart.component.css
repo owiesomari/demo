@@ -1,0 +1,19 @@
+#container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+table td {
+    color: #727272;
+}
+
+.form-control.product_price {
+    background: #fff;
+    border: 1px solid #c5c5c5!important;
+}
+
+.pl-1, .px-1 {
+    padding-left: 0.25rem!important;
+}
