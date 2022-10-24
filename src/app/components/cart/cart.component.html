@@ -4,8 +4,8 @@
         <h2>سلة المشتريات</h2>
         <div class="row">
             <div class="table-responsive">
-                <table class="table table-striped" style="text-align: center;">
-                    <thead>
+                <table class="table text-nowrap" style="text-align: center;">
+                    <thead style="background-color:#EEE;">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">صورة</th>
@@ -19,27 +19,37 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let c of cartData">
-                            <td style="padding-top: 40px;">{{c.getID()}}</td>
+                            <td style="padding-top: 40px;">
+                                <p class="table-content">{{c.getID()}}</p>
+                            </td>
                             <td style="padding-top: 40px;"><img src="{{c.getImage()}}" width="50" height="50"
                                     style="border-radius: 50%"></td>
-                            <td style="padding-top: 40px;">{{c.getDecription()}}</td>
                             <td style="padding-top: 40px;">
-                                {{c.getCost()}}
+                                <p class="table-content text-muted">{{c.getDecription()}}</p>
                             </td>
                             <td style="padding-top: 40px;">
-                                <input class="effect-9 5 " type="number"
+                                <p class="table-content text-muted">{{c.getCost()}}</p>
+                            </td>
+                            <td style="padding-top: 40px;">
+                                <input class="effect-9 sell" type="number"
                                     style="width: 300px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
-                                    id="withdrow" min="0" [value]="c.getSellingPrice()"> <span
-                                    style="background-color: #f0f0f0;padding:12px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;">د.أ</span>
+                                    id="sellingPrice,{{c.getID()}}" min="0" [value]="c.getSellingPrice()"
+                                    (keyup)="calculations($event)" (change)="calculations($event)">
+                                <!-- <span
+                                    style="background-color: #f0f0f0;padding:12px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;">د.أ</span>-->
 
                             </td>
                             <td style="padding-top: 40px;">
-                                <input class="effect-9 5 " type="number"
+                                <input class="effect-9 qantity" type="number"
                                     style="width: 100px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
-                                    id="withdrow" min="0" [value]="c.getQantity()">
+                                    id="qantity,{{c.getID()}}" min="0" [value]="c.getQantity()"
+                                    (change)="calculations($event)" (keyup)="calculations($event)">
 
                             </td>
-                            <td style="padding-top: 40px;">{{c.getTotal()}}</td>
+                            <td style="padding-top: 40px;">
+                                <p class="table-content" id="totalValue,{{c.getID()}}">{{c.getSellingPrice()*1}}.000 د.أ
+                                </p>
+                            </td>
                             <td style="padding-top: 40px;">
                                 <span style="cursor: pointer;"><i class="bi bi-trash"></i></span>
                             </td>
@@ -52,13 +62,13 @@
         </div>
         <br>
         <div class="row">
-
             <div class="col-md-7">
                 <h2>تفاصيل الشحن</h2>
-                <form>
+                <form style="width: 70%;">
                     <div class="form-group">
                         <label for="inputAddress">الإسم*</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="ادخل اسم العميل هنا">
+                        <input type="text" class="form-control client" id="inputAddress"
+                            placeholder="ادخل اسم العميل هنا">
                     </div>
                     <br>
 
@@ -66,13 +76,13 @@
                         <div class=" col-md-6">
                             <label for="inputEmail4">الدولة*</label>
 
-                            <select name="country" class="form-control" id="country" disabled>
+                            <select name="country" class="form-control client" id="country" disabled>
                                 <option value="Jordan">الاردن</option>
-                            </select>       
+                            </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">المدينة*</label>
-                            <select name="shipping_city" class="form-control" id="city">
+                            <select name="shipping_city" class="form-control client" id="city">
                                 <option value="Ajloon">Ajloon</option>
                                 <option value="Amman">Amman</option>
                                 <option value="Irbid">Irbid</option>
@@ -93,11 +103,13 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">رقم الهاتف*</label>
-                            <input type="text" class="form-control" id="inputEmail4" placeholder="ادخل رقم الهاتف">
+                            <input type="text" class="form-control client" id="inputEmail4"
+                                placeholder="ادخل رقم الهاتف">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">اسم متجرك/صفحتك</label>
-                            <input type="text" class="form-control" id="inputEmail4" placeholder="اسم متجرك/صفحتك">
+                            <input type="text" class="form-control client" id="inputEmail4"
+                                placeholder="اسم متجرك/صفحتك">
                         </div>
                     </div>
 
@@ -106,35 +118,74 @@
                         <div class="form-group">
                             <label for="inputEmail4">العنوان*</label> <span class="note green-text">بالتفصيل (المنطقة,
                                 اسم الشارع, معلم مميز , رقم الشقة)</span>
-                            <textarea class="form-control" id="inputEmail4" rows="3"
+                            <textarea class="form-control client" id="inputEmail4" rows="3"
                                 placeholder="ادخل تفاصيل العنوان الكاملة هنا" style="margin-top: 8px;"></textarea>
                         </div>
                         <span style="color: #ce0000;">كلما كان العنوان مفصل أكثر كان التوصيل أسرع للطلب </span>
                     </div>
                 </form>
             </div>
-        <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
 
-            <div class="col-md-4" >
+            <div class="col-md-4">
 
                 <h3>ملخص الطلب</h3>
 
                 <div class="row">
-                    <div class="col-md-7">إجمالي سعر تكلفة المنتجات	</div>
-                    <div class="col">32.82 د.أ</div>
+                    <div class="col-md-6"> <span>اجمالي سعر تكلفة المنتجات</span> &nbsp;&nbsp;&nbsp;<span
+                            id="totalCost"></span></div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-7">تكلفة شحن الطلب</div>
-                    <div class="col">2.82 د.أ</div>
+                    <div class="col-md-6">تكلفة شحن الطلب&nbsp;&nbsp;&nbsp;<span>2.75 د.أ</span></div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-7">اجمالي التكلفة</div>
-                    <div class="col">35.82 د.أ</div>
+                    <div class="col-md-6">اجمالي التكلفة&nbsp;&nbsp;&nbsp;<span id="totalCostPlusShiping"></span></div>
+                </div>
+                <br>
+                <div class="row">
+                    <h3>المبلغ المراد تحصيله من العميل</h3>
+                    <p>* بعد إضافة تكلفة الشحن </p>
+                    <h2 style="width: 50%;margin:auto;"><span id="fromCustomer"></span></h2>
                 </div>
 
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">تكلفة تجهيز الطلب&nbsp;&nbsp;&nbsp;<span>1 د.أ</span></div>
+                </div>
 
+                <div class="row">
+                    <h3>ارباحك من الطلب:&nbsp;&nbsp;&nbsp;<span id="your_profit" class="green-text">15.5د.أ</span></h3>
+                    <span>* بعد إضافة تكلفة الشحن </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">مدة توصيل الطلب&nbsp;&nbsp;&nbsp;<span>1 - 3 أيام عمل </span></div>
+                </div>
+
+                <hr>
+
+                <tr class="payment-method">
+                    <td colspan="2">
+                        <p class="top"><i class="icofont-wallet"></i> طريقة الدفع</p>
+                        <div class="payment-methods d-flex flex-column">
+                            <p>الرجاء إختيار طريقة الدفع المفضلة لهذا الطلب.</p>
+                            <input type="hidden" name="payment_method" value="delivery">
+                            <label class="form-group btn d-flex align-items-center active" data-val="delivery">
+                                <i></i> دفع عند الاستلام
+                            </label>
+                            <label class="form-group btn d-flex align-items-center" data-val="direct">
+                                <i></i> دفع الكتروني
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+
+                <div class="proceed-to-checkout mt-4 text-center">
+                    <button type="submit" class="btn btn-danger corner-btn"
+                        style="width: 200px;padding: 10px;font-size: 20px;">اعتماد الطلب الآن</button>
+                </div>
 
             </div>
         </div>

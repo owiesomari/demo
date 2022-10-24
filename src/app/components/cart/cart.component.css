@@ -26,3 +26,30 @@ table td {
     padding: 8px 30px;
     font-weight: 700;
 }
+
+.payment-method {
+    border: 2px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+
+.payment-method td p.top {
+    background: #f0f0f0;
+    color: #ce0000;
+    padding: 7px 20px 10px!important;
+}
+
+ .btn-w {
+    width: 200px;
+}
+
+.client{
+    background-color: #f0f0f0;
+}
+
+th{
+    font-size: 25px;
+}
+
+.table-content{
+    font-size: 22px;
+}

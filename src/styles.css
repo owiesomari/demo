@@ -193,3 +193,7 @@ button:hover{
   cursor:  pointer !important;
 }
 
+
+.corner-btn {
+  border-radius: 50px;
+}
