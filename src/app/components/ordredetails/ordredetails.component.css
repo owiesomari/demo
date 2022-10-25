@@ -1,0 +1,135 @@
+
+.title2 {
+    position: relative;
+    top: -12px;
+}
+
+.child-two {
+    background-color: #fff;
+    margin-top: 17px;
+    padding: 37px;
+}
+
+.child-one {
+    background-color: #fff;
+    padding: 37px;
+}
+
+.icofont-printer:before {
+    content: "\edfd";
+    outline: none !important;
+    box-sizing: border-box;
+}
+
+.bbord {
+    border: 1px solid #dee2e6;
+}
+
+.theadd {
+    background-color:#eee;
+}
+
+.bgcolorfff {
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.styleh4 {
+    padding-left: 0.5rem!important; 
+    padding-bottom: 0.5rem!important; 
+    padding-top: 0.5rem!important;
+}
+
+.stylefirsttd {
+    font-weight: 700;
+     border-left:0;    
+      padding: 0.75rem;
+}
+
+.stylesecondtd {
+    border-right: 0; 
+    border-bottom: 1px solid #F5F5F5;  
+    padding: 0.75rem;
+}
+
+.styledivparent {
+    padding: 17px;
+    width: 450px; 
+    margin-right: 24px;
+}
+
+.styleinput {
+    background-color: #e9ecef; 
+    opacity: 1; 
+    width: 100%; 
+    border: none; 
+    border-radius: 4px; 
+    height: 40px;
+}
+
+.stylelabel {
+    margin-bottom: 0.5rem!important;
+     margin: 0;
+}
+
+.styletextarea {
+    background-color: #e9ecef; 
+    opacity: 1; width: 89%; 
+    border: none; 
+    border-radius: 7px; 
+    height: 75px;
+}
+
+.stylecard {
+    border: none; 
+    border-radius: 0; 
+    margin-top: 20px;
+}
+
+.styletth {
+    padding: 16px; 
+    color: #333333; 
+    border-bottom: 1px solid #aeaeae;
+}
+
+.stylettd {
+    border-bottom: 1px solid #F5F5F5;
+    color: #727272; 
+    border-top: 0;
+    padding: 16px;
+}
+
+.styleparag {
+    font-size: 22px; 
+    font-weight: 700; 
+    text-align: center!important;
+}
+
+.stylespan {
+    color: #28a745; 
+    display: block!important;
+}
+
+.bttn {
+    background-color: #8280FD !important;
+    padding: 5px;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 23px;
+    position: relative;
+    opacity: .9;
+    height: 50px;
+    width: 190px;
+    cursor: pointer;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+.bttn:hover{
+    background-color: #0062cc!important;
+}

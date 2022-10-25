@@ -22,6 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CartComponent } from './components/cart/cart.component';
+import { OrdredetailsComponent } from './components/ordredetails/ordredetails.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { CartComponent } from './components/cart/cart.component';
     OrdersComponent,
     UserProfileComponent,
     WalletComponent,
-    CartComponent
+    CartComponent,
+    OrdredetailsComponent
   ],
   imports: [
     BrowserModule,
