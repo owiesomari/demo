@@ -99,7 +99,9 @@
                                 <td>{{x.getDate()}}</td>
                                 <td>{{x.getCustomerName()}}</td>
                                 <td>{{x.getTotal()}}</td>
-                                <td> <a [href]="x.geturl()" target="_blank" class="url"><i
+                                <td> 
+                                    <span *ngIf="x.geturl()=='' || x.geturl()==null">لا يوجد</span>
+                                    <a *ngIf="x.geturl()!='' && x.geturl()!=null" [href]="x.geturl()" target="_blank" class="url"><i
                                             class="bi bi-box-arrow-up-right"></i></a></td>
                                 <td>{{x.getPaymentMethod()}}</td>
                                 <td>{{x.getQuantity()}}</td>
@@ -109,8 +111,9 @@
                                 <td><span><button class="btn btn-small bg-success rd-50"
                                             [routerLink]="['/orderdeatils',x.getID()]"><i class="bi bi-eye"></i>
                                         </button></span>
-                                    <span *ngIf="x.getStatus()!='ملغية'"><button
-                                            class="rd-50 btn btn-small bg-danger"><i
+                                    <span *ngIf="x.getStatus()!='ملغية'"><button (click)="openModal($event)"
+                                            [id]="x.getID()" class="rd-50 btn btn-small bg-danger"><i
+                                                (click)="openModal($event)" [id]="x.getID()"
                                                 class="bi bi-trash"></i></button></span>
 
                                     <span *ngIf="x.getStatus()=='ملغية'"><button style="visibility: hidden;"
@@ -120,6 +123,32 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Cancle Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    style="width: 100%">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row" style="padding: 10px">
+                    <h3 style="font-weight: 600;">الغاء الطلب #<span id="c_orderNumber">123</span></h3>
+                    <p class="text-muted">سبب الالغاء</p>
+                    <textarea class="r_textarea" placeholder="يرجى ادخال سبب الاغاء هنا" rows="3"></textarea>
+                </div>
+
+                <div class="margin-top-xl">
+                    <input type="button" class="btn c_btn modal-btns margin-left-m" value="الغاء الان"
+                        (click)="cancelOrder()">
+                    <!--api call-->
+                    <input type="button" class="btn modal-btns close_btn" [id]="" (click)="closeModal()" value="إغلاق">
                 </div>
             </div>
         </div>

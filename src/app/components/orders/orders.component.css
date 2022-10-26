@@ -102,12 +102,12 @@ label {
     color: #fff;
 }
 
-.url{
+.url {
     color: black;
 }
 
-.url:hover{
-    color:#87B2ED;
+.url:hover {
+    color: #87B2ED;
 }
 
 
@@ -117,33 +117,65 @@ label {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-  }
+}
 
 
-  .filter-button {
+.filter-button {
     padding: 25px !important;
     border-radius: 50% !important;
     margin-bottom: 4px;
     margin-left: 10px;
-    background-color: #fff ;
+    background-color: #fff;
     cursor: pointer;
-  }
+}
 
-  .idButton {
-    background-color: #fff ;
+.idButton {
+    background-color: #fff;
     border: 1px solid red !important;
     color: #ce0000 !important;
     cursor: pointer;
-  }
-  
-  .idButton:hover {
+}
+
+.idButton:hover {
     background-color: #ce0000 !important;
     color: #fff !important;
     cursor: pointer !important;
-  }
-
-  .combo-icon {
-  width: 40px;
-  height: 40px;
 }
 
+.combo-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.c_btn {
+    background-color: #FC7383 !important;
+
+}
+
+.c_btn:hover {
+    background-color: #bd2130 !important;
+}
+
+.modal-btns {
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    width: 150px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.close_btn {
+    background-color: #8280FD !important;
+}
+
+.close_btn:hover {
+    background-color: #0062cc !important;
+}
+
+.r_textarea {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    border: none;
+    resize: none;
+}
