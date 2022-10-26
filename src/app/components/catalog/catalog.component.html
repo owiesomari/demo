@@ -126,7 +126,8 @@
           </div>
           <div>
             <div class="bottom-btn btn-primarys d-flex justify-content-between">
-              <button class="btn btn-primary idButton" style="width: 70%"><i class="bi bi-plus"></i>
+              <button (click)="addToMyProducts(c.getID())" class="btn btn-primary idButton" style="width: 70%"><i
+                  class="bi bi-plus"></i>
                 أضف إلى منتجاتي</button>
               <button class="btn btn-primary idButton" [id]="c.getID()" (click)="openModal($event)"><i
                   class="bi bi-cart-plus" [id]="c.getID()" (click)="openModal($event)"></i></button>
@@ -147,7 +148,8 @@
   <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" style="border: none;background-color:#fff;" aria-label="Close" (click)="closeModal()">
+        <button type="button" class="close" data-dismiss="modal" style="border: none;background-color:#fff;"
+          aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -247,8 +249,10 @@
               disabled></textarea>
 
             <div class="margin-top-xl">
-              <button type="button" class="btn footer-btn"><i class="bi bi-plus-square"></i> اضف الى منتجاتي</button>
-              <button type="button" class="btn footer-btn"><i class="bi bi-cart-plus-fill"></i> اضافة الى السلة</button>
+              <button type="button" class="btn footer-btn" (click)="addToMyProducts(getModalProductID())"><i
+                  class="bi bi-plus-square"></i> اضف الى منتجاتي</button>
+              <button type="button" class="btn footer-btn" (click)="addToCart(getModalProductID())"><i
+                  class="bi bi-cart-plus-fill"></i> اضافة الى السلة</button>
             </div>
 
           </div>

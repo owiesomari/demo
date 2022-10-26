@@ -19,6 +19,8 @@ export class CatalogComponent implements OnInit {
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
 
+  modalProductID = 0
+
   constructor() {
     this.catalogs = [
       new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "fgdfgdfgdfgdf\nrtrtrterrt\ntreterer", "h"),
@@ -287,7 +289,8 @@ export class CatalogComponent implements OnInit {
   }
 
   openModal(event: any) {
-    this.fillModal(event?.target.id)
+    this.modalProductID = event?.target.id
+    this.fillModal(this.modalProductID)
     this.modalElement = document.getElementById('modal') as HTMLElement;
     this.modalComponent = new Modal(this.modalElement);
     this.modalComponent.show();
@@ -415,6 +418,20 @@ export class CatalogComponent implements OnInit {
 
   isCatalogsEmpty(): Boolean {
     return this.tempCatalogs.length == 0
+  }
+
+  getModalProductID(): number {
+    return this.modalProductID
+  }
+
+  addToMyProducts(id: number) {//call api
+    console.log(id)
+
+  }
+
+  addToCart(id: number) {//call api
+    console.log(id)
+
   }
 
 
