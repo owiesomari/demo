@@ -402,10 +402,6 @@ export class CatalogComponent implements OnInit {
     this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
   }
 
-  isCatalogsEmpty(): Boolean {
-    return this.tempCatalogs.length == 0
-  }
-
   private setFilterButtonBackground(id: string) {
     let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes
     for (var i = 0; i < buttonsParent.length; i++) {
@@ -417,8 +413,13 @@ export class CatalogComponent implements OnInit {
 
   }
 
+  isCatalogsEmpty(): Boolean {
+    return this.tempCatalogs.length == 0
+  }
+
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
     this.displayCards(this.catalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
   }

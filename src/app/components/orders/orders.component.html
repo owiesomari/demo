@@ -3,38 +3,78 @@
     <h2>قائمة الطلبات</h2>
     <div id="content margin-top-l">
         <div id="tab">
-            <div class="row">
-                <label>الحالة</label>
-                <div class="col-md-6 col-sm-6 margin-top-s">
-                    <div class="btn-group flex-wrap" role="group" aria-label="Basic example">
-                        <button type="button" class=" status-btn col-md-1" style="background-color: #fff">الكل</button>
-                        <button type="button" class=" pending status-btn  col-md-1">معلقه</button>
-                        <button type="button" class=" waiting status-btn  col-md-1">قيد التسليم</button>
-                        <button type="button" class=" family status-btn  col-md-1">مكتملة </button>
-                        <button type="button" class=" cancelled status-btn  col-md-1">ملغية </button>
-                    </div>
-                </div>
-                <div class="col-md-6"></div>
-            </div>
-            <div class="row margin-top-xl">
-                <label>فرز حسب</label>
+            <h2>الفرز</h2>
+            <div class="margin-top-xl" id="combo-tags">
+                <div class="margin-top-xl">
+                    <h2></h2>
+                    <div class="col-md-8 margin-top-xl">
+                        <div class="btn btn-primary-group flex-wrap" role="group" aria-label="Basic example"
+                            id="buttons">
+                            <div style="display: inline-block">
+                                <button style="background-color:#ce0000 ;" type="button"
+                                    class="filter-button btn btn-primary idButton" id="all"
+                                    (click)="filterCategoty($event)"><img id="all" class="combo-icon"
+                                        (click)="filterCategoty($event)" src="../../../assets/ic_all.png"></button>
+                                <p>الكل</p>
+                            </div>
+                            <div style="display: inline-block">
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="pending"><img (click)="filterCategoty($event)"
+                                        id="pending" class="combo-icon" src="../../../assets/ic_loading.png"></button>
+                                <p>معلقة</p>
+                            </div>
 
-                <div class="col-md-6 margin-top-s">
-                    <div class="btn-group flex-wrap" role="group" aria-label="Basic example">
-                        <button type="button" class=" filter-button  btn-primary ">اليوم</button>
-                        <button type="button" class="filter-button  btn-primary ">الامس</button>
-                        <button type="button" class="filter-button  btn-primary ">اخر 7ايام</button>
-                        <button type="button" class="filter-button  btn-primary "> يوم30يوم</button>
-                        <button type="button" class="filter-button  btn-primary ">هذا الشهر </button>
-                        <button type="button" class="filter-button  btn-primary ">اخر شهر</button>
-                        <button type="button" class="filter-button  btn-primary ">نطاق مخصص</button>
+                            <div style="display: inline-block">
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="progress"><img (click)="filterCategoty($event)"
+                                        id="progress" class="combo-icon" src="../../../assets/ic_delevary.png"></button>
+                                <p>قيد التسليم</p>
+                            </div>
+
+                            <div style="display: inline-block">
+
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="completed"><img
+                                        (click)="filterCategoty($event)" id="completed" class="combo-icon"
+                                        src="../../../assets/ic_completed.png"></button>
+                                <p>مكتملة</p>
+                            </div>
+
+                            <div style="display: inline-block">
+
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="cancled"><img id="cancled" class="combo-icon"
+                                        (click)="filterCategoty($event)" src="../../../assets/ic_cancled.png"></button>
+                                <p>ملغية</p>
+                            </div>
+
+                        </div>
                     </div>
+                    <div class="col-md-4"></div>
                 </div>
-                <div class="col-md-6"></div>
             </div>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label for="daysFilter">فرز حسب التاريخ</label>
+                    <select id="daysFilter" class="effect-9" style="margin-right: 10px;width:50%;height:40px">
+                        <option>اليوم</option>
+                        <option>الامس</option>
+                        <option>اخر 7 ايام</option>
+                        <option>اخر شهر</option>
+                        <option>نطاق مخصص</option>
+
+
+                    </select>
+                </div>
+
+                <div class="col-md-6"></div>
+
+            </div>
+            <br>
             <div class="row margin-top-xl">
                 <label for="orderNumber">الوصول السريع للطلب</label>
-                <input class="effect-9 col-md-5 margin-top-s" type="text" style="width: 300px;border-radius: 10px;"
+                <input class="effect-9 col-md-5 margin-top-s" type="text" style="width: 26%;border-radius: 10px;"
                     id="orderNumber" placeholder=" ادخل اسم العميل" (keyup)="filterTable($event)">
             </div>
             <div class="row prodTable margin-top-xl">
@@ -59,15 +99,22 @@
                                 <td>{{x.getDate()}}</td>
                                 <td>{{x.getCustomerName()}}</td>
                                 <td>{{x.getTotal()}}</td>
-                                <td> <a [href]="x.geturl()" target="_blank" class="url"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                                <td> <a [href]="x.geturl()" target="_blank" class="url"><i
+                                            class="bi bi-box-arrow-up-right"></i></a></td>
                                 <td>{{x.getPaymentMethod()}}</td>
                                 <td>{{x.getQuantity()}}</td>
                                 <td><span [ngStyle]="{'background-color':x.getCellColor()}"
                                         class="status sat">{{x.getStatus()}}</span></td>
 
-                                <td><span><button class="btn btn-small bg-success rd-50"><i class="bi bi-eye"></i>
+                                <td><span><button class="btn btn-small bg-success rd-50"
+                                            [routerLink]="['/orderdeatils',x.getID()]"><i class="bi bi-eye"></i>
                                         </button></span>
-                                    <span><button class="rd-50 btn btn-small bg-danger"><i
+                                    <span *ngIf="x.getStatus()!='ملغية'"><button
+                                            class="rd-50 btn btn-small bg-danger"><i
+                                                class="bi bi-trash"></i></button></span>
+
+                                    <span *ngIf="x.getStatus()=='ملغية'"><button style="visibility: hidden;"
+                                            class="rd-50 btn btn-small bg-danger"><i
                                                 class="bi bi-trash"></i></button></span>
                                 </td>
                             </tr>

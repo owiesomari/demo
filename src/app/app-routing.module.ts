@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: "userProfile", component: UserProfileComponent},
   {path: "wallet", component: WalletComponent},
   {path: "cart", component: CartComponent},
-  {path: "orderdeatils", component: OrdredetailsComponent}
+  {path: "orderdeatils/:order_number", component: OrdredetailsComponent}
 ];
 
 @NgModule({

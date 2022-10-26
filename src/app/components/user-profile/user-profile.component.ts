@@ -62,6 +62,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.fname = document.getElementById("fname") as HTMLInputElement
     this.lname = document.getElementById("lname") as HTMLInputElement
     this.marketerImage = document.getElementById("marketerImage") as HTMLImageElement

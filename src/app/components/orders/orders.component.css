@@ -109,3 +109,41 @@ label {
 .url:hover{
     color:#87B2ED;
 }
+
+
+
+
+#combo-tags {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+
+  .filter-button {
+    padding: 25px !important;
+    border-radius: 50% !important;
+    margin-bottom: 4px;
+    margin-left: 10px;
+    background-color: #fff ;
+    cursor: pointer;
+  }
+
+  .idButton {
+    background-color: #fff ;
+    border: 1px solid red !important;
+    color: #ce0000 !important;
+    cursor: pointer;
+  }
+  
+  .idButton:hover {
+    background-color: #ce0000 !important;
+    color: #fff !important;
+    cursor: pointer !important;
+  }
+
+  .combo-icon {
+  width: 40px;
+  height: 40px;
+}
+

@@ -73,6 +73,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     var total: HTMLSpanElement = (document.getElementById("totalCost")) as HTMLSpanElement
 
     var totalCost = 0;
