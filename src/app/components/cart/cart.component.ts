@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/Entities/Cart';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +11,7 @@ export class CartComponent implements OnInit {
 
   cartData: Cart[] = [];
 
-
-  constructor() {
+  constructor(private router: Router) {
     this.cartData = [
       new Cart(1, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
       new Cart(2, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
@@ -19,6 +19,16 @@ export class CartComponent implements OnInit {
       new Cart(4, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
       new Cart(5, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15)
     ];
+  }
+
+  remove(event: any) {
+    var id = event.target.id;
+    //call api  to delete 
+    var indexToBeDeleted = this.cartData.findIndex(d => d.getID() == id);
+    this.cartData.splice(indexToBeDeleted, 1);
+    console.log(this.cartData)
+    if (this.cartData.length == 0) this.router.navigateByUrl('/catalog')
+    else window.location.reload();
   }
 
   calculations(event: any) {
@@ -69,7 +79,7 @@ export class CartComponent implements OnInit {
       totalSell += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value)
       totalCost += this.cartData[i].getCost();
     }
-    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = Math.round(Number(totalSell - totalCost - 1) * 100) / 100 + "د.أ";
+    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = Math.round(Number(totalSell - totalCost - 1) * 100) / 100 + " د.أ";
   }
 
   ngOnInit(): void {
@@ -81,8 +91,8 @@ export class CartComponent implements OnInit {
       totalCost += this.cartData[i].getCost();
     }
 
-    total.innerText = totalCost.toString() + "د.أ";
-    ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = totalCost + 2.75 + "د.أ";
+    total.innerText = totalCost.toString() + " د.أ";
+    ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = totalCost + 2.75 + " د.أ";
 
 
     //from customer
@@ -94,10 +104,7 @@ export class CartComponent implements OnInit {
 
 
     //profit
-    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = fromCustomer_ - totalCost - 1 + "د.أ";
-
-
-
+    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = fromCustomer_ - totalCost - 1 + " د.أ";
 
   }
 }

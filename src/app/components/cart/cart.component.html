@@ -51,7 +51,7 @@
                                 </p>
                             </td>
                             <td style="padding-top: 40px;">
-                                <span style="cursor: pointer;"><i class="bi bi-trash"></i></span>
+                                <span style="cursor: pointer;"><i [id]="c.getID()" (click)="remove($event)" class="bi bi-trash"></i></span>
                             </td>
                         </tr>
                     </tbody>
@@ -119,10 +119,20 @@
                             <label for="inputEmail4">العنوان*</label> <span class="note green-text">بالتفصيل (المنطقة,
                                 اسم الشارع, معلم مميز , رقم الشقة)</span>
                             <textarea class="form-control client" id="inputEmail4" rows="3"
-                                placeholder="ادخل تفاصيل العنوان الكاملة هنا" style="margin-top: 8px;"></textarea>
+                                placeholder="ادخل تفاصيل العنوان الكاملة هنا" style="margin-top: 8px;resize: none;"></textarea>
                         </div>
                         <span style="color: #ce0000;">كلما كان العنوان مفصل أكثر كان التوصيل أسرع للطلب </span>
                     </div>
+
+                    <div class="row margin-top-m">
+                        <div class="form-group">
+                            <label for="notes">ملاحظاتك على الطلب</label> 
+                            <textarea class="form-control client" id="notes" rows="3"
+                                placeholder="الرجاء ادخال ملاحظاتك هنا" style="margin-top: 8px;resize: none;"></textarea>
+                        </div>
+                    </div>
+
+
                 </form>
             </div>
             <div class="col-md-1"></div>
@@ -133,30 +143,30 @@
 
                 <div class="row">
                     <div class="col-md-6"> <span>اجمالي سعر تكلفة المنتجات</span> &nbsp;&nbsp;&nbsp;<span
-                            id="totalCost"></span></div>
+                            id="totalCost" class="bold"></span></div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">تكلفة شحن الطلب&nbsp;&nbsp;&nbsp;<span>2.75 د.أ</span></div>
+                    <div class="col-md-6">تكلفة شحن الطلب&nbsp;&nbsp;&nbsp;<span class="bold">2.75 د.أ</span></div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">اجمالي التكلفة&nbsp;&nbsp;&nbsp;<span id="totalCostPlusShiping"></span></div>
+                    <div class="col-md-6">اجمالي التكلفة&nbsp;&nbsp;&nbsp;<span class="bold" id="totalCostPlusShiping"></span></div>
                 </div>
                 <br>
                 <div class="row">
                     <h3>المبلغ المراد تحصيله من العميل</h3>
-                    <p>* بعد إضافة تكلفة الشحن </p>
-                    <h2 style="width: 50%;margin:auto;"><span id="fromCustomer"></span></h2>
+                    <p class="text-muted">* بعد إضافة تكلفة الشحن </p>
+                    <h2 style="width: 50%;margin:auto;"><span class="bold" id="fromCustomer"></span></h2>
                 </div>
 
                 <hr>
                 <div class="row">
-                    <div class="col-md-6">تكلفة تجهيز الطلب&nbsp;&nbsp;&nbsp;<span>1 د.أ</span></div>
+                    <div class="col-md-6">تكلفة تجهيز الطلب&nbsp;&nbsp;&nbsp;<span class="bold">1 د.أ</span></div>
                 </div>
 
                 <div class="row">
-                    <h3>ارباحك من الطلب:&nbsp;&nbsp;&nbsp;<span id="your_profit" class="green-text">15.5د.أ</span></h3>
+                    <h3>ارباحك من الطلب:&nbsp;&nbsp;&nbsp;<span id="your_profit" class="green-text bold">15.5د.أ</span></h3>
                     <span>* بعد إضافة تكلفة الشحن </span>
                 </div>
 
@@ -166,21 +176,24 @@
 
                 <hr>
 
-                <tr class="payment-method">
-                    <td colspan="2">
-                        <p class="top"><i class="icofont-wallet"></i> طريقة الدفع</p>
-                        <div class="payment-methods d-flex flex-column">
-                            <p>الرجاء إختيار طريقة الدفع المفضلة لهذا الطلب.</p>
-                            <input type="hidden" name="payment_method" value="delivery">
-                            <label class="form-group btn d-flex align-items-center active" data-val="delivery">
-                                <i></i> دفع عند الاستلام
-                            </label>
-                            <label class="form-group btn d-flex align-items-center" data-val="direct">
-                                <i></i> دفع الكتروني
-                            </label>
-                        </div>
-                    </td>
-                </tr>
+                <div class="payment-method">
+                    
+                        <h5 class="methods-title">طريقة الدفع</h5>
+                   
+                        <div class="method-input">
+
+                            <h5 class="text-muted">الرجاء إختيار طريقة الدفع المفضلة لهذا الطلب.</h5>
+
+                    <input class="margin-top-m"  type="radio" name="methods" checked>&nbsp; <span class="red-text">دفع عند الاستلام</span>
+                    <br>
+                    <input class="margin-top-s" type="radio" name="methods">&nbsp;<span class="red-text">الدفع من المحفظة</span>
+                    <br>
+                    <input class="margin-top-s" type="radio" name="methods">&nbsp;<span class="red-text">دفع الكتروني</span>
+                </div>
+
+                </div>
+
+              
 
                 <div class="proceed-to-checkout mt-4 text-center">
                     <button type="submit" class="btn btn-danger corner-btn"

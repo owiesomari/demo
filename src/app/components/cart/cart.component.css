@@ -32,24 +32,19 @@ table td {
     padding-bottom: 20px;
 }
 
-.payment-method td p.top {
+
+ 
+.red-text{
+    color: #ce0000;
+}
+
+.methods-title{
     background: #f0f0f0;
     color: #ce0000;
     padding: 7px 20px 10px!important;
 }
 
- .btn-w {
-    width: 200px;
-}
-
-.client{
-    background-color: #f0f0f0;
-}
-
-th{
-    font-size: 25px;
-}
-
-.table-content{
-    font-size: 22px;
+.method-input{
+    padding-left: 20px;
+    padding-right: 20px;
 }

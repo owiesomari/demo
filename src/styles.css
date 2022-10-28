@@ -197,3 +197,11 @@ button:hover{
 .corner-btn {
   border-radius: 50px;
 }
+
+.bold{
+  font-weight: bold;
+}
+
+textarea{
+  resize: none;
+}

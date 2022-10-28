@@ -1,21 +1,21 @@
 <div style="text-align: right;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a href="#" class="navbar-brand">
-                <img src="../../../assets/logo.png" height="28" alt="CoolBrand">
+            <a routerLink="/dashboard" class="navbar-brand">
+                <img src="../../../assets/logo.png" height="28" alt="">
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav">
+            <div class="collapse navbar-collapse flex" id="navbarCollapse">
+                <div class="navbar-nav" style="flex-grow:1;">
                     <a href="#" class="nav-item nav-link active" routerLink="/dashboard">لوحة التحكم</a>
 
                     <div class="dropdown nav-item nav-link">
                         <span style="color: rgba(0,0,0,.9);"> المتجر</span>
                         <i class="bi bi-arrow-down-short " style="color: rgba(0,0,0,.9);"></i>
                         <div class="dropdown-content">
-                            <a href="#" class="nav-item nav-link" routerLink="/cart">كتالوج المنتجات</a><!--catalog-->
+                            <a href="#" class="nav-item nav-link" routerLink="/catalog">كتالوج المنتجات</a><!--catalog-->
                             <a href="#" class="nav-item nav-link" routerLink="/products">منتجاتي</a>
                             <a href="#" class="nav-item nav-link" routerLink="/orders">الطلبات</a>
                         </div>
@@ -40,7 +40,17 @@
                     </div>
 
                     <a href="#" class="nav-item nav-link active" routerLink="/dashboard">تسجيل الخروج</a>
-
+                </div>
+                <div class="flex-initial">
+                  <ul class="nav">
+                    <li class="d-lg-flex">
+                      <!-- Main Header Button -->
+                      <div class="main-header-btn ml-md-1">
+                                          <a routerLink="/cart" class="btn"> <span class=" d-sm-inline">سلة المشتريات</span> <span class="badge">5</span></a>
+                                  </div>
+                      <!-- End Main Header Button -->
+                  </li>
+                  </ul>
                 </div>
             </div>
         </div>
