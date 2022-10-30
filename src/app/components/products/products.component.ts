@@ -14,6 +14,8 @@ export class ProductsComponent implements OnInit {
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
 
+  removedProductID:string =""
+
   constructor() { 
     this.products = [
       new Product(1,"../../../assets/cat1.jpeg","مغسلة صحون",3.4,7,"فعال"),
@@ -34,11 +36,10 @@ export class ProductsComponent implements OnInit {
   }
 
   openModal(event: any) {
-    this.fillModal(event?.target.id)
-    this.modalElement = document.getElementById('modal_') as HTMLElement;
+    this.removedProductID = event.target.id
+    this.modalElement = document.getElementById('close_modal') as HTMLElement;
     this.modalComponent = new Modal(this.modalElement);
     this.modalComponent.show();
-    this.setImagesEvent();
   }
 
   private fillModal(id: number) {
@@ -84,8 +85,14 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  closeModal() {
+  hideCloseModal() {
     this.modalComponent?.hide();
+    window.location.reload();
+
+  }
+
+  removeProduct(){
+    //call api and send removedProductID
 
   }
 

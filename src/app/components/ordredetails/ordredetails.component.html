@@ -98,7 +98,7 @@
             <div class="card mb-4" style="border:none; border-radius: 0;">
                 <div class="card-body">
                     <h4 class="styleh4">فاتورة الطلب</h4>
-                    <button class="bttn"> <i class="bi bi-printer" style="position: absolute;right:17px;font-size:20px;top: 12px;"></i>طباعة الفاتورة</button>
+                    <button class="bttn" (click)="print()"> <i class="bi bi-printer" style="position: absolute;right:17px;font-size:20px;top: 12px;"></i>طباعة الفاتورة</button>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
                 <div style="margin-bottom: 1rem;">
                     <textarea placeholder="يرجى إدخال سبب الإلغاء هنا" id="reason" name="reason"
                         class="styletextarea"></textarea>
-                    <input class="btn bg-danger" type="button"  value="الغاء">
+                    <input class="btn btn-danger" type="button" id="cacel_btn" value="الغاء" style="width: 100px;">
                 </div>
             </div>
         </div>

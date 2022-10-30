@@ -10,6 +10,7 @@ export class UserProfileComponent implements OnInit {
 
   private fname: HTMLInputElement | undefined
   private lname: HTMLInputElement | undefined
+  private username: HTMLInputElement | undefined
   private email: HTMLInputElement | undefined
   private phone: HTMLInputElement | undefined
   private country: HTMLInputElement | undefined
@@ -63,27 +64,28 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.fname = document.getElementById("fname") as HTMLInputElement
-    this.lname = document.getElementById("lname") as HTMLInputElement
-    this.marketerImage = document.getElementById("marketerImage") as HTMLImageElement
-    this.email = document.getElementById("email") as HTMLInputElement
-    this.phone = document.getElementById("phone") as HTMLInputElement
-    this.country = document.getElementById("country") as HTMLInputElement
-    this.city = document.getElementById("city") as HTMLInputElement
-    this.place = document.getElementById("place") as HTMLInputElement
-    this.address1 = document.getElementById("address1") as HTMLInputElement
-    this.address2 = document.getElementById("address2") as HTMLInputElement
-    this.postal = document.getElementById("postal") as HTMLInputElement
-    this.company = document.getElementById("company") as HTMLInputElement
-    this.shopify = document.getElementById("shopify") as HTMLInputElement
-    this.facebook = document.getElementById("facebook") as HTMLInputElement
-    this.insta = document.getElementById("insta") as HTMLInputElement
-    this.oldPassword = document.getElementById("oldPassword") as HTMLInputElement
-    this.newPassword = document.getElementById("newPassword") as HTMLInputElement
-    this.confirmNewPassword = document.getElementById("confirmNewPassword") as HTMLInputElement
+    this.fname = document.getElementById("fname") as HTMLInputElement;
+    this.lname = document.getElementById("lname") as HTMLInputElement;
+    this.username = document.getElementById("username") as HTMLInputElement;
+    this.marketerImage = document.getElementById("marketerImage") as HTMLImageElement;
+    this.email = document.getElementById("email") as HTMLInputElement;
+    this.phone = document.getElementById("phone") as HTMLInputElement;
+    this.country = document.getElementById("country") as HTMLInputElement;
+    this.city = document.getElementById("city") as HTMLInputElement;
+    this.place = document.getElementById("place") as HTMLInputElement;
+    this.address1 = document.getElementById("address1") as HTMLInputElement;
+    this.address2 = document.getElementById("address2") as HTMLInputElement;
+    this.postal = document.getElementById("postal") as HTMLInputElement;
+    this.company = document.getElementById("company") as HTMLInputElement;
+    this.shopify = document.getElementById("shopify") as HTMLInputElement;
+    this.facebook = document.getElementById("facebook") as HTMLInputElement;
+    this.insta = document.getElementById("insta") as HTMLInputElement;
+    this.oldPassword = document.getElementById("oldPassword") as HTMLInputElement;
+    this.newPassword = document.getElementById("newPassword") as HTMLInputElement;
+    this.confirmNewPassword = document.getElementById("confirmNewPassword") as HTMLInputElement;
 
-    this.fname.value = "Owies"
-    this.lname.value = "Alomari"
+    this.fname.value = "Owies";
+    this.lname.value = "Alomari";
   }
 
 }
