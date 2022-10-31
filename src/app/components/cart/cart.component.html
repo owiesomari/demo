@@ -35,9 +35,7 @@
                                     style="width: 300px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
                                     id="sellingPrice,{{c.getID()}}" min="0" [value]="c.getSellingPrice()"
                                     (keyup)="calculations($event)" (change)="calculations($event)">
-                                <!-- <span
-                                    style="background-color: #f0f0f0;padding:12px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;">د.أ</span>-->
-
+                                
                             </td>
                             <td style="padding-top: 40px;">
                                 <input class="effect-9 qantity" type="number"
@@ -66,8 +64,8 @@
                 <h2>تفاصيل الشحن</h2>
                 <form style="width: 70%;">
                     <div class="form-group">
-                        <label for="inputAddress">الإسم*</label>
-                        <input type="text" class="form-control client" id="inputAddress"
+                        <label for="customer_name">الإسم*</label>
+                        <input type="text" class="form-control client" id="customer_name"
                             placeholder="ادخل اسم العميل هنا">
                     </div>
                     <br>
@@ -102,8 +100,8 @@
 
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">رقم الهاتف*</label>
-                            <input type="text" class="form-control client" id="inputEmail4"
+                            <label for="phone">رقم الهاتف*</label>
+                            <input type="text" class="form-control client" id="phone"
                                 placeholder="ادخل رقم الهاتف">
                         </div>
                         <div class="form-group col-md-6">
@@ -116,9 +114,9 @@
                     <br>
                     <div class="row">
                         <div class="form-group">
-                            <label for="inputEmail4">العنوان*</label> <span class="note green-text">بالتفصيل (المنطقة,
+                            <label for="address">العنوان*</label> <span class="note green-text">بالتفصيل (المنطقة,
                                 اسم الشارع, معلم مميز , رقم الشقة)</span>
-                            <textarea class="form-control client" id="inputEmail4" rows="3"
+                            <textarea class="form-control client" id="address" rows="3"
                                 placeholder="ادخل تفاصيل العنوان الكاملة هنا" style="margin-top: 8px;resize: none;"></textarea>
                         </div>
                         <span style="color: #ce0000;">كلما كان العنوان مفصل أكثر كان التوصيل أسرع للطلب </span>
@@ -193,14 +191,31 @@
 
                 </div>
 
-              
-
                 <div class="proceed-to-checkout mt-4 text-center">
                     <button type="submit" class="btn btn-danger corner-btn"
-                        style="width: 200px;padding: 10px;font-size: 20px;">اعتماد الطلب الآن</button>
+                        style="width: 200px;padding: 10px;font-size: 20px;" (click)="createOrder()">اعتماد الطلب الآن</button>
                 </div>
 
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Error Modal -->
+<div class="modal fade " id="error_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+  <div class="modal-dialog modal-l " role="document">
+    <div class="modal-content alert alert-danger">
+
+      <div class="modal-body alert alert-danger" style="text-align: center;">
+        <i style="font-size: 70px;" class="bi bi-exclamation-circle"></i>
+        <div class="row" style="padding: 10px;text-align: right;">
+          <h4  style="font-weight: 600; " id="body"> </h4>
+        </div>
+      </div>
+      <div class="margin-top-xl" style="text-align: center;">
+        <input type="button" class="btn btn-secondary"  (click)="hidErrorModal()" value="اغلاق" style="width: 100px;cursor: pointer !important;">
+      </div>
+    </div>
+  </div>
 </div>

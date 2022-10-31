@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/Entities/Cart';
 import { Router } from '@angular/router';
+import { Validator } from 'src/app/utils/Valitator';
+import { Modal } from 'bootstrap';
+
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +13,18 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
 
   cartData: Cart[] = [];
+  private errorMsgs: string[] = [];
+  private customerName: HTMLInputElement | undefined
+  private phoneNumber: HTMLInputElement | undefined
+  private address: HTMLInputElement | undefined
+  modalElement: HTMLElement | undefined
+  modalComponent: Modal | undefined
+
+
+  private validator: Validator | undefined
 
   constructor(private router: Router) {
+    this.validator = new Validator();
     this.cartData = [
       new Cart(1, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
       new Cart(2, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
@@ -82,7 +95,70 @@ export class CartComponent implements OnInit {
     ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = Math.round(Number(totalSell - totalCost - 1) * 100) / 100 + " د.أ";
   }
 
+  createOrder() {
+    debugger
+    if(!this.validations())
+    return;
+    
+    //else call api 
+
+  }
+
+  validations(): Boolean {
+    this.errorMsgs = []
+    if (this.validator?.isElementEmpty(this.customerName)) {
+      this.errorMsgs.push("حقل اسم العميل مطلوب")
+    }
+
+    if (this.validator?.isElementEmpty(this.phoneNumber)) {
+      this.errorMsgs.push("حقل رقم الهاتف مطلوب")
+    }
+
+    if (this.validator?.isElementEmpty(this.address)) {
+      this.errorMsgs.push("حقل العنوان مطلوب")
+    }
+
+    this.validateSellingPrice();
+
+    if (this.errorMsgs.length == 0) {
+      return true
+    } else {
+      this.openErrorModal();
+      return false;
+    }
+  }
+
+  validateSellingPrice() {
+    var sells: HTMLCollection = document.getElementsByClassName("sell");
+    for (var i = 0; i < this.cartData.length; i++) {
+      if (Number((sells[i] as HTMLInputElement).value) < this.cartData[i].getCost()) {
+        this.errorMsgs.push("يرجى التاكد من ان الاسعار اكبر من سعر التكلفة")
+        return;
+      }
+    }
+  }
+
+  openErrorModal() {
+    var msg = ""
+    for (var i = 0; i < this.errorMsgs.length; i++) {
+      msg += "* " + this.errorMsgs[i] + "\n";
+    }
+    (document.getElementById("body") as HTMLHeadingElement).innerText = msg;
+    this.modalElement = document.getElementById('error_modal') as HTMLElement;
+    this.modalComponent = new Modal(this.modalElement);
+    this.modalComponent.show();
+  }
+
+  hidErrorModal() {
+    this.modalComponent?.hide();
+  }
+
   ngOnInit(): void {
+    this.customerName = document.getElementById("customer_name") as HTMLInputElement
+    this.phoneNumber = document.getElementById("phone") as HTMLInputElement
+    this.address = document.getElementById("address") as HTMLInputElement
+
+
     window.scrollTo(0, 0);
     var total: HTMLSpanElement = (document.getElementById("totalCost")) as HTMLSpanElement
 
