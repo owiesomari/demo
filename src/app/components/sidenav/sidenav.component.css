@@ -53,13 +53,129 @@
   display: inline!important;
 }
 
-.badge {
-  padding: 0.25em 0.4em;
-  border-radius:0 ;
+.badge-me {
+  padding: 0.25em 0.4em !important;
+  border-radius:50% !important;
   -webkit-border-radius:0 ;
   -moz-border-radius:0 ;
   -ms-border-radius:0 ;
   -o-border-radius:0 ;
-  color: #fff;
-  background-color: #28a745;
+  color: #fff!important;
+  background-color: #28a745!important;
+}
+
+.header-icon {
+  background-color: #eee;
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  left:3px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.bg-img {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.count {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  position: absolute;
+  right: 0px;
+  top: -5px;
+  color:white;
+}
+
+.dropdown-header {
+  background-color: #FAFAFA;
+  padding: 5px 20px;
+  display: flex!important;
+  font-size: .875rem;
+  align-items: center!important;
+  justify-content: space-between!important;
+}
+
+.dropdown-header h5 {
+  font-size: 16px;
+}
+
+.text-mute {
+  color: #FE5280;
+  width: auto;
+  padding: 0;
+  font-size: 12px;
+}
+
+.dropdown-body {
+  max-height: 300px;
+  overflow-y: scroll;
+  padding: 8px 20px;
+  color: #727272;
+}
+
+.dropdown-menu {
+  text-align: right;
+  min-width: 300px;
+  width: 300px;
+  display: block;
+  border: none;
+  padding: 11px 0 14px;
+}
+
+.item-single {
+  padding: 15px 0px 10px;
+  border-bottom: 1px solid #F5F5F5;
+  margin-bottom: 0;
+  display: flex!important;
+  align-items: center!important;
+}
+
+.content {
+  box-sizing: border-box;
+}
+
+.time {
+  font-size: 12px;
+  color: #aeaeae;
+}
+
+.main-text {
+  font-size: 15px;
+  color: #727272;
+}
+
+.main-text:hover {
+  color: #ce0000;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main-header-search {
+  background-color: #eee;
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  right: 20px;
+  -webkit-border-radius: 50%;
+  margin-left:20px;
+
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -23,6 +24,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrdredetailsComponent } from './components/ordredetails/ordredetails.component';
+import { CatalogService } from './services/catalog.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,7 @@ import { OrdredetailsComponent } from './components/ordredetails/ordredetails.co
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -50,7 +53,7 @@ import { OrdredetailsComponent } from './components/ordredetails/ordredetails.co
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [CatalogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
