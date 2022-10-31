@@ -14,14 +14,17 @@ export class ProductsComponent implements OnInit {
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
 
+  catalogModalElement: HTMLElement | undefined
+  catalogModalComponent: Modal | undefined
+
   removedProductID:string =""
 
   constructor() { 
     this.products = [
       new Product(1,"../../../assets/cat1.jpeg","مغسلة صحون",3.4,7,"فعال"),
-      new Product(1,"../../../assets/cat2.jpeg","مغسلة صحون",3.4,7,"فعال"),
-      new Product(1,"../../../assets/cat3.jpeg","مغسلة صحون",3.4,7,"فعال"),
-      new Product(1,"../../../assets/cat4.jpeg","مغسلة صحون",3.4,7,"فعال"),
+      new Product(2,"../../../assets/cat2.jpeg","مغسلة اواني",9.4,7,"فعال"),
+      new Product(3,"../../../assets/cat3.jpeg","مغسلة صحون",3.4,7,"فعال"),
+      new Product(4,"../../../assets/cat4.jpeg","مغسلة صحون",3.4,7,"فعال"),
 
     ]
     this.tempProducts = this.products;
@@ -42,17 +45,26 @@ export class ProductsComponent implements OnInit {
     this.modalComponent.show();
   }
 
+  openCatalogModal(event: any) {
+    //this.removedProductID = event.target.id
+    this.fillModal(event.target.id)
+    this.catalogModalElement = document.getElementById('modal') as HTMLElement;
+    this.catalogModalComponent = new Modal(this.catalogModalElement);
+    this.catalogModalComponent.show();
+  }
+
   private fillModal(id: number) {
+    this.setImagesEvent()
     var a = this.products.filter((obj) => {
       return obj.getID() == id;
     })[0];
     (document.getElementById("title") as HTMLHeadingElement).innerText = a.getTitle().toString();
-    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.getCost().toString();
-   /* (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.getWeight().toString();
+    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.getCost().toString() + " د.أ"
+   /*(document.getElementById("wieght") as HTMLTableCellElement).innerText = a.getWeight().toString();
     (document.getElementById("sku") as HTMLTableCellElement).innerText = a.getSKU().toString();
     (document.getElementById("place") as HTMLTableCellElement).innerText = a.getCountryOfManufacture().toString();
     (document.getElementById("quality") as HTMLTableCellElement).innerText = a.getQuality().toString();
-    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString();
+    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString()+ " د.أ";
     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
     (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.getDimentions().toString();
@@ -89,6 +101,11 @@ export class ProductsComponent implements OnInit {
     this.modalComponent?.hide();
     window.location.reload();
 
+  }
+
+  closeCatalogModal(){
+    this.catalogModalComponent?.hide();
+    window.location.reload();
   }
 
   removeProduct(){

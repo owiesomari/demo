@@ -27,13 +27,13 @@
 
         <tbody>
           <tr *ngFor="let x of tempProducts">
-            <td>{{x.getID()}}</td>
-            <td><img src="{{x.getImage()}}" width="50" height="50" style="border-radius: 50%"></td>
-            <td>{{x.getTitle()}}</td>
-            <td>{{x.getCost()}}</td>
-            <td>{{x.getSellingPrice()}}</td>
-            <td>{{x.getStatus()}}</td>
-            <td><span><button class="btn btn-small bg-success rd-50"><i class="bi bi-eye"></i> </button></span>
+            <td class="product-td">{{x.getID()}}</td>
+            <td class="product-td"><img src="{{x.getImage()}}" width="50" height="50" style="border-radius: 50%"></td>
+            <td class="product-td">{{x.getTitle()}}</td>
+            <td class="product-td">{{x.getCost()}}</td>
+            <td class="product-td">{{x.getSellingPrice()}}</td>
+            <td class="product-td">{{x.getStatus()}}</td>
+            <td class="product-td"><span><button class="btn btn-small bg-success rd-50" (click)="openCatalogModal($event)" [id]="x.getID()"><i (click)="openCatalogModal($event)" [id]="x.getID()" class="bi bi-eye"></i> </button></span>
               <span><button (click)="openModal($event)" [id]="x.getID()" class="rd-50 btn btn-small bg-danger"><i
                     (click)="openModal($event)" [id]="x.getID()" class="bi bi-trash"></i></button></span>
             </td>
@@ -44,11 +44,9 @@
   </div>
 </div>
 
-
 <!-- Cancle Modal -->
-<div class="modal fade" id="close_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  >
-  <div class="modal-dialog modal-l " role="document">
+<div class="modal fade" id="close_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+  <div class="modal-dialog modal-l" role="document">
     <div class="modal-content">
 
       <div class="modal-body" style="text-align: center;">
@@ -60,6 +58,123 @@
         <div class="margin-top-xl">
           <input type="button" class="btn btn-danger margin-left-m" value="نعم" (click)="removeProduct()" style="width: 100px;">
           <input type="button" class="btn btn-secondary" [id]="" (click)="hideCloseModal()" value="لا" style="width: 100px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  style="width: 100%">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" style="border: none;background-color:#fff;"
+          aria-label="Close" (click)="closeCatalogModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-lg-4" id="catalogImages">
+            <!-- images-->
+            <img src="../../../assets/cat1.jpeg" id="mainImg" height="400" style="width: 80%;" />
+            <img src="../../../assets/cat2.jpeg" width="100" height="100" class="margin-top-xl">
+            <img src="../../../assets/cat2.jpeg" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" width="100" height="100">
+          </div><!-- End images-->
+
+          <div class="col-md-8 col-sm-8 col-lg-8 margin-top-xl">
+            <!--Content-->
+            <h2 id="title">ماكينة حلاقة الراس</h2>
+            <h4 id="cost">9 د.أ</h4>
+            <div class="row">
+
+              <div class="col-md-6">
+                <table>
+                  <tr>
+                    <td>
+                      <h5 style="color: green">الوزن</h5>
+                    </td>
+                    <td class="text-muted" id="wieght">0.6 كغ</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">SKU</h5>
+                    </td>
+                    <td class="text-muted" id="sku">PC-m1-01</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green; width: 80px;">بلد المنشا</h5>
+                    </td>
+                    <td class="text-muted" id="place">الصين</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">الجودة</h5>
+                    </td>
+                    <td class="text-muted" id="quality">ممتاز</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="col-md-6">
+                <table>
+                  <tr>
+                    <td>
+                      <h5 style="color: green">سعر البيع المقترح</h5>
+                    </td>
+                    <td class="text-muted" id="siling">15 د.ا</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">الكفالة</h5>
+                    </td>
+                    <td class="text-muted" id="quaranty">تشغيلية </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green; width: 130px;">اصلي </h5>
+                    </td>
+                    <td class="text-muted" id="orginal">نعم</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">ابعاد المنتج</h5>
+                    </td>
+                    <td class="text-muted" id="dimentions">20X40X56 مم</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h5 style="color: green">فيديو تسويقي للمنتج</h5>
+                    </td>
+                    <td class="text-muted"><a href="#" id="totoriul"></a></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <button id="downloadPhotos" class="btn  margin-top-xl"> <i class="bi bi-download"
+                style="margin-left: 10px"></i>تحميل صور المنتج</button>
+
+            <h4 class="margin-top-xxl" style="font-weight: 500;">الوصف</h4>
+            <textarea style="width: 100%; border-radius: 5px;" rows="8" id="description" class="form-control"
+              disabled></textarea>
+
+          </div>
+          <!--End Content-->
+
         </div>
       </div>
     </div>

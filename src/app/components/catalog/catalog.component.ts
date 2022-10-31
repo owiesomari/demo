@@ -302,12 +302,12 @@ export class CatalogComponent implements OnInit {
       return obj.getID() == id;
     })[0];
     (document.getElementById("title") as HTMLHeadingElement).innerText = a.getTitle().toString();
-    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.getCost().toString();
+    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.getCost().toString() + " د.أ";
     (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.getWeight().toString();
     (document.getElementById("sku") as HTMLTableCellElement).innerText = a.getSKU().toString();
     (document.getElementById("place") as HTMLTableCellElement).innerText = a.getCountryOfManufacture().toString();
     (document.getElementById("quality") as HTMLTableCellElement).innerText = a.getQuality().toString();
-    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString();
+    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString()+ " د.أ";
     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
     (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.getDimentions().toString();
