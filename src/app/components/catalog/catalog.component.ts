@@ -23,12 +23,13 @@ export class CatalogComponent implements OnInit {
 
   constructor(catalogService: CatalogService) {
 
-    catalogService.getProducts().subscribe(res => {
-      console.log(res)
+    catalogService.getProducts().subscribe(res =>{
+console.log(res)
 
-    }, err => {
-      console.log(err)
+    },err =>{
+console.log(err)
     })
+
 
     this.catalogs = [
       new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "fgdfgdfgdfgdf\nrtrtrterrt\ntreterer", "h"),

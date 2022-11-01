@@ -11,7 +11,7 @@ export class CatalogService {
 
   //testing -- remove it
 
-  getPosts():Observable<any>{
+  getProducts():Observable<any>{
     return this.http.get("https://jsonplaceholder.typicode.com/posts")
   }
 }
