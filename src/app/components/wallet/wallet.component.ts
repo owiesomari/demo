@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Modal } from 'bootstrap';
+
 
 @Component({
   selector: 'app-wallet',
@@ -6,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wallet.component.css']
 })
 export class WalletComponent implements OnInit {
+
+  modalElement: HTMLElement | undefined
+  modalComponent: Modal | undefined
+
 
   constructor() { }
 
@@ -34,7 +40,15 @@ export class WalletComponent implements OnInit {
     }
   }
 
+  openModal() {
+   // this.removedProductID = event.target.id
+    this.modalElement = document.getElementById('withdrawModal') as HTMLElement;
+    this.modalComponent = new Modal(this.modalElement);
+    this.modalComponent.show();
+  }
+
   ngOnInit(): void {
+    this.openModal();
     window.scrollTo(0, 0);
   }
 

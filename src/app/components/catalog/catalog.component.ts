@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { Catalog } from 'src/app/Entities/Catalog';
+import { CatalogService } from 'src/app/services/catalog.service';
 
 @Component({
   selector: 'app-catalog',
@@ -18,10 +19,17 @@ export class CatalogComponent implements OnInit {
   tempFilteredCatalogs: Catalog[] = [];
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
-
   modalProductID = 0
 
-  constructor() {
+  constructor(catalogService: CatalogService) {
+
+    catalogService.getProducts().subscribe(res => {
+      console.log(res)
+
+    }, err => {
+      console.log(err)
+    })
+
     this.catalogs = [
       new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "fgdfgdfgdfgdf\nrtrtrterrt\ntreterer", "h"),
       new Catalog(2, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
@@ -307,7 +315,7 @@ export class CatalogComponent implements OnInit {
     (document.getElementById("sku") as HTMLTableCellElement).innerText = a.getSKU().toString();
     (document.getElementById("place") as HTMLTableCellElement).innerText = a.getCountryOfManufacture().toString();
     (document.getElementById("quality") as HTMLTableCellElement).innerText = a.getQuality().toString();
-    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString()+ " د.أ";
+    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString() + " د.أ";
     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
     (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.getDimentions().toString();
