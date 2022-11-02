@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { AllProduct, Catalog } from 'src/app/Entities/Catalog';
 import { CatalogService } from 'src/app/services/catalog.service';
+import { Alert } from 'src/app/utils/Alert';
 
 @Component({
   selector: 'app-catalog',
@@ -20,15 +21,17 @@ export class CatalogComponent implements OnInit {
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
   modalProductSku = ""
+  globalcatalogService: CatalogService
+  alert = new Alert();
 
   constructor(catalogService: CatalogService) {
-
+    this.globalcatalogService=catalogService
     catalogService.getProducts().subscribe(res => {
-      console.log(res)
+     // console.log(res)
 
     }, err => {
 
-      console.log(err)
+     // console.log(err)
     })
 
     var p1 = new AllProduct()
@@ -79,14 +82,15 @@ export class CatalogComponent implements OnInit {
     p2.color = "red"
     p2.brand = "fsdfds"
     p2.dimension = "wdsa"
-    p2.marketingVideoUrl = "213"
-    p2.tutorialVideoUrl = "3131"
-    p2.active = true
+    p2.marketingVideoUrl = ""
+    p2.tutorialVideoUrl = ""
+    p2.active = false
 
 
-    for(var i =0;i<100;i++){
-    this.catalogs.allProducts.push(p1);
-    this.catalogs.allProducts.push(p2);
+
+    for (var i = 0; i < 100; i++) {
+      this.catalogs.allProducts.push(p1);
+      this.catalogs.allProducts.push(p2);
     }
 
     this.tempCatalogs = this.catalogs.allProducts;
@@ -285,9 +289,12 @@ export class CatalogComponent implements OnInit {
     (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original.toString();
     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
     (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
-    (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
-    (document.getElementById("totoriul") as HTMLAnchorElement).innerHTML = a.marketingVideoUrl.toString();//change
+    if (a.marketingVideoUrl != null && a.marketingVideoUrl !="")   {
+      (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
 
+    } else {
+      (document.getElementById("totoriulRow") as HTMLTableRowElement).style.display = 'none'
+    }
   }
 
   private setImagesEvent() {
@@ -327,35 +334,35 @@ export class CatalogComponent implements OnInit {
       } break;
 
       case "house": {
-        this.filterData("h");
+        this.filterData("house");
       } break;
 
       case "cosmetic": {
-        this.filterData("c");
+        this.filterData("cosmetic");
       } break;
 
       case "gaming": {
-        this.filterData("g");
+        this.filterData("gaming");
       } break;
 
       case "watch": {
-        this.filterData("w");
+        this.filterData("watch");
       } break;
 
       case "pafrum": {
-        this.filterData("p");
+        this.filterData("pafrum");
       } break;
 
       case "solar": {
-        this.filterData("s");
+        this.filterData("solar");
       } break;
 
       case "electricity": {
-        this.filterData("e");
+        this.filterData("electricity");
       } break;
 
       case "others": {
-        this.filterData("o");
+        this.filterData("others");
       } break;
 
 
@@ -397,14 +404,29 @@ export class CatalogComponent implements OnInit {
     return this.modalProductSku
   }
 
-  addToMyProducts(sku: string) {//call api
-    console.log(sku)
+  addToMyProducts(sku: string) {
+   this.globalcatalogService.addToMyProducts(sku).subscribe(res => {
+
+    this.closeModal();
+      this.alert.setupAlertDiv("s","تمت اضافة المنتجات", "تمت الاضافة الى منتجاتك بنجاح")
+      
+    }, err => {
+      this.closeModal();
+      this.alert.setupAlertDiv("f","حدث خطأ", "لم تتم الاضافة بنجاح")
+    })
 
   }
 
   addToCart(sku: string) {//call api
-    console.log(sku)
+    this.globalcatalogService.addToMyCart(sku).subscribe(res => {
+      this.closeModal();
+      this.alert.setupAlertDiv("s","تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح")
 
+    }, err => {
+      this.closeModal();
+      this.alert.setupAlertDiv("f","حدث خطأ", "لم تتم الاضافة بنجاح")
+
+    })
   }
 
   ngOnInit(): void {

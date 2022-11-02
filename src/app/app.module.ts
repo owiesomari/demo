@@ -25,6 +25,7 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrdredetailsComponent } from './components/ordredetails/ordredetails.component';
 import { CatalogService } from './services/catalog.service';
+import { OrderdetailsService } from './services/orderdetails/orderdetails.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,7 @@ import { CatalogService } from './services/catalog.service';
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
-  providers: [CatalogService],
+  providers: [CatalogService, OrderdetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

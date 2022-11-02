@@ -179,3 +179,9 @@ a {
   margin-left:20px;
 
 }
+
+.algin{
+  display: inline-flex;
+
+    align-items: center;
+}

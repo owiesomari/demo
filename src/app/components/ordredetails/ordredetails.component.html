@@ -1,185 +1,184 @@
-    <div id="container">
+<div id="container">
     <div class="row" style="padding: 30px;">
-    <div class="col-md-8 ">
-        <h5 class="title1">الطلب #{{getOrderNumber()}}</h5>
-        <div class="row child-one">
-            <h5 class="title2">تفاصيل الطلب</h5>
-            <table class="table table-bordered bbord">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="row child-two">
-            <h5>تفاصيل المنتجات</h5>
-            <div class="table-responsive">
-                <table class="table cart_table text-nowrap table-centered">
-                    <thead class="theadd">
-                        <tr style=" border-bottom: 1px solid #aeaeae;">
-                            <th scope="col">#</th>
-                            <th scope="col">صوره</th>
-                            <th scope="col">الوصف</th>
-                            <th scope="col">سعر التكلفه</th>
-                            <th scope="col">سعر البيع</th>
-                            <th scope="col">الكميه</th>
-                            <th scope="col">الاجمالي</th>
+        <div class="col-md-8 ">
+            <h5 class="title1">الطلب #{{orderNumber}}</h5>
+            <div class="row child-one">
+                <h5 class="title2">تفاصيل الطلب</h5>
+                <table class="table table-bordered bbord">
+                    <thead>
+                        <tr>
+                            <th scope="col">اسم المسوق</th>
+                            <th scope="col">تاريخ الشراء</th>
+                            <th scope="col">حالة الطلب</th>
+                            <th scope="col">طريقة الدفع</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">ddddd</th>
-                            <td>Mark</td>
-                            <td>لكميائي القوي للمغسله والصرف الصحي</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-
-        <div class=" row bgcolorfff">
-            <div style=" padding: 1.25rem;">
-                <h4 class="styleh4">تفاصيل الشحن</h4>
-                <table class="table table-bordered mt-3">
-                    <tbody>
-                        <tr>
-                            <td class="stylefirsttd">الاسم</td>
-                            <td class="stylesecondtd">Owies Alomari
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="stylefirsttd">المتجر</td>
-                            <td class="stylesecondtd">jhbvg</td>
-                        </tr>
-                        <tr>
-                            <td class="stylefirsttd">رقم الهاتف</td>
-                            <td class="stylesecondtd">0797048997</td>
-                        </tr>
-                        <tr>
-                            <td class="stylefirsttd">الدولة</td>
-                            <td class="stylesecondtd">الأردن</td>
-                        </tr>
-                        <tr>
-                            <td class="stylefirsttd">المدينة</td>
-                            <td class="stylesecondtd">Amman</td>
-                        </tr>
-                        <tr>
-                            <td class="stylefirsttd">العنوان</td>
-                            <td class="stylesecondtd">test test trst
-                            </td>
+                            <th scope="row">{{orderDeails.marketerName}}</th>
+                            <td>{{orderDeails.orderDetails.orderDate}}</td>
+                            <td>{{orderDeails.orderDetails.orderStatus}}</td>
+                            <td>{{orderDeails.orderDetails.paymentMethod}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
 
-    <div class="col-md-4 styledivparent">
-        <p></p>
-        <div class="row">
-            <div class="card mb-4" style="border:none; border-radius: 0;">
-                <div class="card-body">
-                    <h4 class="styleh4">فاتورة الطلب</h4>
-                    <button class="bttn" (click)="print()"> <i class="bi bi-printer" style="position: absolute;right:17px;font-size:20px;top: 12px;"></i>طباعة الفاتورة</button>
+            <div class="row child-two">
+                <h5>تفاصيل المنتجات</h5>
+                <div class="table-responsive">
+                    <table class="table cart_table text-nowrap table-centered">
+                        <thead class="theadd">
+                            <tr style=" border-bottom: 1px solid #aeaeae;">
+                                <th scope="col">صوره</th>
+                                <th scope="col">الوصف</th>
+                                <th scope="col">سعر التكلفه</th>
+                                <th scope="col">سعر البيع</th>
+                                <th scope="col">الكميه</th>
+                                <th scope="col">الاجمالي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let x of orderDeails.productInfos">
+                                <td><img src="{{x.iamge[0]}}" width="50" height="50" style="border-radius: 50%"></td>
+                                <td>{{x.description}}</td>
+                                <td>{{x.costPrice}}</td>
+                                <td>{{x.sellingPrice}}</td>
+                                <td>{{x.quantity}}</td>
+                                <td>{{x.totalPrice}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="card mb-4" style="border:none; border-radius: 0;">
-                <div style="padding: 1.25rem;">
-                    <h4 class="styleh4">رقم تتبع الشحنة الخاص بك</h4>
-                    <input class="styleinput"
-                        value="https://www.aramex.com/us/en/track/shipment-details?q=c2hpcG1lbnRJZD0xMDExMzExNzc3JnByb2R1Y3RHcm91cD1ET00mc2hpcG1lbnRUeXBlPSZzZWFyY2hNb2RlPSY%3d-8Cfpbe08yMM%3d"
-                        disabled="">
-                </div>
-            </div>
-        </div>
-        <div class="row" style="background-color: #fff;">
-            <div style="padding: 1.25rem;">
-                <h4 class="styleh4">إلغاء الطلب</h4>
-                <label for="reason" class="stylelabel">سبب الإلغاء</label>
-                <div style="margin-bottom: 1rem;">
-                    <textarea placeholder="يرجى إدخال سبب الإلغاء هنا" id="reason" name="reason"
-                        class="styletextarea"></textarea>
-                    <input class="btn btn-danger" type="button" id="cacel_btn" value="الغاء" style="width: 100px;">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="card stylecard">
-                <div style="padding: 1.25rem;">
-                    <h4 class="styleh4">ملخص الطلب</h4>
-                    <div>
-                        <table style=" font-size: 14px;">
-                            <tbody>
-                                <tr>
-                                    <th class="styletth">إجمالي المنتجات على المسوق</th>
-                                    <th class="styletth">
-                                        <span>0.66 د.أ</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td class="stylettd">تكلفة شحن الطلب</td>
-                                    <td class="stylettd">
-                                        <span>2.75 د.أ</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="stylettd">تكلفة تجهيز الطلب</td>
-                                    <td class="stylettd">
-                                        <span>1 د.أ</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="stylettd">مدة التوصيل</td>
-                                    <td class="stylettd">1 - 3 أيام عمل</td>
-                                </tr>
 
-                                <tr>
-                                    <td class="stylettd">الإجمالي على المسوق</td>
-                                    <td class="stylettd">
-                                        <strong>
-                                            <span>3.41 د.أ</span>
-                                        </strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="stylettd">المطلوب من الزبون</td>
-                                    <td class="stylettd">
-                                        <strong>
-                                            <span>5.25 د.أ</span>
-                                        </strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="stylettd" colspan="2">
-                                        <p class="styleparag">ربحك من الطلب<span class="stylespan ">0.84د.أ</span></p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class=" row bgcolorfff">
+                <div style=" padding: 1.25rem;">
+                    <h4 class="styleh4">تفاصيل الشحن</h4>
+                    <table class="table table-bordered mt-3">
+                        <tbody>
+                            <tr>
+                                <td class="stylefirsttd">الاسم</td>
+                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="stylefirsttd">المتجر</td>
+                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.storeName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="stylefirsttd">رقم الهاتف</td>
+                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.phoneNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td class="stylefirsttd">الدولة</td>
+                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.country}}</td>
+                            </tr>
+                            <tr>
+                                <td class="stylefirsttd">المدينة</td>
+                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.city}}</td>
+                            </tr>
+                            <tr>
+                                <td class="stylefirsttd">العنوان</td>
+                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.address}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 styledivparent">
+            <p></p>
+            <div class="row">
+                <div class="card mb-4" style="border:none; border-radius: 0;">
+                    <div class="card-body">
+                        <h4 class="styleh4">فاتورة الطلب</h4>
+                        <button class="bttn" (click)="print()"> <i class="bi bi-printer"
+                                style="position: absolute;right:17px;font-size:20px;top: 12px;"></i>طباعة
+                            الفاتورة</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card mb-4" style="border:none; border-radius: 0;">
+                    <div style="padding: 1.25rem;">
+                        <h4 class="styleh4">رقم تتبع الشحنة الخاص بك</h4>
+                        <input class="styleinput" value="{{orderDeails.orderDetails.orderLink}}" disabled="">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background-color: #fff;">
+                <div style="padding: 1.25rem;">
+                    <h4 class="styleh4">إلغاء الطلب</h4>
+                    <label for="reason" class="stylelabel">سبب الإلغاء</label>
+                    <div style="margin-bottom: 1rem;">
+                        <textarea placeholder="يرجى إدخال سبب الإلغاء هنا" id="reason" name="reason"
+                            class="styletextarea"></textarea>
+                        <input class="btn btn-danger" type="button" id="cacel_btn" value="الغاء" style="width: 100px;">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card stylecard">
+                    <div style="padding: 1.25rem;">
+                        <h4 class="styleh4">ملخص الطلب</h4>
+                        <div>
+                            <table style=" font-size: 14px;">
+                                <tbody>
+                                    <tr>
+                                        <th class="styletth">إجمالي المنتجات على المسوق</th>
+                                        <th class="styletth">
+                                            <span>{{orderDeails.orderBrief.totalCostPrice}} د.أ</span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td class="stylettd">تكلفة شحن الطلب</td>
+                                        <td class="stylettd">
+                                            <span>{{orderDeails.orderBrief.orderShippingCost}} د.أ</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="stylettd">تكلفة تجهيز الطلب</td>
+                                        <td class="stylettd">
+                                            <span>{{orderDeails.orderBrief.orderPreparationCost}} د.أ</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="stylettd">مدة التوصيل</td>
+                                        <td class="stylettd">{{orderDeails.orderBrief.shippingPeriod}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="stylettd">الإجمالي على المسوق</td>
+                                        <td class="stylettd">
+                                            <strong>
+                                                <span>3.41 د.أ</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="stylettd">المطلوب من الزبون</td>
+                                        <td class="stylettd">
+                                            <strong>
+                                                <span>{{orderDeails.orderBrief.totalProductsCostPrice}} د.أ</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="stylettd" colspan="2">
+                                            <p class="styleparag">ربحك من الطلب<span
+                                                    class="stylespan ">{{orderDeails.orderBrief.orderEarnings}}
+                                                    د.أ</span></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

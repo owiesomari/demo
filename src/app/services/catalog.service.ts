@@ -14,4 +14,12 @@ export class CatalogService {
   getProducts():Observable<any>{
     return this.http.get("https://jsonplaceholder.typicode.com/posts")
   }
+
+  addToMyProducts(sku:string) :Observable<any>{
+    return this.http.post("https://jsonplaceholder.typicode.com/posts/"+sku,"")
+  }
+
+  addToMyCart(sku:string) :Observable<any>{
+    return this.http.post("https://jsonplaceholder.typicode.com/posts",sku)
+  }
 }

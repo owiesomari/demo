@@ -1,5 +1,6 @@
 <div class="container-fluid">
 
+
   <div class="search search_div" style="margin-top: 35px">
     <h2>البحث السريع</h2>
     <div class="input-group margin-top-xl">
@@ -98,6 +99,7 @@
   <div class="row margin-top-xl" style="margin-bottom: 35px">
     <div class="col-md-3" *ngFor="let c of tempCatalogs">
       <div class="card margin-top-xl">
+        <span *ngIf="c.active" class="featured-badge"><i class="bi bi-star-fill" style="color:#ce0000;"></i> مميز</span>
         <img [id]="c.sku" class="card-img-top" width="200px" height="200px" src="../../../assets/cat1.jpeg"
           alt="Card image cap" (click)="openModal($event)" style="cursor: pointer;">
         <hr>
@@ -129,8 +131,8 @@
               <button (click)="addToMyProducts(c.sku)" class="btn btn-primary idButton" style="width: 70%"><i
                   class="bi bi-plus"></i>
                 أضف إلى منتجاتي</button>
-              <button class="btn btn-primary idButton" [id]="c.sku" (click)="openModal($event)"><i
-                  class="bi bi-cart-plus" [id]="c.sku" (click)="openModal($event)"></i></button>
+              <button class="btn btn-primary idButton" [id]="c.sku" (click)="addToCart(c.sku)"><i
+                  class="bi bi-cart-plus" [id]="c.sku" (click)="addToCart(c.sku)"></i></button>
             </div>
           </div>
         </div>
@@ -139,8 +141,6 @@
   </div>
   <div id="pagination" style="margin-bottom: 12px;"></div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -232,11 +232,14 @@
                     <td class="text-muted" id="dimentions">20X40X56 مم</td>
                   </tr>
 
-                  <tr>
+                  <tr id="totoriulRow">
+
                     <td>
                       <h5 style="color: green">فيديو تسويقي للمنتج</h5>
                     </td>
-                    <td class="text-muted"><a href="#" id="totoriul"></a></td>
+
+                    <td class="text-muted"><a target="_blank" id="totoriul"><i class="bi bi-box-arrow-up-right"></i></a>
+                    </td>
                   </tr>
                 </table>
               </div>

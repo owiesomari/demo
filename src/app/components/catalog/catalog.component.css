@@ -170,3 +170,12 @@
   width: 180px;
   margin-left: 15px;
 }
+
+.featured-badge {
+  background: #faca38;
+  border-radius: 15px;
+  color: #ce0000;
+  margin: 10px;
+  padding: 5px 10px;
+  position: absolute;
+}
