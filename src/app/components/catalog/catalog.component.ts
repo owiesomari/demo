@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
-import { Catalog } from 'src/app/Entities/Catalog';
+import { AllProduct, Catalog } from 'src/app/Entities/Catalog';
 import { CatalogService } from 'src/app/services/catalog.service';
 
 @Component({
@@ -10,123 +10,87 @@ import { CatalogService } from 'src/app/services/catalog.service';
 })
 export class CatalogComponent implements OnInit {
 
-  catalogs: Catalog[] = [];
+  catalogs: Catalog = new Catalog();
   isFiltered: Boolean = false;
   NUMBER_OF_CARDS_PAIR_PAGE = 12;
   currentSelectedPage = 1;
   pages: number = 0;
-  tempCatalogs: Catalog[] = [];
-  tempFilteredCatalogs: Catalog[] = [];
+  tempCatalogs: AllProduct[] = [];
+  tempFilteredCatalogs: AllProduct[] = [];
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
-  modalProductID = 0
+  modalProductSku = ""
 
   constructor(catalogService: CatalogService) {
 
-    catalogService.getProducts().subscribe(res =>{
-console.log(res)
+    catalogService.getProducts().subscribe(res => {
+      console.log(res)
 
-    },err =>{
-console.log(err)
+    }, err => {
+
+      console.log(err)
     })
 
+    var p1 = new AllProduct()
+    p1.name = "owies";
+    p1.category = "phone"
+    p1.costPrice = 20
+    p1.sellPrice = 30
+    p1.suggestedPrice = 25
+    p1.discountPrice = 15
+    p1.stock = 30
+    p1.show = true
+    p1.markAsSpecial = true
+    //marketers:         string[];
+    p1.description = "fdghhfdgfdsfsd\ngfdsfsfdsf\negffefewsdf\netfwfswf"
+    p1.sku = "123"
+    p1.weight = 12
+    p1.images = []
+    p1.warranty = "dsfa"
+    p1.madeIn = "jordan"
+    p1.original = true
+    p1.quality = "fdsf"
+    p1.color = "red"
+    p1.brand = "fsdfds"
+    p1.dimension = "wdsa"
+    p1.marketingVideoUrl = "213"
+    p1.tutorialVideoUrl = "3131"
+    p1.active = true
 
-    this.catalogs = [
-      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "fgdfgdfgdfgdf\nrtrtrterrt\ntreterer", "h"),
-      new Catalog(2, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(3, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(4, "../../assets/cat4.jpeg", " منتج رقم 4", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(5, "../../assets/cat5.jpeg", " منتج رقم 5", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(6, "../../assets/cat1.jpeg", " منتج رقم 6", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(7, "../../assets/cat2.jpeg", " منتج رقم 7", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(8, "../../assets/cat3.jpeg", " منتج رقم 8", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(9, "../../assets/cat4.jpeg", " منتج رقم 9", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(10, "../../assets/cat5.jpeg", " منتج رقم 10", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(11, "../../assets/cat1.jpeg", " منتج رقم 11", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(12, "../../assets/cat2.jpeg", " منتج رقم 12", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(13, "../../assets/cat3.jpeg", " منتج رقم 13", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(14, "../../assets/cat4.jpeg", " منتج رقم 14", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(15, "../../assets/cat5.jpeg", " منتج رقم 15", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(16, "../../assets/cat1.jpeg", " منتج رقم 16", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(17, "../../assets/cat2.jpeg", " منتج رقم 17", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(18, "../../assets/cat3.jpeg", " منتج رقم 18", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(19, "../../assets/cat4.jpeg", " منتج رقم19 ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 20", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 21", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 22", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 23", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 24", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 25", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 26", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 27", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 28", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 29", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", "آويس العمري ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 4", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 5", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 6", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 7", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 8", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 9", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 10", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 11", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 12", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 13", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 14", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 15", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 16", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 17", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 18", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم19 ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 20", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 21", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 22", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 23", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 24", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 25", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 26", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 27", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 28", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 29", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", "آويس العمري ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", "منتج رقم ١", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", "منتج رقم 2", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 3", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 4", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 5", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 6", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 7", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 8", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 9", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 10", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 11", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 12", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 13", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 14", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 15", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 16", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 17", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 18", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم19 ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 20", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 21", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 22", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 23", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 24", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat5.jpeg", " منتج رقم 25", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat1.jpeg", " منتج رقم 26", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat2.jpeg", " منتج رقم 27", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat3.jpeg", " منتج رقم 28", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "p"),
-      new Catalog(1, "../../assets/cat4.jpeg", " منتج رقم 29", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
-      new Catalog(1, "../../assets/cat5.jpeg", "آويس العمري ", 26, "33", 0.3, "g-g 05", "الصين", "كفالة تشغيلية", "ممتازة", "", "h"),
+    var p2 = new AllProduct()
+    p2.name = "omari";
+    p2.category = "watch"
+    p2.costPrice = 20
+    p2.sellPrice = 30
+    p2.suggestedPrice = 25
+    p2.discountPrice = 15
+    p2.stock = 30
+    p2.show = true
+    p2.markAsSpecial = true
+    //marketers:         string[];
+    p2.description = "fdghhfdgfdsfsd\ngfdsfsfdsf\negffefewsdf\netfwfswf"
+    p2.sku = "456"
+    p2.weight = 12
+    p2.images = []
+    p2.warranty = "٣ اشهر"
+    p2.madeIn = "jordan"
+    p2.original = true
+    p2.quality = "fdsf"
+    p2.color = "red"
+    p2.brand = "fsdfds"
+    p2.dimension = "wdsa"
+    p2.marketingVideoUrl = "213"
+    p2.tutorialVideoUrl = "3131"
+    p2.active = true
 
-    ];
 
-    this.tempCatalogs = this.catalogs;
-    this.pages = Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE);
+    for(var i =0;i<100;i++){
+    this.catalogs.allProducts.push(p1);
+    this.catalogs.allProducts.push(p2);
+    }
+
+    this.tempCatalogs = this.catalogs.allProducts;
+    this.pages = Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE);
 
   }
 
@@ -238,7 +202,7 @@ console.log(err)
   page_onclick(event: any) {
     if (!(this.isFiltered)) {
       this.currentSelectedPage = event.target.id.split("_")[1];
-      this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE)
+      this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE)
     }
     else {
       if (this.isFiltered && this.tempFilteredCatalogs.length != 0) {
@@ -250,7 +214,7 @@ console.log(err)
     }
   }
 
-  displayCards(data_: Catalog[], start: number, lenght: number) {
+  displayCards(data_: AllProduct[], start: number, lenght: number) {
 
     if (data_.length == 0) {
       return;
@@ -266,7 +230,7 @@ console.log(err)
     if (!(this.isFiltered)) {
       this.tempCatalogs = [];
       for (var i = start; i < end; i++) {
-        this.tempCatalogs.push(this.catalogs[i]);
+        this.tempCatalogs.push(this.catalogs.allProducts[i]);
       }
     }
     else {
@@ -281,16 +245,16 @@ console.log(err)
 
   filterCatalogs(event: any) {
     if (event.target.value == "") {
-      this.tempCatalogs = this.catalogs;
+      this.tempCatalogs = this.catalogs.allProducts;
       this.isFiltered = false;
-      this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
-      this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
+      this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+      this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
       return;
     }
     else {
       this.isFiltered = true;
-      this.tempCatalogs = this.catalogs.filter((obj) => {
-        return obj.getTitle().includes(event.target.value);
+      this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
+        return obj.name.includes(event.target.value);
       });
       this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
       this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
@@ -298,31 +262,31 @@ console.log(err)
   }
 
   openModal(event: any) {
-    this.modalProductID = event?.target.id
-    this.fillModal(this.modalProductID)
+    this.modalProductSku = event?.target.id
+    this.fillModal(this.modalProductSku)
     this.modalElement = document.getElementById('modal') as HTMLElement;
     this.modalComponent = new Modal(this.modalElement);
     this.modalComponent.show();
     this.setImagesEvent();
   }
 
-  private fillModal(id: number) {
-    var a = this.catalogs.filter((obj) => {
-      return obj.getID() == id;
+  private fillModal(sku: string) {
+    var a = this.catalogs.allProducts.filter((obj) => {
+      return obj.sku == sku;
     })[0];
-    (document.getElementById("title") as HTMLHeadingElement).innerText = a.getTitle().toString();
-    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.getCost().toString() + " د.أ";
-    (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.getWeight().toString();
-    (document.getElementById("sku") as HTMLTableCellElement).innerText = a.getSKU().toString();
-    (document.getElementById("place") as HTMLTableCellElement).innerText = a.getCountryOfManufacture().toString();
-    (document.getElementById("quality") as HTMLTableCellElement).innerText = a.getQuality().toString();
-    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString() + " د.أ";
-    (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
-    (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
-    (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.getDimentions().toString();
-    (document.getElementById("description") as HTMLTextAreaElement).value = a.getDiscription().toString();
-    (document.getElementById("totoriul") as HTMLAnchorElement).href = a.getTotorial().toString();
-    (document.getElementById("totoriul") as HTMLAnchorElement).innerHTML = a.getTotorial().toString();
+    (document.getElementById("title") as HTMLHeadingElement).innerText = a.name.toString();
+    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.costPrice.toString() + " د.أ";
+    (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.weight.toString();
+    (document.getElementById("sku") as HTMLTableCellElement).innerText = a.sku.toString();
+    (document.getElementById("place") as HTMLTableCellElement).innerText = a.madeIn.toString();
+    (document.getElementById("quality") as HTMLTableCellElement).innerText = a.quality.toString();
+    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.suggestedPrice.toString() + " د.أ";
+    (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.warranty.toString();//change
+    (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original.toString();
+    (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
+    (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
+    (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
+    (document.getElementById("totoriul") as HTMLAnchorElement).innerHTML = a.marketingVideoUrl.toString();//change
 
   }
 
@@ -359,7 +323,7 @@ console.log(err)
     this.setFilterButtonBackground(id);
     switch (id) {
       case "phone": {
-        this.filterData("p");
+        this.filterData("phone");
       } break;
 
       case "house": {
@@ -396,10 +360,10 @@ console.log(err)
 
 
       case "clear": {
-        this.tempCatalogs = this.catalogs;
+        this.tempCatalogs = this.catalogs.allProducts;
         this.isFiltered = false;
-        this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
-        this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
+        this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+        this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
       } break;
     }
 
@@ -407,8 +371,8 @@ console.log(err)
 
   private filterData(filterText: string) {
     this.isFiltered = true;
-    this.tempCatalogs = this.catalogs.filter((obj) => {
-      return obj.getCategory() == filterText
+    this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
+      return obj.category == filterText
     });
     this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
     this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
@@ -429,24 +393,23 @@ console.log(err)
     return this.tempCatalogs.length == 0
   }
 
-  getModalProductID(): number {
-    return this.modalProductID
+  getmodalProductSku(): string {
+    return this.modalProductSku
   }
 
-  addToMyProducts(id: number) {//call api
-    console.log(id)
-
-  }
-
-  addToCart(id: number) {//call api
-    console.log(id)
+  addToMyProducts(sku: string) {//call api
+    console.log(sku)
 
   }
 
+  addToCart(sku: string) {//call api
+    console.log(sku)
+
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
-    this.displayCards(this.catalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
+    this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+    this.displayCards(this.catalogs.allProducts, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
   }
 }

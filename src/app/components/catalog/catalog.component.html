@@ -98,11 +98,11 @@
   <div class="row margin-top-xl" style="margin-bottom: 35px">
     <div class="col-md-3" *ngFor="let c of tempCatalogs">
       <div class="card margin-top-xl">
-        <img [id]="c.getID()" class="card-img-top" width="200px" height="200px" src="{{c.getImg()}}"
+        <img [id]="c.sku" class="card-img-top" width="200px" height="200px" src="../../../assets/cat1.jpeg"
           alt="Card image cap" (click)="openModal($event)" style="cursor: pointer;">
         <hr>
         <div class="card-body">
-          <h5 class="card-title">{{c.getTitle()}}</h5>
+          <h5 class="card-title">{{c.name}}</h5>
           <div class="card-text">
             <div class="row">
               <div class="col-md-6">
@@ -110,7 +110,7 @@
 
               </div>
               <div class="col-md-6" style="text-align: left; color: #28a745;font-size: 15px;font-weight: 700;">
-                {{c.getCost()}} د.أ
+                {{c.costPrice}} د.أ
               </div>
             </div>
 
@@ -120,17 +120,17 @@
 
               </div>
               <div class="col-md-6" style="text-align: left;color: #ce0000;">
-                {{c.getSellingPrice()}} د.أ
+                {{c.suggestedPrice}} د.أ
               </div>
             </div>
           </div>
           <div>
             <div class="bottom-btn btn-primarys d-flex justify-content-between">
-              <button (click)="addToMyProducts(c.getID())" class="btn btn-primary idButton" style="width: 70%"><i
+              <button (click)="addToMyProducts(c.sku)" class="btn btn-primary idButton" style="width: 70%"><i
                   class="bi bi-plus"></i>
                 أضف إلى منتجاتي</button>
-              <button class="btn btn-primary idButton" [id]="c.getID()" (click)="openModal($event)"><i
-                  class="bi bi-cart-plus" [id]="c.getID()" (click)="openModal($event)"></i></button>
+              <button class="btn btn-primary idButton" [id]="c.sku" (click)="openModal($event)"><i
+                  class="bi bi-cart-plus" [id]="c.sku" (click)="openModal($event)"></i></button>
             </div>
           </div>
         </div>
@@ -249,9 +249,9 @@
               disabled></textarea>
 
             <div class="margin-top-xl">
-              <button type="button" class="btn footer-btn" (click)="addToMyProducts(getModalProductID())"><i
+              <button type="button" class="btn footer-btn" (click)="addToMyProducts(getmodalProductSku())"><i
                   class="bi bi-plus-square"></i> اضف الى منتجاتي</button>
-              <button type="button" class="btn footer-btn" (click)="addToCart(getModalProductID())"><i
+              <button type="button" class="btn footer-btn" (click)="addToCart(getmodalProductSku())"><i
                   class="bi bi-cart-plus-fill"></i> اضافة الى السلة</button>
             </div>
 
