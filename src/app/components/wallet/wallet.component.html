@@ -1,15 +1,17 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 border-rad-8">
+        <div class="col-12">
+            <br>
             <h4 class="font-20 mb-20">المحفظة المالية</h4>
             <div class="row">
                 <div class="col-md-8 wallet-info">
-                    <div class="card border-rad-8">
+                    <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="profile-pic ml-3 mt-0">
-                                        <img src="../../../assets/profile-pic.jpeg" class="w-100" alt="prifle picture">
+                                        <img src="https://dropphi.com/assets/img/media/profile-pic.jpg" class="w-100"
+                                            alt="">
                                     </div>
                                 </div>
 
@@ -30,20 +32,23 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="row total-balance mt-2 border-rad-8">
+
+                                    <div class="row total-balance mt-2">
                                         <div class="col-sm-12 border-none p-0 m-0">
                                             <h4>إجمالي المبالغ المسحوبة</h4>
-                                            <p class="mb-0">0 د.أ</p>
+                                            <p class="mb-0">5 د.أ</p>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row mt-20 border-rad-8">
+                    <div class="row mt-20">
                         <div class="col-12">
-                            <div class="card pb-2 border-rad-8">
+                            <div class="card pb-2">
                                 <div class="p-4">
                                     <div class="row">
                                         <div class="col-xl-12 mb-40">
@@ -53,23 +58,35 @@
                                         </div>
 
                                         <div class="col-xl-12">
-                                            <div id="timeline-wrap">
-                                                <div class="no-results">
-                                                    <p>لا يوجد معاملات مالية</p>
-                                                </div>
+                                            <!-- Timeline Wrap -->
+                                            <div>
+                                                <ul class="timeline">
+                                                    <li class="event" data-date="27 سبتمبر 2022">
+                                                        <span>06:26 م</span>
+                                                        <h4 class="green-text">تأكيد واستلام طلب رقم #8048 بقيمة ربح
+                                                            1.45
+                                                            د.أ</h4>
+                                                    </li>
+                                                    <li class="eventone" data-date="21 سبتمبر 2022">
+                                                        <span>06:38 م</span>
+                                                        <h4 class="green-text">تأكيد واستلام طلب رقم #7639 بقيمة ربح
+                                                            4.09
+                                                            د.أ</h4>
+                                                    </li>
+                                                </ul>
                                                 <div class="row d-flex justify-content-center">
                                                     <div id="pagination">
 
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- End Timeline Wrap -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br>
                 </div>
 
                 <div class="col-md-4">
@@ -84,7 +101,11 @@
                             <div class="crad-text" style="text-align: center; padding-bottom: 30px;">
                                 <h1><i style="color: green" class="bi bi-patch-check-fill"></i></h1>
                                 <p>إجمالي الرصيد المتاح</p>
-                                <p style="color: green">0 د.آ</p>
+                                <p style="
+                                color: #61cb93;
+                                font-size: 25px;
+                                font-weight: 700;
+                            ">0 د.آ</p>
                                 <span>ارباح المبيعات</span> <label
                                     style="background-color: #408955; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
                                 <span style="margin-right: 10px;"> رصيد مرجع</span> <label
@@ -95,24 +116,29 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="card withdraw-balance-card border-rad-8">
                         <div class="card-body">
                             <h4 class="font-20 mb-20">سحب الرصيد</h4>
                             <div class="row justify-content-center">
 
                                 <p class="green-text font-bold min-amount">أقل مبلغ للسحب هو 6 د.أ</p>
-                                <div class="col-md-"> 
-                                    <input class="effect-9 5 margin-top-s"type="text" style="width: 300px;border-radius: 10px;" id="withdrow"
-                                    placeholder="ادخل المبلغ المراد سحبه" (keyup)="clearValidations($event)">
-                                   <p> <small style="color: red" id="infotext" class="form-text "></small></p>
-                                    <button id="idButton" type="button" value="سحب" class="margin-right-m" (click)="withdrowClick()">سحب</button>
+                                <div class="col-md-">
+                                    <input class="effect-9  margin-top-s" type="text"
+                                        style="width: 300px;border-radius: 10px;" id="withdrow"
+                                        placeholder="ادخل المبلغ المراد سحبه" (keyup)="clearValidations($event)">
+                                    <p> <small style="color: red" id="infotext" class="form-text "></small></p>
+                                    <button id="idButton" type="button" value="سحب" class="margin-right-m"
+                                        (click)="withdrowClick()">سحب</button>
 
-                                </div>                       
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -123,40 +149,42 @@
                 <div class="modal-header">
                     <h5 class="modal-title">طلب سحب الرصيد</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true" (click)="hideModal()">X</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
                     <h4 mb-2="">اختر طريقة السحب</h4>
                     <div class="d-flex justify-content-center">
-                        <div class="withdraw-item active" data-target=".bank-account-form">
-                            <img src="https://dropphi.com/assets/img/withdraw/bank-account.png" title="حساب بنكي">
+                        <div class="withdraw-item" id="bank-div" (click)="transferTypeClick($event)">
+                            <img src="../../../assets/bank-account.png" id="bank" title="حساب بنكي"
+                                (click)="transferTypeClick($event)">
                             <p>حساب بنكي</p>
                         </div>
-                        <div class="withdraw-item" data-target=".e-wallet-form">
-                            <img src="https://dropphi.com/assets/img/withdraw/e-wallet.png" title="حساب بنكي">
+                        <div class="withdraw-item" id="wallet-div" (click)="transferTypeClick($event)">
+                            <img src="../../../assets/e-wallet.png" id="wallet" title="حساب بنكي"
+                                (click)="transferTypeClick($event)">
                             <p>محفظة إلكترونية</p>
                         </div>
-                        <div class="withdraw-item" data-target=".western-union-form">
-                            <img src="https://dropphi.com/assets/img/withdraw/western-union.png" title="حساب بنكي">
+                        <div class="withdraw-item" id="westron-div" (click)="transferTypeClick($event)">
+                            <img src="../../../assets/western-union.png" id="westron" title="حساب بنكي"
+                                (click)="transferTypeClick($event)">
                             <p>ويسترن يونيون</p>
                         </div>
                     </div>
 
-                    <form action="#" class="bank-account-form">
+                    <form action="#" class="bank-account-form" id="bank-form">
                         <div class="flex-column flex-sm-row">
                             <p class="text-center font-bold bordered">رسوم التحويل : دينار ونصف</p>
                             <p class="text-center bordered green-text">أقل قيمة للسحب 100 دينار أردني وتأخذ فترة التحويل
                                 من 3-5 أيام عمل</p>
-                            <input type="hidden" name="type" value="bank">
                             <div class="form-group">
 
                                 <label class="font-14 bold mb-2" for="account_name">اسم صاحب الحساب</label>
 
                                 <div class="input-group flex-column">
 
-                                    <input type="text" name="account_name" id="account_name" class="form-control pl-1"
+                                    <input type="text" name="account_name" id="account_name" class=" effect-9 pl-1"
                                         required="" placeholder="أدخل اسم صاحب الحساب هنا">
                                 </div>
                             </div>
@@ -167,7 +195,7 @@
 
                                 <div class="input-group flex-column">
 
-                                    <input type="text" name="iban" id="iban" class="form-control pl-1" required=""
+                                    <input type="text" name="iban" id="iban" class=" effect-9 pl-1" required=""
                                         placeholder="أدخل رقم IBAN هنا">
                                 </div>
                             </div>
@@ -177,21 +205,23 @@
 
                                 <div class="input-group flex-column">
 
-                                    <input type="text" name="swift" id="swift" class="form-control pl-1" required=""
+                                    <input type="text" name="swift" id="swift" class=" effect-9 pl-1" required=""
                                         placeholder="أدخل رمز سويفت كود هنا">
                                 </div>
                             </div>
-
+                            <br>
                             <div class="">
-                                <button type="submit" class="btn ml-4 withdraw-submit">تقديم طلب السحب
-                                </button><button class="cancel font-14 bold" data-dismiss="modal">إلغاء
+                                <button type="submit" class="btn btn-danger corner-btn">تقديم طلب السحب
+                                </button><button class="btn corner-btn"
+                                    style="margin-right: 20px; background-color: gray; color:white;"
+                                    (click)="hideModal()">إلغاء
                                 </button>
                             </div>
 
                         </div>
                     </form>
 
-                    <form action="#" class="e-wallet-form" style="display: none;">
+                    <form action="#" class="e-wallet-form" style="display: none;" id="wallet-form">
                         <div class="flex-column flex-sm-row">
 
                             <p class="text-center font-bold bordered">رسوم التحويل : دينار</p>
@@ -202,7 +232,7 @@
                                 <label class="font-14 bold mb-2" for="wallet_name">اسم المحفظة</label>
 
                                 <div class="input-group flex-column">
-                                    <select name="wallet_name" id="wallet_name" class="form-control pl-1" required="">
+                                    <select name="wallet_name" id="wallet_name" class=" effect-9 pl-1" required="">
                                         <option value="زين كاش">زين كاش</option>
                                         <option value="uWallet">uWallet</option>
                                         <option value="أورانج موني">أورانج موني</option>
@@ -226,21 +256,24 @@
 
                                 <div class="input-group flex-column">
 
-                                    <input type="number" name="wallet_number" id="wallet_number"
-                                        class="form-control pl-1" required="" placeholder="أدخل رقم المحفظة هنا">
+                                    <input type="number" name="wallet_number" id="wallet_number" class=" effect-9 pl-1"
+                                        required="" placeholder="أدخل رقم المحفظة هنا">
                                 </div>
                             </div>
-
+                            <br>
                             <div class="">
-                                <button type="submit" class="btn ml-4 withdraw-submit">تقديم طلب السحب
-                                </button><button class="cancel font-14 bold" data-dismiss="modal">إلغاء
+                                <button type="submit" class="btn btn-danger corner-btn">تقديم طلب السحب
+                                </button><button class="btn corner-btn"
+                                    style="margin-right: 20px; background-color: gray; color:white;"
+                                    (click)="hideModal()">إلغاء
                                 </button>
                             </div>
 
                         </div>
                     </form>
 
-                    <form action="#" class="western-union-form" style="display: none;">
+                    <form action="#" class="western-union-form" style="display: none;" id="westrn-form"
+                        onsubmit="return false;">
                         <div class="flex-column flex-sm-row">
 
                             <p class="text-center font-bold bordered">رسوم التحويل : دينارين ونصف</p>
@@ -252,7 +285,7 @@
 
                                 <div class="input-group flex-column">
 
-                                    <input type="text" name="english_name" id="english_name" class="form-control pl-1"
+                                    <input type="text" name="english_name" id="english_name" class=" effect-9 pl-1"
                                         required="" placeholder="أدخل الاسم باللغة الإنجليزية">
                                 </div>
                             </div>
@@ -262,8 +295,8 @@
 
                                 <div class="input-group flex-column">
 
-                                    <input type="number" name="mobile_number" id="mobile_number"
-                                        class="form-control pl-1" required="" placeholder="أدخل رقم الجوال هنا">
+                                    <input type="number" name="mobile_number" id="mobile_number" class=" effect-9 pl-1"
+                                        required="" placeholder="أدخل رقم الجوال هنا">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -272,7 +305,7 @@
 
                                 <div class="input-group flex-column">
 
-                                    <input type="text" name="country" id="country" class="form-control pl-1" required=""
+                                    <input type="text" name="country" id="country" class=" effect-9 pl-1" required=""
                                         placeholder="أدخل الدولة هنا">
                                 </div>
                             </div>
@@ -282,17 +315,18 @@
 
                                 <div class="input-group flex-column">
 
-                                    <input type="text" name="city" id="city" class="form-control pl-1" required=""
+                                    <input type="text" name="city" id="city" class=" effect-9 pl-1" required=""
                                         placeholder="أدخل المدينة هنا">
                                 </div>
                             </div>
+                            <br>
+                            <div>
+                                <button type="submit" class="btn btn-danger corner-btn">تقديم طلب السحب</button>
 
-                            <div class="">
-                                <button type="submit" class="btn ml-4 withdraw-submit">تقديم طلب السحب
-                                </button><button class="cancel font-14 bold" data-dismiss="modal">إلغاء
-                                </button>
+                                <button class="btn corner-btn"
+                                    style="margin-right: 20px; background-color: gray; color:white;"
+                                    (click)="hideModal()">إلغاء</button>
                             </div>
-
                         </div>
                     </form>
                 </div>
