@@ -25,13 +25,13 @@ export class CatalogComponent implements OnInit {
   alert = new Alert();
 
   constructor(catalogService: CatalogService) {
-    this.globalcatalogService=catalogService
+    this.globalcatalogService = catalogService
     catalogService.getProducts().subscribe(res => {
-     // console.log(res)
+      // console.log(res)
 
     }, err => {
 
-     // console.log(err)
+      // console.log(err)
     })
 
     var p1 = new AllProduct()
@@ -61,7 +61,7 @@ export class CatalogComponent implements OnInit {
     p1.active = true
 
     var p2 = new AllProduct()
-    p2.name = "omari";
+    p2.name = "owies";
     p2.category = "watch"
     p2.costPrice = 20
     p2.sellPrice = 30
@@ -85,8 +85,6 @@ export class CatalogComponent implements OnInit {
     p2.marketingVideoUrl = ""
     p2.tutorialVideoUrl = ""
     p2.active = false
-
-
 
     for (var i = 0; i < 100; i++) {
       this.catalogs.allProducts.push(p1);
@@ -254,11 +252,28 @@ export class CatalogComponent implements OnInit {
       this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
       this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
       return;
+    }else {
+      this.isFiltered = true;
+      this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
+        return obj.name.includes(event.target.value);
+      });
+      this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
+      this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
+    }
+  }
+
+  filterSpecialCatalogs(event: any) {
+    if (!event.target.checked) {
+      this.tempCatalogs = this.catalogs.allProducts;
+      this.isFiltered = false;
+      this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+      this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
+      return;
     }
     else {
       this.isFiltered = true;
       this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
-        return obj.name.includes(event.target.value);
+        return obj.active;//change to special
       });
       this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
       this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
@@ -289,12 +304,25 @@ export class CatalogComponent implements OnInit {
     (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original.toString();
     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
     (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
-    if (a.marketingVideoUrl != null && a.marketingVideoUrl !="")   {
+    if (a.marketingVideoUrl != null && a.marketingVideoUrl != "") {
       (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
 
     } else {
       (document.getElementById("totoriulRow") as HTMLTableRowElement).style.display = 'none'
     }
+
+    let imagesParent = document.getElementById("catalogImages") as HTMLDivElement;
+    let images = imagesParent.childNodes;
+    let mainImage = document.getElementById("mainImg") as HTMLImageElement;
+
+   // mainImage.src= `data:${a.images[0].type};base64,${a.images[0].image[0]}`;
+    
+  //for(var i=1;i<a.images.length;i++){
+    //(images[i] as HTMLImageElement).style.display = "inline";
+     //if (images[i] != mainImage) {
+      // (images[i] as HTMLImageElement).src = `data:${a.images[i].type};base64,${a.images[i].image[0]}`;
+     // }
+  //  }
   }
 
   private setImagesEvent() {
@@ -373,7 +401,6 @@ export class CatalogComponent implements OnInit {
         this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
       } break;
     }
-
   }
 
   private filterData(filterText: string) {
@@ -405,14 +432,13 @@ export class CatalogComponent implements OnInit {
   }
 
   addToMyProducts(sku: string) {
-   this.globalcatalogService.addToMyProducts(sku).subscribe(res => {
+    this.globalcatalogService.addToMyProducts(sku).subscribe(res => {
+      this.closeModal();
+      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى منتجاتك بنجاح")
 
-    this.closeModal();
-      this.alert.setupAlertDiv("s","تمت اضافة المنتجات", "تمت الاضافة الى منتجاتك بنجاح")
-      
     }, err => {
       this.closeModal();
-      this.alert.setupAlertDiv("f","حدث خطأ", "لم تتم الاضافة بنجاح")
+      this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
     })
 
   }
@@ -420,17 +446,26 @@ export class CatalogComponent implements OnInit {
   addToCart(sku: string) {//call api
     this.globalcatalogService.addToMyCart(sku).subscribe(res => {
       this.closeModal();
-      this.alert.setupAlertDiv("s","تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح")
+      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح")
 
     }, err => {
       this.closeModal();
-      this.alert.setupAlertDiv("f","حدث خطأ", "لم تتم الاضافة بنجاح")
+      this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
 
     })
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+   var  contentContainer :HTMLDivElement = document.getElementById("contentContainer") as HTMLDivElement
+    contentContainer.style.display = "none";
+    this.alert.showSpinner();
+    setTimeout(
+      function() {
+      new Alert().hideSpinner();
+      contentContainer.style.display = "block";
+      }, 2000);
+
     this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
     this.displayCards(this.catalogs.allProducts, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
   }

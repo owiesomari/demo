@@ -1,6 +1,4 @@
-<div class="container-fluid">
-
-
+<div class="container-fluid" id="contentContainer">
   <div class="search search_div" style="margin-top: 35px">
     <h2>البحث السريع</h2>
     <div class="input-group margin-top-xl">
@@ -91,17 +89,24 @@
       </div>
       <div class="col-md-4"></div>
     </div>
+    <div class="margin-top-l">
+      <label class="toggle">
+        <input class="toggle-checkbox" type="checkbox" (change)="filterSpecialCatalogs($event)">
+        <div class="toggle-switch"></div>
+        <span class="toggle-label" style="margin-right:10px;">عرض المميزة فقط</span>
+      </label>
+    </div>
   </div>
 
   <h3 style="text-align: center; color:#727272; margin-top: 16px;" *ngIf="isCatalogsEmpty()">لا يوجد منتجات </h3>
-
 
   <div class="row margin-top-xl" style="margin-bottom: 35px">
     <div class="col-md-3" *ngFor="let c of tempCatalogs">
       <div class="card margin-top-xl">
         <span *ngIf="c.active" class="featured-badge"><i class="bi bi-star-fill" style="color:#ce0000;"></i> مميز</span>
-        <img [id]="c.sku" class="card-img-top" width="200px" height="200px" src="../../../assets/cat1.jpeg"
-          alt="Card image cap" (click)="openModal($event)" style="cursor: pointer;">
+        <img [id]="c.sku" class="card-img-top" width="200px" height="200px"
+          src="../../../assets/cat3.jpeg" alt="Card image cap" (click)="openModal($event)"
+          style="cursor: pointer;">
         <hr>
         <div class="card-body">
           <h5 class="card-title">{{c.name}}</h5>
@@ -159,9 +164,21 @@
           <div class="col-md-4 col-sm-4 col-lg-4" id="catalogImages">
             <!-- images-->
             <img src="../../../assets/cat1.jpeg" id="mainImg" height="400" style="width: 80%;" />
-            <img src="../../../assets/cat2.jpeg" width="100" height="100" class="margin-top-xl">
-            <img src="../../../assets/cat2.jpeg" width="100" height="100">
-            <img src="../../../assets/cat2.jpeg" width="100" height="100">
+
+            <img src="../../../assets/cat2.jpeg" id="img1" width="100" height="100" class="margin-top-xl">
+            <img src="../../../assets/cat2.jpeg" id="img2" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img3" width="100" height="100">
+
+            <img src="../../../assets/cat2.jpeg" id="img4" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img5" width="100" height="100">
+
+            <img src="../../../assets/cat2.jpeg" id="img6" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img7" width="100" height="100">
+
+            <img src="../../../assets/cat2.jpeg" id="img8" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img9" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img10" width="100" height="100">
+
           </div><!-- End images-->
 
           <div class="col-md-8 col-sm-8 col-lg-8 margin-top-xl">

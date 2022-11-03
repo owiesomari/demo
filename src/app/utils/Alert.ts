@@ -21,4 +21,15 @@ export class Alert {
             alertDiv.style.display = "none";
         }, 3000);
     }
+
+    public showSpinner() {
+        var spinner = (document.getElementById("spinner") as HTMLDivElement)
+        spinner.style.display = 'block';
+    }
+
+    public hideSpinner() {
+        var spinner = (document.getElementById("spinner") as HTMLDivElement)
+        spinner.style.display = 'none';
+    }
 }
+

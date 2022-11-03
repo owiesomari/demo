@@ -26,6 +26,13 @@
 
                             <div style="display: inline-block">
                                 <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="tajheez"><img (click)="filterCategoty($event)"
+                                        id="tajheez" class="combo-icon" src="../../../assets/ic_box.png"></button>
+                                <p>قيد التجهيز</p>
+                            </div>
+
+                            <div style="display: inline-block">
+                                <button type="button" class="filter-button btn btn-primary idButton"
                                     (click)="filterCategoty($event)" id="progress"><img (click)="filterCategoty($event)"
                                         id="progress" class="combo-icon" src="../../../assets/ic_delevary.png"></button>
                                 <p>قيد التسليم</p>
@@ -57,12 +64,14 @@
 
                 <div class="col-md-6">
                     <label for="daysFilter">فرز حسب التاريخ</label>
-                    <select id="daysFilter" class="effect-9" style="margin-right: 10px;width:50%;height:40px">
-                        <option>اليوم</option>
-                        <option>الامس</option>
-                        <option>اخر 7 ايام</option>
-                        <option>اخر شهر</option>
-                        <option>نطاق مخصص</option>
+                    <select id="daysFilter" class="effect-9" style="margin-right: 10px;width:50%;height:40px"
+                        (change)="filterDate($event)">
+                        <option value="none"></option>
+                        <option value="today">اليوم</option>
+                        <option value="yestarday">الامس</option>
+                        <option value="lastweek">اخر 7 ايام</option>
+                        <option value="lastmonth">اخر شهر</option>
+                        <option value="custom">نطاق مخصص</option>
 
 
                     </select>
@@ -99,10 +108,11 @@
                                 <td>{{x.getDate()}}</td>
                                 <td>{{x.getCustomerName()}}</td>
                                 <td>{{x.getTotal()}}</td>
-                                <td> 
+                                <td>
                                     <span *ngIf="x.geturl()=='' || x.geturl()==null">لا يوجد</span>
-                                    <a *ngIf="x.geturl()!='' && x.geturl()!=null" [href]="x.geturl()" target="_blank" class="url"><i
-                                            class="bi bi-box-arrow-up-right"></i></a></td>
+                                    <a *ngIf="x.geturl()!='' && x.geturl()!=null" [href]="x.geturl()" target="_blank"
+                                        class="url"><i class="bi bi-box-arrow-up-right"></i></a>
+                                </td>
                                 <td>{{x.getPaymentMethod()}}</td>
                                 <td>{{x.getQuantity()}}</td>
                                 <td><span [ngStyle]="{'background-color':x.getCellColor()}"

@@ -14,6 +14,8 @@ export class OrdersComponent implements OnInit {
 
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
+  datemodalElement: HTMLElement | undefined
+  datemodalComponent: Modal | undefined
 
   modalOrderID = ""
 
@@ -25,6 +27,7 @@ export class OrdersComponent implements OnInit {
       new Order(5, "12/10/2022", "noor", 12, "https://www.google.com/", "عند الاستلام", 12, "معلقة", "#FC7383"),
       new Order(6, "12/10/2022", "ali", 12, "https://www.google.com/", "عند الاستلام", 12, "معلقة", "#FC7383"),
     ];
+
     this.tempOrders = this.orders;
   }
 
@@ -44,7 +47,7 @@ export class OrdersComponent implements OnInit {
 
 
   filterCategoty(event: any) {
-   let id  = event.target.id;
+    let id = event.target.id;
     this.setFilterButtonBackground(id);
     switch (id) {
       case "all": {
@@ -53,6 +56,12 @@ export class OrdersComponent implements OnInit {
 
       case "pending": {
         this.filterData("معلقة");
+      } break;
+
+      case "tajheez": {
+
+        this.filterData("tajheez");//edit
+
       } break;
 
       case "progress": {
@@ -92,12 +101,6 @@ export class OrdersComponent implements OnInit {
     this.modalComponent.show();
   }
 
-  private fillModal(id: string) {
-    var a = this.orders.filter((obj) => {
-      return obj.getID().toString() == id;
-    })[0];
-    (document.getElementById("c_orderNumber") as HTMLSpanElement).innerText = a.getID().toString();
-  }
 
   closeModal() {
     this.modalComponent?.hide();
@@ -110,7 +113,25 @@ export class OrdersComponent implements OnInit {
 
   }
 
+  private fillModal(id: string) {
+    var a = this.orders.filter((obj) => {
+      return obj.getID().toString() == id;
+    })[0];
+    (document.getElementById("c_orderNumber") as HTMLSpanElement).innerText = a.getID().toString();
+  }
+
+  openDateModal() {
+    this.datemodalElement = document.getElementById('picker') as HTMLElement;
+    this.datemodalComponent = new Modal(this.datemodalElement);
+    this.datemodalComponent.show();
+  }
+
+  filterDate(event: any) {
+    console.log(event.target.value)
+  }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    //this.openDateModal();
   }
 }

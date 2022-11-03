@@ -115,8 +115,9 @@
                     <label for="reason" class="stylelabel">سبب الإلغاء</label>
                     <div style="margin-bottom: 1rem;">
                         <textarea placeholder="يرجى إدخال سبب الإلغاء هنا" id="reason" name="reason"
-                            class="styletextarea"></textarea>
-                        <input class="btn btn-danger" type="button" id="cacel_btn" value="الغاء" style="width: 100px;">
+                            class="styletextarea" [disabled]="textAreadDisabled"></textarea>
+                        <input *ngIf="!textAreadDisabled" class="btn btn-danger" type="button" id="cacel_btn"
+                            value="الغاء" style="width: 100px;">
                     </div>
                 </div>
             </div>
