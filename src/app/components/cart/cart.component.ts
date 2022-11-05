@@ -5,6 +5,7 @@ import { Validator } from 'src/app/utils/Valitator';
 import { Modal } from 'bootstrap';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Alert } from 'src/app/utils/Alert';
+import { OrdersRequest } from 'src/app/Entities/OrdersRequest';
 
 
 @Component({
@@ -95,6 +96,9 @@ export class CartComponent implements OnInit {
   createOrder() {
     if(!this.validations())
     return;
+    
+    var ordersRequest = new OrdersRequest();
+    
     
     //else call api 
 
