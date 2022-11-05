@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/Entities/Order';
 import { Modal } from 'bootstrap';
+import { OrdersService } from 'src/app/services/orders/orders.service';
+import { Alert } from 'src/app/utils/Alert';
 
 @Component({
   selector: 'app-orders',
@@ -16,19 +18,12 @@ export class OrdersComponent implements OnInit {
   modalComponent: Modal | undefined
   datemodalElement: HTMLElement | undefined
   datemodalComponent: Modal | undefined
-
+  globalOrdersService: OrdersService
+  alert = new Alert();
   modalOrderID = ""
 
-  constructor() {
-    this.orders = [
-      new Order(1, "12/10/2022", "owies", 12, "", "عند الاستلام", 12, "قيد التسليم", "#FFB959"),
-      new Order(2, "12/10/2022", "ahmed", 12, "https://www.google.com/", "عند الاستلام", 12, "مكتملة", "#67CFA2"),
-      new Order(3, "12/10/2022", "abdullah", 12, "https://www.google.com/", "عند الاستلام", 12, "ملغية", "#CE0000"),
-      new Order(5, "12/10/2022", "noor", 12, "https://www.google.com/", "عند الاستلام", 12, "معلقة", "#FC7383"),
-      new Order(6, "12/10/2022", "ali", 12, "https://www.google.com/", "عند الاستلام", 12, "معلقة", "#FC7383"),
-    ];
-
-    this.tempOrders = this.orders;
+  constructor(ordersService: OrdersService) {
+    this.globalOrdersService = ordersService
   }
 
   filterTable(event: any) {
@@ -40,7 +35,7 @@ export class OrdersComponent implements OnInit {
     (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000"
 
     this.tempOrders = this.orders.filter((obj) => {
-      return obj.getCustomerName().includes(event.target.value);
+      return obj.customerName.includes(event.target.value);
     });
     if (event.target.value == "") this.tempOrders = this.orders;
   }
@@ -55,25 +50,25 @@ export class OrdersComponent implements OnInit {
       } break;
 
       case "pending": {
-        this.filterData("معلقة");
+        this.filterData("PROCESSING");
       } break;
 
       case "tajheez": {
 
-        this.filterData("tajheez");//edit
+        this.filterData("SUSPENDED");
 
       } break;
 
       case "progress": {
-        this.filterData("قيد التسليم");
+        this.filterData("OTW");
       } break;
 
       case "completed": {
-        this.filterData("مكتملة");
+        this.filterData("COMPLETED");
       } break;
 
       case "cancled": {
-        this.filterData("ملغية");
+        this.filterData("CANCELLED");
       } break;
     }
 
@@ -81,7 +76,7 @@ export class OrdersComponent implements OnInit {
 
   private filterData(filterText: string) {
     this.tempOrders = this.orders.filter((obj) => {
-      return obj.getStatus() == filterText
+      return obj.orderStatus == filterText
     });
   }
 
@@ -108,30 +103,67 @@ export class OrdersComponent implements OnInit {
   }
 
   cancelOrder() {
-    console.log(this.modalOrderID);
-    //call api with modalOrderID
-
+    var textArea = (document.getElementById("r_ca_modal") as HTMLTextAreaElement);
+    this.alert.showSpinner();
+    this.globalOrdersService.deleteOrder(this.modalOrderID, textArea.value).subscribe(res => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("s", "تمت بنجاح", "تم الالغاء بنجاح");
+      setTimeout(function(){
+        window.location.reload();
+      },1000);
+    }, err => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
   }
 
   private fillModal(id: string) {
     var a = this.orders.filter((obj) => {
-      return obj.getID().toString() == id;
+      return obj.orderNumber.toString() == id;
     })[0];
-    (document.getElementById("c_orderNumber") as HTMLSpanElement).innerText = a.getID().toString();
+    (document.getElementById("c_orderNumber") as HTMLSpanElement).innerText = a.orderNumber.toString();
   }
 
-  openDateModal() {
-    this.datemodalElement = document.getElementById('picker') as HTMLElement;
-    this.datemodalComponent = new Modal(this.datemodalElement);
-    this.datemodalComponent.show();
-  }
 
   filterDate(event: any) {
     console.log(event.target.value)
   }
 
+  getCellColor(status: string): string {
+    switch (status) {
+
+      case "PROCESSING": {
+        return "#FC7383";
+      }
+      case "SUSPENDED": {
+        return "#DAB7FB";
+      }
+      case "OTW": {
+        return "#FFB959";
+      }
+      case "COMPLETED": {
+        return "#67CFA2";
+      }
+      case "CANCELLED": {
+        return "#CE0000";
+      }
+    }
+    return "";
+  }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    //this.openDateModal();
+    this.alert.showSpinner();
+    this.globalOrdersService.getOrders().subscribe(res => {
+      this.orders = res;
+      this.tempOrders = res;
+      var contentContainer: HTMLDivElement = document.getElementById("content") as HTMLDivElement
+      this.alert.hideSpinner();
+      contentContainer.style.display = "block";
+
+    }, err => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
   }
 }

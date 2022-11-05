@@ -1,6 +1,6 @@
 <div style="padding: 20px;">
 
-    <div id="container">
+    <div id="container" style="display: none;">
         <h2>سلة المشتريات</h2>
         <div class="row">
             <div class="table-responsive">
@@ -20,36 +20,36 @@
                     <tbody>
                         <tr *ngFor="let c of cartData">
                             <td style="padding-top: 40px;">
-                                <p class="table-content">{{c.getID()}}</p>
+                                <p class="table-content">{{c.sku}}</p>
                             </td>
-                            <td style="padding-top: 40px;"><img src="{{c.getImage()}}" width="50" height="50"
+                            <td style="padding-top: 40px;"><img src="data:image/png;base64,{{c.image.image}}" width="50" height="50"
                                     style="border-radius: 50%"></td>
                             <td style="padding-top: 40px;">
-                                <p class="table-content text-muted">{{c.getDecription()}}</p>
+                                <p class="table-content text-muted">{{c.productName}}</p>
                             </td>
                             <td style="padding-top: 40px;">
-                                <p class="table-content text-muted">{{c.getCost()}}</p>
+                                <p class="table-content text-muted">{{c.costPrice}}</p>
                             </td>
                             <td style="padding-top: 40px;">
                                 <input class="effect-9 sell" type="number"
                                     style="width: 300px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
-                                    id="sellingPrice,{{c.getID()}}" min="0" [value]="c.getSellingPrice()"
+                                    id="sellingPrice,{{c.sku}}" min="0" [value]="c.suggestedPrice"
                                     (keyup)="calculations($event)" (change)="calculations($event)">
                                 
                             </td>
                             <td style="padding-top: 40px;">
                                 <input class="effect-9 qantity" type="number"
                                     style="width: 100px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
-                                    id="qantity,{{c.getID()}}" min="0" [value]="c.getQantity()"
+                                    id="qantity,{{c.sku}}" min="0" [value]="c.quantity"
                                     (change)="calculations($event)" (keyup)="calculations($event)">
 
                             </td>
                             <td style="padding-top: 40px;">
-                                <p class="table-content" id="totalValue,{{c.getID()}}">{{c.getSellingPrice()*1}}.000 د.أ
+                                <p class="table-content" id="totalValue,{{c.sku}}">{{c.suggestedPrice*1}}.000 د.أ
                                 </p>
                             </td>
                             <td style="padding-top: 40px;">
-                                <span style="cursor: pointer;"><i [id]="c.getID()" (click)="remove($event)" class="bi bi-trash"></i></span>
+                                <span style="cursor: pointer;"><i [id]="c.sku" (click)="remove($event)" class="bi bi-trash"></i></span>
                             </td>
                         </tr>
                     </tbody>

@@ -1,4 +1,4 @@
-<div class="container-fluid" id="contentContainer">
+<div class="container-fluid" id="contentContainer" style="display: none">
   <div class="search search_div" style="margin-top: 35px">
     <h2>البحث السريع</h2>
     <div class="input-group margin-top-xl">
@@ -105,7 +105,7 @@
       <div class="card margin-top-xl">
         <span *ngIf="c.active" class="featured-badge"><i class="bi bi-star-fill" style="color:#ce0000;"></i> مميز</span>
         <img [id]="c.sku" class="card-img-top" width="200px" height="200px"
-          src="../../../assets/cat3.jpeg" alt="Card image cap" (click)="openModal($event)"
+          src="data:{{c.images[0].type}};base64,{{c.images[0].image}}" alt="Card image cap" (click)="openModal($event)"
           style="cursor: pointer;">
         <hr>
         <div class="card-body">
@@ -137,7 +137,7 @@
                   class="bi bi-plus"></i>
                 أضف إلى منتجاتي</button>
               <button class="btn btn-primary idButton" [id]="c.sku" (click)="addToCart(c.sku)"><i
-                  class="bi bi-cart-plus" [id]="c.sku" (click)="addToCart(c.sku)"></i></button>
+                  class="bi bi-cart-plus" ></i></button>
             </div>
           </div>
         </div>
@@ -165,19 +165,19 @@
             <!-- images-->
             <img src="../../../assets/cat1.jpeg" id="mainImg" height="400" style="width: 80%;" />
 
-            <img src="../../../assets/cat2.jpeg" id="img1" width="100" height="100" class="margin-top-xl">
-            <img src="../../../assets/cat2.jpeg" id="img2" width="100" height="100">
-            <img src="../../../assets/cat2.jpeg" id="img3" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img1" width="100" height="100" class="margin-top-xl" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img2" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img3" width="100" height="100" style="display: none;">
 
-            <img src="../../../assets/cat2.jpeg" id="img4" width="100" height="100">
-            <img src="../../../assets/cat2.jpeg" id="img5" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img4" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img5" width="100" height="100" style="display: none;">
 
-            <img src="../../../assets/cat2.jpeg" id="img6" width="100" height="100">
-            <img src="../../../assets/cat2.jpeg" id="img7" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img6" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img7" width="100" height="100" style="display: none;">
 
-            <img src="../../../assets/cat2.jpeg" id="img8" width="100" height="100">
-            <img src="../../../assets/cat2.jpeg" id="img9" width="100" height="100">
-            <img src="../../../assets/cat2.jpeg" id="img10" width="100" height="100">
+            <img src="../../../assets/cat2.jpeg" id="img8" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img9" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img10" width="100" height="100" style="display: none;">
 
           </div><!-- End images-->
 

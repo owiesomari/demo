@@ -3,6 +3,8 @@ import { Cart } from 'src/app/Entities/Cart';
 import { Router } from '@angular/router';
 import { Validator } from 'src/app/utils/Valitator';
 import { Modal } from 'bootstrap';
+import { CartService } from 'src/app/services/cart/cart.service';
+import { Alert } from 'src/app/utils/Alert';
 
 
 @Component({
@@ -19,25 +21,20 @@ export class CartComponent implements OnInit {
   private address: HTMLInputElement | undefined
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
-
+  globalCartServicd: CartService
+  alert = new Alert();
 
   private validator: Validator | undefined
 
-  constructor(private router: Router) {
+  constructor(private router: Router, cartService:CartService) {
     this.validator = new Validator();
-    this.cartData = [
-      new Cart(1, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
-      new Cart(2, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
-      new Cart(3, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
-      new Cart(4, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15),
-      new Cart(5, "../../../assets/cat1.jpeg", "ساعه ذكية", 10, 15)
-    ];
+    this.globalCartServicd = cartService;
   }
 
   remove(event: any) {
     var id = event.target.id;
     //call api  to delete 
-    var indexToBeDeleted = this.cartData.findIndex(d => d.getID() == id);
+    var indexToBeDeleted = this.cartData.findIndex(d => d.sku == id);
     this.cartData.splice(indexToBeDeleted, 1);
     console.log(this.cartData)
     if (this.cartData.length == 0) this.router.navigateByUrl('/catalog')
@@ -65,7 +62,7 @@ export class CartComponent implements OnInit {
       total.innerText = t + " د.أ"
       var totalCost = 0;
       for (var i = 0; i < quntities.length; i++) {
-        totalCost += Number((quntities[i] as HTMLInputElement).value) * this.cartData[i].getCost()
+        totalCost += Number((quntities[i] as HTMLInputElement).value) * this.cartData[i].costPrice;
       }
 
       ((document.getElementById("totalCost")) as HTMLSpanElement).innerText = Math.round(Number(totalCost) * 100) / 100
@@ -90,13 +87,12 @@ export class CartComponent implements OnInit {
     var totalSell = 0;
     for (var i = 0; i < quntities.length; i++) {
       totalSell += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value)
-      totalCost += this.cartData[i].getCost();
+      totalCost += this.cartData[i].costPrice;
     }
     ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = Math.round(Number(totalSell - totalCost - 1) * 100) / 100 + " د.أ";
   }
 
   createOrder() {
-    debugger
     if(!this.validations())
     return;
     
@@ -131,7 +127,7 @@ export class CartComponent implements OnInit {
   validateSellingPrice() {
     var sells: HTMLCollection = document.getElementsByClassName("sell");
     for (var i = 0; i < this.cartData.length; i++) {
-      if (Number((sells[i] as HTMLInputElement).value) < this.cartData[i].getCost()) {
+      if (Number((sells[i] as HTMLInputElement).value) < this.cartData[i].costPrice) {
         this.errorMsgs.push("يرجى التاكد من ان الاسعار اكبر من سعر التكلفة")
         return;
       }
@@ -153,18 +149,11 @@ export class CartComponent implements OnInit {
     this.modalComponent?.hide();
   }
 
-  ngOnInit(): void {
-    this.customerName = document.getElementById("customer_name") as HTMLInputElement
-    this.phoneNumber = document.getElementById("phone") as HTMLInputElement
-    this.address = document.getElementById("address") as HTMLInputElement
-
-
-    window.scrollTo(0, 0);
+  private setDeafultCalculations(){
     var total: HTMLSpanElement = (document.getElementById("totalCost")) as HTMLSpanElement
-
     var totalCost = 0;
     for (var i = 0; i < this.cartData.length; i++) {
-      totalCost += this.cartData[i].getCost();
+      totalCost += this.cartData[i].costPrice;
     }
 
     total.innerText = totalCost.toString() + " د.أ";
@@ -174,13 +163,33 @@ export class CartComponent implements OnInit {
     //from customer
     var fromCustomer_ = 0
     for (var i = 0; i < this.cartData.length; i++) {
-      fromCustomer_ += this.cartData[i].getSellingPrice();
+      fromCustomer_ += this.cartData[i].suggestedPrice;
     }
     ((document.getElementById("fromCustomer")) as HTMLSpanElement).innerText = fromCustomer_ + 2.75 + "د.أ";
 
 
     //profit
     ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = fromCustomer_ - totalCost - 1 + " د.أ";
+  }
 
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+    this.customerName = document.getElementById("customer_name") as HTMLInputElement;
+    this.phoneNumber = document.getElementById("phone") as HTMLInputElement;
+    this.address = document.getElementById("address") as HTMLInputElement;
+    this.alert.showSpinner();
+
+    this.globalCartServicd.getCartData().subscribe(res => {
+      console.log(res);
+      this.cartData = res;
+      var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement;
+      this.alert.hideSpinner();
+      contentContainer.style.display = "block";
+      this.setDeafultCalculations();
+    }, err => {
+      console.log(err)
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    }) 
   }
 }

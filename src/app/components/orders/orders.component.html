@@ -1,4 +1,4 @@
-<div style="padding: 20px;">
+<div style="padding: 20px; display: none;" id="content">
 
     <h2>قائمة الطلبات</h2>
     <div id="content margin-top-l">
@@ -72,8 +72,6 @@
                         <option value="lastweek">اخر 7 ايام</option>
                         <option value="lastmonth">اخر شهر</option>
                         <option value="custom">نطاق مخصص</option>
-
-
                     </select>
                 </div>
 
@@ -104,29 +102,29 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let x of tempOrders">
-                                <td>{{x.getID()}}</td>
-                                <td>{{x.getDate()}}</td>
-                                <td>{{x.getCustomerName()}}</td>
-                                <td>{{x.getTotal()}}</td>
+                                <td>{{x.orderNumber}}</td>
+                                <td>{{x.orderDate}}</td>
+                                <td>{{x.customerName}}</td>
+                                <td>{{x.totalPrice}}</td>
                                 <td>
-                                    <span *ngIf="x.geturl()=='' || x.geturl()==null">لا يوجد</span>
-                                    <a *ngIf="x.geturl()!='' && x.geturl()!=null" [href]="x.geturl()" target="_blank"
+                                    <span *ngIf="x.orderLink=='' || x.orderLink==null">لا يوجد</span>
+                                    <a *ngIf="x.orderLink!='' && x.orderLink!=null" [href]="x.orderLink" target="_blank"
                                         class="url"><i class="bi bi-box-arrow-up-right"></i></a>
                                 </td>
-                                <td>{{x.getPaymentMethod()}}</td>
-                                <td>{{x.getQuantity()}}</td>
-                                <td><span [ngStyle]="{'background-color':x.getCellColor()}"
-                                        class="status sat">{{x.getStatus()}}</span></td>
+                                <td>{{x.paymentMethod}}</td>
+                                <td>{{x.productsCount}}</td>
+                                <td><span [ngStyle]="{'background-color':getCellColor(x.orderStatus)}"
+                                        class="status sat">{{x.orderStatus}}</span></td>
 
                                 <td><span><button class="btn btn-small bg-success rd-50"
-                                            [routerLink]="['/orderdeatils',x.getID()]"><i class="bi bi-eye"></i>
+                                            [routerLink]="['/orderdeatils',x.orderNumber]"><i class="bi bi-eye"></i>
                                         </button></span>
-                                    <span *ngIf="x.getStatus()!='ملغية'"><button (click)="openModal($event)"
-                                            [id]="x.getID()" class="rd-50 btn btn-small bg-danger"><i
-                                                (click)="openModal($event)" [id]="x.getID()"
+                                    <span *ngIf="x.orderStatus!='CANCELLED'"><button (click)="openModal($event)"
+                                            [id]="x.orderNumber" class="rd-50 btn btn-small bg-danger"><i
+                                                (click)="openModal($event)" [id]="x.orderNumber"
                                                 class="bi bi-trash"></i></button></span>
 
-                                    <span *ngIf="x.getStatus()=='ملغية'"><button style="visibility: hidden;"
+                                    <span *ngIf="x.orderStatus=='CANCELLED'"><button style="visibility: hidden;"
                                             class="rd-50 btn btn-small bg-danger"><i
                                                 class="bi bi-trash"></i></button></span>
                                 </td>
@@ -151,7 +149,7 @@
                 <div class="row" style="padding: 10px">
                     <h3 style="font-weight: 600;">الغاء الطلب #<span id="c_orderNumber">123</span></h3>
                     <p class="text-muted">سبب الالغاء</p>
-                    <textarea class="r_textarea" placeholder="يرجى ادخال سبب الاغاء هنا" rows="3"></textarea>
+                    <textarea class="r_textarea" placeholder="يرجى ادخال سبب الاغاء هنا" rows="3" id="r_ca_modal"></textarea>
                 </div>
 
                 <div class="margin-top-xl">

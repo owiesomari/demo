@@ -69,3 +69,11 @@ th {
   #downloadPhotos:hover {
     background-color: #1e7e34 !important;
   }
+
+  .status {
+    font-size: 12px;
+    line-height: 1;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #fff;
+}

@@ -1,4 +1,4 @@
-<div style="padding: 50px;" id="content_continer">
+<div style="padding: 50px;display: none;" id="content_continer">
   <div class="search row search_div" id="">
     <div class="input-group ">
       <input style="background-color: #f0f0f0;" type="text" class="form-control" placeholder="ادخل اسم المنتج أو SKU"
@@ -15,7 +15,6 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">الصورة</th>
             <th scope="col">العنوان</th>
             <th scope="col">سعر التكلفة</th>
@@ -27,15 +26,16 @@
 
         <tbody>
           <tr *ngFor="let x of tempProducts">
-            <td class="product-td">{{x.getID()}}</td>
-            <td class="product-td"><img src="{{x.getImage()}}" width="50" height="50" style="border-radius: 50%"></td>
-            <td class="product-td">{{x.getTitle()}}</td>
-            <td class="product-td">{{x.getCost()}}</td>
-            <td class="product-td">{{x.getSellingPrice()}}</td>
-            <td class="product-td">{{x.getStatus()}}</td>
-            <td class="product-td"><span><button class="btn btn-small bg-success rd-50" (click)="openCatalogModal($event)" [id]="x.getID()"><i (click)="openCatalogModal($event)" [id]="x.getID()" class="bi bi-eye"></i> </button></span>
-              <span><button (click)="openModal($event)" [id]="x.getID()" class="rd-50 btn btn-small bg-danger"><i
-                    (click)="openModal($event)" [id]="x.getID()" class="bi bi-trash"></i></button></span>
+            <td class="product-td"><img src="data:{{x.images[0].type}};base64,{{x.images[0].image}}" width="50" height="50" style="border-radius: 50%"></td>
+            <td class="product-td">{{x.name}}</td>
+            <td class="product-td">{{x.costPrice}}</td>
+            <td class="product-td">{{x.suggestedPrice}}</td>
+            <td class="product-td"><span  class="status" [ngStyle]="{'background-color':getStatusColor(x.active)}">{{getStatusMsg(x.active)}}</span></td>
+            <td class="product-td"><span><button class="btn btn-small bg-success rd-50"
+                  (click)="openCatalogModal($event)" [id]="x.sku"><i (click)="openCatalogModal($event)" [id]="x.sku"
+                    class="bi bi-eye"></i> </button></span>
+              <span><button (click)="openModal($event)" [id]="x.sku" class="rd-50 btn btn-small bg-danger"><i
+                    (click)="openModal($event)" [id]="x.sku" class="bi bi-trash"></i></button></span>
             </td>
           </tr>
         </tbody>
@@ -56,8 +56,10 @@
         </div>
 
         <div class="margin-top-xl">
-          <input type="button" class="btn btn-danger margin-left-m" value="نعم" (click)="removeProduct()" style="width: 100px;">
-          <input type="button" class="btn btn-secondary" [id]="" (click)="hideCloseModal()" value="لا" style="width: 100px;">
+          <input type="button" class="btn btn-danger margin-left-m" value="نعم" (click)="removeProduct()"
+            style="width: 100px;">
+          <input type="button" class="btn btn-secondary" [id]="" (click)="hideCloseModal()" value="لا"
+            style="width: 100px;">
         </div>
       </div>
     </div>

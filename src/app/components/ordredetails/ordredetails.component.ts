@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { OrderDetails } from 'src/app/Entities/OrderDetails';
 import { OrderdetailsService } from 'src/app/services/orderdetails/orderdetails.service';
+import { Alert } from 'src/app/utils/Alert';
 
 @Component({
   selector: 'app-ordredetails',
@@ -13,20 +14,14 @@ export class OrdredetailsComponent implements OnInit {
   orderNumber: string | undefined = "0"
   orderDeails: OrderDetails = new OrderDetails()
   textAreadDisabled: Boolean = false
+  globalorderDeatialsService: OrderdetailsService
+  alert = new Alert();
+
 
   constructor(private _Activatedroute: ActivatedRoute, orderDeatialsService: OrderdetailsService) {
     this.orderNumber = this._Activatedroute.snapshot.paramMap.get("order_number")?.toString()
-
-    orderDeatialsService.getOrderDetails(this.orderNumber!).subscribe(res => {
-      this.orderDeails = res;
-      this.textAreadDisabled = this.orderDeails.orderDetails.orderStatus == "CANCELLED" ? true : false
-      console.log(res)
-
-    }, err => {
-      console.log(err)
-    })
+    this.globalorderDeatialsService = orderDeatialsService
   }
-
 
   print() {
     var mywindow = window.open('Dropphi', 'Dropphi', 'height=400,width=600');
@@ -42,12 +37,34 @@ export class OrdredetailsComponent implements OnInit {
     return true;
   }
 
-  private preparePrintPage() {
-
+  cancelOrder() {
+    this.alert.showSpinner();
+    var textArea = (document.getElementById("reason") as HTMLTextAreaElement)
+    this.globalorderDeatialsService.deleteOrder(this.orderNumber!, textArea.value).subscribe(res => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("s", "تمت العملية بنجاح", "تم الغاء الطلب بنجاح");
+      setTimeout(function () {
+        window.location.reload();
+      }, 1000)
+    }, err => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
   }
+
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-
+    this.alert.showSpinner();
+    this.globalorderDeatialsService.getOrderDetails(this.orderNumber!).subscribe(res => {
+      this.orderDeails = res;
+      this.textAreadDisabled = this.orderDeails.orderDetails.orderStatus == "CANCELLED" ? true : false
+      var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement
+      this.alert.hideSpinner();
+      contentContainer.style.display = "block";
+    }, err => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
   }
 }

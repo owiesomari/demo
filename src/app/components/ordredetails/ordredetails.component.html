@@ -1,4 +1,4 @@
-<div id="container">
+<div id="container" style="display: none;">
     <div class="row" style="padding: 30px;">
         <div class="col-md-8 ">
             <h5 class="title1">الطلب #{{orderNumber}}</h5>
@@ -117,7 +117,7 @@
                         <textarea placeholder="يرجى إدخال سبب الإلغاء هنا" id="reason" name="reason"
                             class="styletextarea" [disabled]="textAreadDisabled"></textarea>
                         <input *ngIf="!textAreadDisabled" class="btn btn-danger" type="button" id="cacel_btn"
-                            value="الغاء" style="width: 100px;">
+                            value="الغاء" style="width: 100px;" (click)="cancelOrder()">
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                                     <tr>
                                         <th class="styletth">إجمالي المنتجات على المسوق</th>
                                         <th class="styletth">
-                                            <span>{{orderDeails.orderBrief.totalCostPrice}} د.أ</span>
+                                            <span>{{orderDeails.orderBrief.totalProductsCostPrice}} د.أ</span>
                                         </th>
                                     </tr>
                                     <tr>
@@ -155,7 +155,7 @@
                                         <td class="stylettd">الإجمالي على المسوق</td>
                                         <td class="stylettd">
                                             <strong>
-                                                <span>3.41 د.أ</span>
+                                                <span>{{orderDeails.orderBrief.totalCostPrice}} د.أ</span>
                                             </strong>
                                         </td>
                                     </tr>
@@ -163,7 +163,7 @@
                                         <td class="stylettd">المطلوب من الزبون</td>
                                         <td class="stylettd">
                                             <strong>
-                                                <span>{{orderDeails.orderBrief.totalProductsCostPrice}} د.أ</span>
+                                                <span>{{orderDeails.orderDetails.totalPrice}} د.أ</span>
                                             </strong>
                                         </td>
                                     </tr>
