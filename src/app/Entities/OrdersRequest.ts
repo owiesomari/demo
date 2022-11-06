@@ -1,11 +1,11 @@
 export class OrdersRequest {
-    productInfos: ProductInfo[] = [];
+    productsInfo: ProductInfo[] = [];
     customerShipmentDetails: CustomerShipmentDetails = new CustomerShipmentDetails();
     paymentMethod: string = "";
 }
 
 export class CustomerShipmentDetails {
-    name: string = "";
+    customerName: string = "";
     country: string = "";
     city: string = "";
     phoneNumber: string = "";

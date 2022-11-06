@@ -5,7 +5,7 @@ import { Validator } from 'src/app/utils/Valitator';
 import { Modal } from 'bootstrap';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Alert } from 'src/app/utils/Alert';
-import { OrdersRequest } from 'src/app/Entities/OrdersRequest';
+import { CustomerShipmentDetails, OrdersRequest, ProductInfo } from 'src/app/Entities/OrdersRequest';
 
 
 @Component({
@@ -67,7 +67,12 @@ export class CartComponent implements OnInit {
       }
 
       ((document.getElementById("totalCost")) as HTMLSpanElement).innerText = Math.round(Number(totalCost) * 100) / 100
+        + " د.أ";
+
+
+        ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = Math.round(Number(totalCost+2.75) * 100) / 100
         + " د.أ"
+
 
       //calculate for from customer money 
       var fromCustomer: number = 0;
@@ -86,9 +91,10 @@ export class CartComponent implements OnInit {
     var sells: HTMLCollection = document.getElementsByClassName("sell");
     var totalCost = 0;
     var totalSell = 0;
+    debugger
     for (var i = 0; i < quntities.length; i++) {
       totalSell += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value)
-      totalCost += this.cartData[i].costPrice;
+      totalCost += this.cartData[i].costPrice * Number((quntities[i] as HTMLInputElement).value);
     }
     ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = Math.round(Number(totalSell - totalCost - 1) * 100) / 100 + " د.أ";
   }
@@ -98,6 +104,53 @@ export class CartComponent implements OnInit {
     return;
     
     var ordersRequest = new OrdersRequest();
+    var productInfos: ProductInfo[] = [];
+    var quntities: HTMLCollection = document.getElementsByClassName("qantity");
+    var sells: HTMLCollection = document.getElementsByClassName("sell");
+    var skus: HTMLCollection = document.getElementsByClassName("sku");
+    var totals: HTMLCollection = document.getElementsByClassName("total");
+    for(var i =0;i<sells.length;i++){
+      var productInfo = new ProductInfo();
+      productInfo.sku = skus[i].innerHTML.toString();
+      productInfo.quantity = Number((quntities[i] as HTMLInputElement).value);
+      productInfo.sellingPrice = Number((sells[i] as HTMLInputElement).value);
+      productInfo.totalPrice = Number(totals[i].innerHTML);
+      productInfos.push(productInfo)//add this to ordersRequest
+    }
+
+    var customerShipmentDetails = new CustomerShipmentDetails();
+
+    customerShipmentDetails.customerName = (document.getElementById("customer_name") as HTMLInputElement).value;
+    customerShipmentDetails.country = "Jordan";
+    customerShipmentDetails.city =(document.getElementById("city") as HTMLSelectElement).value;
+    customerShipmentDetails.phoneNumber =(document.getElementById("phone") as HTMLInputElement).value;
+    customerShipmentDetails.storeName =(document.getElementById("store_name") as HTMLInputElement).value;
+    customerShipmentDetails.address =(document.getElementById("address") as HTMLTextAreaElement).value;
+    customerShipmentDetails.notes =(document.getElementById("notes") as HTMLTextAreaElement).value;
+
+
+
+    var methods = document.getElementsByName('methods');
+var selectedMethod="";
+for(var i = 0; i < methods.length; i++){
+    if((methods[i] as HTMLInputElement).checked){
+      selectedMethod = (methods[i] as HTMLInputElement).value;
+    }
+}
+
+    ordersRequest.customerShipmentDetails = customerShipmentDetails;
+    ordersRequest.productsInfo=productInfos;
+    ordersRequest.paymentMethod = selectedMethod?.toString();
+    this.globalCartServicd.ctrateOrder(ordersRequest).subscribe(res => {
+      console.log(res);
+      
+    }, err => {
+      console.log(err);
+      
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    }) 
+
+    console.log(ordersRequest);
     
     
     //else call api 
@@ -157,7 +210,7 @@ export class CartComponent implements OnInit {
     var total: HTMLSpanElement = (document.getElementById("totalCost")) as HTMLSpanElement
     var totalCost = 0;
     for (var i = 0; i < this.cartData.length; i++) {
-      totalCost += this.cartData[i].costPrice;
+      totalCost += this.cartData[i].costPrice * this.cartData[i].quantity;
     }
 
     total.innerText = totalCost.toString() + " د.أ";
@@ -167,7 +220,7 @@ export class CartComponent implements OnInit {
     //from customer
     var fromCustomer_ = 0
     for (var i = 0; i < this.cartData.length; i++) {
-      fromCustomer_ += this.cartData[i].suggestedPrice;
+      fromCustomer_ += this.cartData[i].suggestedPrice * this.cartData[i].quantity;
     }
     ((document.getElementById("fromCustomer")) as HTMLSpanElement).innerText = fromCustomer_ + 2.75 + "د.أ";
 
@@ -184,14 +237,12 @@ export class CartComponent implements OnInit {
     this.alert.showSpinner();
 
     this.globalCartServicd.getCartData().subscribe(res => {
-      console.log(res);
       this.cartData = res;
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement;
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
       this.setDeafultCalculations();
     }, err => {
-      console.log(err)
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     }) 

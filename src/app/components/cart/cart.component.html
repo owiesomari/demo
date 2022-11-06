@@ -20,7 +20,7 @@
                     <tbody>
                         <tr *ngFor="let c of cartData">
                             <td style="padding-top: 40px;">
-                                <p class="table-content">{{c.sku}}</p>
+                                <p class="table-content sku">{{c.sku}}</p>
                             </td>
                             <td style="padding-top: 40px;"><img src="data:image/png;base64,{{c.image.image}}" width="50" height="50"
                                     style="border-radius: 50%"></td>
@@ -45,7 +45,7 @@
 
                             </td>
                             <td style="padding-top: 40px;">
-                                <p class="table-content" id="totalValue,{{c.sku}}">{{c.suggestedPrice*1}}.000 د.أ
+                                <p class="table-content" id="totalValue,{{c.sku}}"><span class="total">{{c.suggestedPrice*c.quantity}}</span> د.أ
                                 </p>
                             </td>
                             <td style="padding-top: 40px;">
@@ -105,8 +105,8 @@
                                 placeholder="ادخل رقم الهاتف">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">اسم متجرك/صفحتك</label>
-                            <input type="text" class="form-control client" id="inputEmail4"
+                            <label for="store_name">اسم متجرك/صفحتك</label>
+                            <input type="text" class="form-control client" id="store_name"
                                 placeholder="اسم متجرك/صفحتك">
                         </div>
                     </div>
@@ -182,11 +182,11 @@
 
                             <h5 class="text-muted">الرجاء إختيار طريقة الدفع المفضلة لهذا الطلب.</h5>
 
-                    <input class="margin-top-m"  type="radio" name="methods" checked>&nbsp; <span class="red-text">دفع عند الاستلام</span>
+                    <input class="margin-top-m"  type="radio" name="methods" value="CASH" checked>&nbsp; <span class="red-text">دفع عند الاستلام</span>
                     <br>
-                    <input class="margin-top-s" type="radio" name="methods">&nbsp;<span class="red-text">الدفع من المحفظة</span>
+                    <input class="margin-top-s" type="radio" name="methods" value="WALLET">&nbsp;<span class="red-text">الدفع من المحفظة</span>
                     <br>
-                    <input class="margin-top-s" type="radio" name="methods">&nbsp;<span class="red-text">دفع الكتروني</span>
+                    <input class="margin-top-s" type="radio" name="methods" value="ONLINE">&nbsp;<span class="red-text">دفع الكتروني</span>
                 </div>
 
                 </div>
@@ -200,7 +200,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Error Modal -->
 <div class="modal fade " id="error_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
