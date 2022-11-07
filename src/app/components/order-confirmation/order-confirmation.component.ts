@@ -11,7 +11,7 @@ export class OrderConfirmationComponent implements OnInit {
   constructor(private router: Router) { }
 
   navigateToCatalogs() {
-    this.router.navigateByUrl('/catalog')
+    this.router.navigateByUrl('/orders')
   }
   
   ngOnInit(): void {
