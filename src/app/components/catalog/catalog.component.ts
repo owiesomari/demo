@@ -233,9 +233,10 @@ export class CatalogComponent implements OnInit {
     (document.getElementById("quality") as HTMLTableCellElement).innerText = a.quality.toString();
     (document.getElementById("siling") as HTMLTableCellElement).innerText = a.suggestedPrice.toString() + " د.أ";
     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.warranty.toString();//change
-    (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original.toString();
+    (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original ? 'نعم' : 'لا';
     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
     (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
+
     if (a.marketingVideoUrl != null && a.marketingVideoUrl != "") {
       (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
 
@@ -246,11 +247,11 @@ export class CatalogComponent implements OnInit {
     let imagesParent = document.getElementById("catalogImages") as HTMLDivElement;
     let images = imagesParent.childNodes;
     let mainImage = document.getElementById("mainImg") as HTMLImageElement;
-    mainImage.src = `data:${a.images[0].type};base64,${a.images[0].image[0]}`;
+    mainImage.src = `data:${a.images[0].type};base64,${a.images[0].image}`;
     for (var i = 1; i < a.images.length; i++) {
       (images[i] as HTMLImageElement).style.display = "inline";
       if (images[i] != mainImage) {
-        (images[i] as HTMLImageElement).src = `data:${a.images[i].type};base64,${a.images[i].image[0]}`;
+        (images[i] as HTMLImageElement).src = `data:${a.images[i].type};base64,${a.images[i].image}`;
       }
     }
   }
@@ -371,6 +372,7 @@ export class CatalogComponent implements OnInit {
     }, err => {
       this.alert.hideSpinner();
       this.closeModal();
+      console.log(err)
       this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
     })
   }

@@ -17,4 +17,8 @@ export class ProductService {
   deleteProduct(sku: string): Observable<any> {
     return this.http.delete(new Constants().baseUrl + `/marketers/products/${sku}`);
   }
+
+  addToMyCart(sku: string): Observable<any> {
+    return this.http.post(new Constants().baseUrl + `/marketers/cart/${sku}`, "")
+  }
 }

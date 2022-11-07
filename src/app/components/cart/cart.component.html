@@ -22,8 +22,8 @@
                             <td style="padding-top: 40px;">
                                 <p class="table-content sku">{{c.sku}}</p>
                             </td>
-                            <td style="padding-top: 40px;"><img src="data:image/png;base64,{{c.image.image}}" width="50" height="50"
-                                    style="border-radius: 50%"></td>
+                            <td style="padding-top: 40px;"><img src="data:image/png;base64,{{c.image.image}}" width="50"
+                                    height="50" style="border-radius: 50%"></td>
                             <td style="padding-top: 40px;">
                                 <p class="table-content text-muted">{{c.productName}}</p>
                             </td>
@@ -35,21 +35,24 @@
                                     style="width: 300px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
                                     id="sellingPrice,{{c.sku}}" min="0" [value]="c.suggestedPrice"
                                     (keyup)="calculations($event)" (change)="calculations($event)">
-                                
+
                             </td>
                             <td style="padding-top: 40px;">
                                 <input class="effect-9 qantity" type="number"
                                     style="width: 100px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
-                                    id="qantity,{{c.sku}}" min="0" [value]="c.quantity"
-                                    (change)="calculations($event)" (keyup)="calculations($event)">
+                                    id="qantity,{{c.sku}}" min="0" [value]="c.quantity" (change)="calculations($event)"
+                                    (keyup)="calculations($event)">
 
                             </td>
                             <td style="padding-top: 40px;">
-                                <p class="table-content" id="totalValue,{{c.sku}}"><span class="total">{{c.suggestedPrice*c.quantity}}</span> د.أ
+                                <p class="table-content">
+                                    <span id="totalValue,{{c.sku}}" class="total">{{c.suggestedPrice*c.quantity}}</span>
+                                    د.أ
                                 </p>
                             </td>
                             <td style="padding-top: 40px;">
-                                <span style="cursor: pointer;"><i [id]="c.sku" (click)="remove($event)" class="bi bi-trash"></i></span>
+                                <span style="cursor: pointer;"><i [id]="c.sku" (click)="remove($event)"
+                                        class="bi bi-trash"></i></span>
                             </td>
                         </tr>
                     </tbody>
@@ -81,30 +84,34 @@
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">المدينة*</label>
                             <select name="shipping_city" class="form-control client" id="city">
-                                <option value="Ajloon">Ajloon</option>
-                                <option value="Amman">Amman</option>
-                                <option value="Irbid">Irbid</option>
-                                <option value="Jerash">Jerash</option>
-                                <option value="Ma'An">Ma'An</option>
-                                <option value="Madaba">Madaba</option>
-                                <option value="Aqaba">Aqaba</option>
-                                <option value="Balqa">Balqa</option>
-                                <option value="Karak">Karak</option>
-                                <option value="Mafraq">Mafraq</option>
-                                <option value="Tafileh">Tafileh</option>
-                                <option value="Zarqa">Zarqa</option>
+                                <option value="Amman">عمان</option>
+                                <option value="Irbid">اربد</option>
+                                <option value="Ajloon">عجلون</option>
+                                <option value="Jerash">جرش</option>
+                                <option value="Ma'An">معان</option>
+                                <option value="Madaba">مادبا</option>
+                                <option value="Aqaba">العقبة</option>
+                                <option value="Balqa">البلقاء</option>
+                                <option value="Karak">الكرك</option>
+                                <option value="Mafraq">المفرق</option>
+                                <option value="Tafileh">الطفيلة</option>
+                                <option value="Zarqa">الزرقاء</option>
                             </select>
                         </div>
                     </div>
                     <br>
 
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="phone">رقم الهاتف*</label>
-                            <input type="text" class="form-control client" id="phone"
-                                placeholder="ادخل رقم الهاتف">
+                        <div class="form-group col-md-2">
+                            <label for="phone"> رمز الدولة*</label>
+                            <input type="text" class="form-control client" value="+962" disabled>
                         </div>
-                        <div class="form-group col-md-6">
+
+                        <div class="form-group col-md-5">
+                            <label for="phone">رقم الهاتف*</label>
+                            <input type="text" class="form-control client" id="phone_number" placeholder="ادخل رقم الهاتف">
+                        </div>
+                        <div class="form-group col-md-5">
                             <label for="store_name">اسم متجرك/صفحتك</label>
                             <input type="text" class="form-control client" id="store_name"
                                 placeholder="اسم متجرك/صفحتك">
@@ -117,20 +124,20 @@
                             <label for="address">العنوان*</label> <span class="note green-text">بالتفصيل (المنطقة,
                                 اسم الشارع, معلم مميز , رقم الشقة)</span>
                             <textarea class="form-control client" id="address" rows="3"
-                                placeholder="ادخل تفاصيل العنوان الكاملة هنا" style="margin-top: 8px;resize: none;"></textarea>
+                                placeholder="ادخل تفاصيل العنوان الكاملة هنا"
+                                style="margin-top: 8px;resize: none;"></textarea>
                         </div>
                         <span style="color: #ce0000;">كلما كان العنوان مفصل أكثر كان التوصيل أسرع للطلب </span>
                     </div>
 
                     <div class="row margin-top-m">
                         <div class="form-group">
-                            <label for="notes">ملاحظاتك على الطلب</label> 
+                            <label for="notes">ملاحظاتك على الطلب</label>
                             <textarea class="form-control client" id="notes" rows="3"
-                                placeholder="الرجاء ادخال ملاحظاتك هنا" style="margin-top: 8px;resize: none;"></textarea>
+                                placeholder="الرجاء ادخال ملاحظاتك هنا"
+                                style="margin-top: 8px;resize: none;"></textarea>
                         </div>
                     </div>
-
-
                 </form>
             </div>
             <div class="col-md-1"></div>
@@ -140,8 +147,8 @@
                 <h3>ملخص الطلب</h3>
 
                 <div class="row">
-                    <div class="col-md-6"> <span>اجمالي سعر تكلفة المنتجات</span> &nbsp;&nbsp;&nbsp;<span
-                            id="totalCost" class="bold"></span></div>
+                    <div class="col-md-6"> <span>اجمالي سعر تكلفة المنتجات</span> &nbsp;&nbsp;&nbsp;<span id="totalCost"
+                            class="bold"></span></div>
                 </div>
 
                 <div class="row">
@@ -149,7 +156,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">اجمالي التكلفة&nbsp;&nbsp;&nbsp;<span class="bold" id="totalCostPlusShiping"></span></div>
+                    <div class="col-md-6">اجمالي التكلفة&nbsp;&nbsp;&nbsp;<span class="bold"
+                            id="totalCostPlusShiping"></span></div>
                 </div>
                 <br>
                 <div class="row">
@@ -164,7 +172,8 @@
                 </div>
 
                 <div class="row">
-                    <h3>ارباحك من الطلب:&nbsp;&nbsp;&nbsp;<span id="your_profit" class="green-text bold">15.5د.أ</span></h3>
+                    <h3>ارباحك من الطلب:&nbsp;&nbsp;&nbsp;<span id="your_profit" class="green-text bold">15.5د.أ</span>
+                    </h3>
                     <span>* بعد إضافة تكلفة الشحن </span>
                 </div>
 
@@ -175,25 +184,29 @@
                 <hr>
 
                 <div class="payment-method">
-                    
-                        <h5 class="methods-title">طريقة الدفع</h5>
-                   
-                        <div class="method-input">
 
-                            <h5 class="text-muted">الرجاء إختيار طريقة الدفع المفضلة لهذا الطلب.</h5>
+                    <h5 class="methods-title">طريقة الدفع</h5>
 
-                    <input class="margin-top-m"  type="radio" name="methods" value="CASH" checked>&nbsp; <span class="red-text">دفع عند الاستلام</span>
-                    <br>
-                    <input class="margin-top-s" type="radio" name="methods" value="WALLET">&nbsp;<span class="red-text">الدفع من المحفظة</span>
-                    <br>
-                    <input class="margin-top-s" type="radio" name="methods" value="ONLINE">&nbsp;<span class="red-text">دفع الكتروني</span>
-                </div>
+                    <div class="method-input">
+
+                        <h5 class="text-muted">الرجاء إختيار طريقة الدفع المفضلة لهذا الطلب.</h5>
+
+                        <input class="margin-top-m" type="radio" name="methods" value="CASH" checked>&nbsp; <span
+                            class="red-text">دفع عند الاستلام</span>
+                        <br>
+                        <input class="margin-top-s" type="radio" name="methods" value="WALLET">&nbsp;<span
+                            class="red-text">الدفع من المحفظة</span>
+                        <br>
+                        <input class="margin-top-s" type="radio" name="methods" value="ONLINE">&nbsp;<span
+                            class="red-text">دفع الكتروني</span>
+                    </div>
 
                 </div>
 
                 <div class="proceed-to-checkout mt-4 text-center">
                     <button type="submit" class="btn btn-danger corner-btn"
-                        style="width: 200px;padding: 10px;font-size: 20px;" (click)="createOrder()">اعتماد الطلب الآن</button>
+                        style="width: 200px;padding: 10px;font-size: 20px;" (click)="createOrder()">اعتماد الطلب
+                        الآن</button>
                 </div>
 
             </div>
@@ -203,18 +216,19 @@
 
 <!-- Error Modal -->
 <div class="modal fade " id="error_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
-  <div class="modal-dialog modal-l " role="document">
-    <div class="modal-content alert alert-danger">
+    <div class="modal-dialog modal-l " role="document">
+        <div class="modal-content alert alert-danger">
 
-      <div class="modal-body alert alert-danger" style="text-align: center;">
-        <i style="font-size: 70px;" class="bi bi-exclamation-circle"></i>
-        <div class="row" style="padding: 10px;text-align: right;">
-          <h4  style="font-weight: 600; " id="body"> </h4>
+            <div class="modal-body alert alert-danger" style="text-align: center;">
+                <i style="font-size: 70px;" class="bi bi-exclamation-circle"></i>
+                <div class="row" style="padding: 10px;text-align: right;">
+                    <h4 style="font-weight: 600; " id="body"> </h4>
+                </div>
+            </div>
+            <div class="margin-top-xl" style="text-align: center;">
+                <input type="button" class="btn btn-secondary" (click)="hidErrorModal()" value="اغلاق"
+                    style="width: 100px;cursor: pointer !important;">
+            </div>
         </div>
-      </div>
-      <div class="margin-top-xl" style="text-align: center;">
-        <input type="button" class="btn btn-secondary"  (click)="hidErrorModal()" value="اغلاق" style="width: 100px;cursor: pointer !important;">
-      </div>
     </div>
-  </div>
 </div>

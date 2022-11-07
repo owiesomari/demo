@@ -42,16 +42,16 @@ th {
 }
 
 .bg-danger:hover {
-    background-color: #BA472E !important;
+    background-color:  #bd2130!important;
 }
 
 .bg-success:hover {
-    background-color: #1BB71B !important;
+    background-color:#1e7e34!important;
 }
 
 .badge-danger {
     color: #fff;
-    background-color: #dc3545;
+    background-color:  #FC7383 !important;
 }
 
 #cost {
@@ -76,4 +76,12 @@ th {
     padding: 4px 12px;
     border-radius: 20px;
     color: #fff;
+}
+
+.add-to-cart{
+    background-color: #8280FD;
+}
+
+.add-to-cart:hover{
+    background-color: #0062cc!important;
 }

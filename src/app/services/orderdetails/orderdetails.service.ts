@@ -12,11 +12,10 @@ export class OrderdetailsService {
   }
 
   getOrderDetails(orderNumber: string): Observable<any> {
-    console.log(orderNumber);
-    return this.http.get(new Constants().baseUrl + "/orders/" + orderNumber)
+    return this.http.get(new Constants().baseUrl + "/marketers/orders/" + orderNumber)
   }
 
   deleteOrder(orderNumber: string, reson: string): Observable<any> {
-    return this.http.delete(new Constants().baseUrl + "/orders/" + orderNumber, { body: { "cancellationReason": reson } });
+    return this.http.delete(new Constants().baseUrl + "/marketers/orders/" + orderNumber, { body: { "cancellationReason": reson } });
   }
 }

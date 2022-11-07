@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cart } from 'src/app/Entities/Cart';
+import { Cart, CartDetails } from 'src/app/Entities/Cart';
 import { Router } from '@angular/router';
 import { Validator } from 'src/app/utils/Valitator';
 import { Modal } from 'bootstrap';
@@ -15,7 +15,7 @@ import { CustomerShipmentDetails, OrdersRequest, ProductInfo } from 'src/app/Ent
 })
 export class CartComponent implements OnInit {
 
-  cartData: Cart[] = [];
+  cartData: CartDetails [] =[];
   private errorMsgs: string[] = [];
   private customerName: HTMLInputElement | undefined
   private phoneNumber: HTMLInputElement | undefined
@@ -27,17 +27,25 @@ export class CartComponent implements OnInit {
 
   private validator: Validator | undefined
 
-  constructor(private router: Router, cartService:CartService) {
+  constructor(private router: Router, cartService: CartService) {
     this.validator = new Validator();
     this.globalCartServicd = cartService;
   }
 
   remove(event: any) {
     var id = event.target.id;
-    //call api  to delete 
+    this.alert.showSpinner();
     var indexToBeDeleted = this.cartData.findIndex(d => d.sku == id);
     this.cartData.splice(indexToBeDeleted, 1);
-    console.log(this.cartData)
+    debugger
+    this.globalCartServicd.removeFromCart(id).subscribe(() => {
+      debugger
+      this.alert.hideSpinner();
+    }, () => {
+      debugger
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
     if (this.cartData.length == 0) this.router.navigateByUrl('/catalog')
     else window.location.reload();
   }
@@ -51,16 +59,16 @@ export class CartComponent implements OnInit {
     var total: HTMLParagraphElement = (document.getElementById("totalValue," + id)) as HTMLParagraphElement
 
     if (sellingPrice.value == '' || sellingPrice.value == null) {
-      total.innerText = "0.000 د.أ"
+      total.innerText = "0.000"
     }
 
     else if (quantity.value == '' || quantity.value == null) {
-      total.innerText = "0.000 د.أ"
+      total.innerText = "0.000"
     }
 
     else {
       var t = Math.round(Number(sellingPrice.value) * Number(quantity.value) * 100) / 100
-      total.innerText = t + " د.أ"
+      total.innerText = t.toString();
       var totalCost = 0;
       for (var i = 0; i < quntities.length; i++) {
         totalCost += Number((quntities[i] as HTMLInputElement).value) * this.cartData[i].costPrice;
@@ -70,7 +78,7 @@ export class CartComponent implements OnInit {
         + " د.أ";
 
 
-        ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = Math.round(Number(totalCost+2.75) * 100) / 100
+      ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = Math.round(Number(totalCost + 2.75) * 100) / 100
         + " د.أ"
 
 
@@ -91,7 +99,6 @@ export class CartComponent implements OnInit {
     var sells: HTMLCollection = document.getElementsByClassName("sell");
     var totalCost = 0;
     var totalSell = 0;
-    debugger
     for (var i = 0; i < quntities.length; i++) {
       totalSell += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value)
       totalCost += this.cartData[i].costPrice * Number((quntities[i] as HTMLInputElement).value);
@@ -100,16 +107,17 @@ export class CartComponent implements OnInit {
   }
 
   createOrder() {
-    if(!this.validations())
-    return;
-    
+    debugger
+    if (!this.validations())
+      return;
+
     var ordersRequest = new OrdersRequest();
     var productInfos: ProductInfo[] = [];
     var quntities: HTMLCollection = document.getElementsByClassName("qantity");
     var sells: HTMLCollection = document.getElementsByClassName("sell");
     var skus: HTMLCollection = document.getElementsByClassName("sku");
     var totals: HTMLCollection = document.getElementsByClassName("total");
-    for(var i =0;i<sells.length;i++){
+    for (var i = 0; i < sells.length; i++) {
       var productInfo = new ProductInfo();
       productInfo.sku = skus[i].innerHTML.toString();
       productInfo.quantity = Number((quntities[i] as HTMLInputElement).value);
@@ -122,38 +130,30 @@ export class CartComponent implements OnInit {
 
     customerShipmentDetails.customerName = (document.getElementById("customer_name") as HTMLInputElement).value;
     customerShipmentDetails.country = "Jordan";
-    customerShipmentDetails.city =(document.getElementById("city") as HTMLSelectElement).value;
-    customerShipmentDetails.phoneNumber =(document.getElementById("phone") as HTMLInputElement).value;
-    customerShipmentDetails.storeName =(document.getElementById("store_name") as HTMLInputElement).value;
-    customerShipmentDetails.address =(document.getElementById("address") as HTMLTextAreaElement).value;
-    customerShipmentDetails.notes =(document.getElementById("notes") as HTMLTextAreaElement).value;
+    customerShipmentDetails.city = (document.getElementById("city") as HTMLSelectElement).value;
+    customerShipmentDetails.phoneNumber = (document.getElementById("phone_number") as HTMLInputElement).value;
+    customerShipmentDetails.storeName = (document.getElementById("store_name") as HTMLInputElement).value;
+    customerShipmentDetails.address = (document.getElementById("address") as HTMLTextAreaElement).value;
+    customerShipmentDetails.notes = (document.getElementById("notes") as HTMLTextAreaElement).value;
 
 
 
     var methods = document.getElementsByName('methods');
-var selectedMethod="";
-for(var i = 0; i < methods.length; i++){
-    if((methods[i] as HTMLInputElement).checked){
-      selectedMethod = (methods[i] as HTMLInputElement).value;
+    var selectedMethod = "";
+    for (var i = 0; i < methods.length; i++) {
+      if ((methods[i] as HTMLInputElement).checked) {
+        selectedMethod = (methods[i] as HTMLInputElement).value;
+      }
     }
-}
 
     ordersRequest.customerShipmentDetails = customerShipmentDetails;
-    ordersRequest.productsInfo=productInfos;
+    ordersRequest.productsInfo = productInfos;
     ordersRequest.paymentMethod = selectedMethod?.toString();
-    this.globalCartServicd.ctrateOrder(ordersRequest).subscribe(res => {
-      console.log(res);
-      
-    }, err => {
-      console.log(err);
-      
-      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
-    }) 
+    this.globalCartServicd.createOrder(ordersRequest).subscribe(res => {
 
-    console.log(ordersRequest);
-    
-    
-    //else call api 
+    }, err => {
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
 
   }
 
@@ -163,7 +163,7 @@ for(var i = 0; i < methods.length; i++){
       this.errorMsgs.push("حقل اسم العميل مطلوب")
     }
 
-    if (this.validator?.isElementEmpty(this.phoneNumber)) {
+    if ((document.getElementById("phone_number") as HTMLInputElement).value=='') {
       this.errorMsgs.push("حقل رقم الهاتف مطلوب")
     }
 
@@ -172,6 +172,7 @@ for(var i = 0; i < methods.length; i++){
     }
 
     this.validateSellingPrice();
+    this.validatePhoneNumber();
 
     if (this.errorMsgs.length == 0) {
       return true
@@ -191,6 +192,16 @@ for(var i = 0; i < methods.length; i++){
     }
   }
 
+  validatePhoneNumber() {
+    var phone = document.getElementById("phone_number") as HTMLInputElement;
+    if (!phone.value.startsWith("079") && !phone.value.startsWith("078") && !phone.value.startsWith("077") && !phone.value.startsWith("٠٧٩") && !phone.value.startsWith("٠٧٨") && !phone.value.startsWith("٠٧٧"))
+      this.errorMsgs.push("رقم الهاتف يجب ان يبدأ ب 079 , 078 او 077")
+
+    if (phone.value.length < 10)
+      this.errorMsgs.push("يجب ان يتكون رقم الهاتف من 10 خانات")
+
+  }
+
   openErrorModal() {
     var msg = ""
     for (var i = 0; i < this.errorMsgs.length; i++) {
@@ -206,7 +217,7 @@ for(var i = 0; i < methods.length; i++){
     this.modalComponent?.hide();
   }
 
-  private setDeafultCalculations(){
+  private setDeafultCalculations() {
     var total: HTMLSpanElement = (document.getElementById("totalCost")) as HTMLSpanElement
     var totalCost = 0;
     for (var i = 0; i < this.cartData.length; i++) {
@@ -232,12 +243,15 @@ for(var i = 0; i < methods.length; i++){
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.customerName = document.getElementById("customer_name") as HTMLInputElement;
-    this.phoneNumber = document.getElementById("phone") as HTMLInputElement;
+    this.phoneNumber = document.getElementById("phone_number") as HTMLInputElement;
     this.address = document.getElementById("address") as HTMLInputElement;
     this.alert.showSpinner();
 
     this.globalCartServicd.getCartData().subscribe(res => {
-      this.cartData = res;
+      this.cartData = res.cartItemsResponse;
+      debugger
+      console.log(res)
+      if (this.cartData.length == 0) this.router.navigateByUrl('/catalog')
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement;
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
@@ -245,6 +259,6 @@ for(var i = 0; i < methods.length; i++){
     }, err => {
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
-    }) 
+    })
   }
 }

@@ -21,6 +21,7 @@ import { OrderdetailsService } from './services/orderdetails/orderdetails.servic
 import { OrdersService } from './services/orders/orders.service';
 import { ProductService } from './services/producrs/product.service';
 import { CartService } from './services/cart/cart.service';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { CartService } from './services/cart/cart.service';
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
-  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService],
+  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

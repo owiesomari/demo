@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Resolve } from '@angular/router';
+import { User } from 'src/app/Entities/User';
+import { UserService } from 'src/app/services/user/user.service';
+import { Alert } from 'src/app/utils/Alert';
 import { Validator } from 'src/app/utils/Valitator';
 
 @Component({
@@ -8,35 +12,44 @@ import { Validator } from 'src/app/utils/Valitator';
 })
 export class UserProfileComponent implements OnInit {
 
-  private fname: HTMLInputElement | undefined
-  private lname: HTMLInputElement | undefined
-  private username: HTMLInputElement | undefined
-  private email: HTMLInputElement | undefined
-  private phone: HTMLInputElement | undefined
-  private country: HTMLInputElement | undefined
-  private city: HTMLInputElement | undefined
-  private place: HTMLInputElement | undefined
-  private address1: HTMLInputElement | undefined
-  private address2: HTMLInputElement | undefined
-  private postal: HTMLInputElement | undefined
-  private company: HTMLInputElement | undefined
-  private shopify: HTMLInputElement | undefined
-  private facebook: HTMLInputElement | undefined
-  private insta: HTMLInputElement | undefined
-  private oldPassword: HTMLInputElement | undefined
-  private newPassword: HTMLInputElement | undefined
-  private confirmNewPassword: HTMLInputElement | undefined
-  private marketerImage: HTMLImageElement | undefined
+  private globalUserService: UserService
+  private alert = new Alert();
+
+  userData = new User();
 
   private validator: Validator | undefined
+  private base64: unknown
 
-  constructor() {
-    this.validator = new Validator()
+  constructor(userService: UserService) {
+    this.validator = new Validator();
+    this.globalUserService = userService;
   }
+
+  uploadImage = async (event: any) => {
+    const file = event.target.files[0];
+    this.base64 = await this.convertBase64(file);
+  };
+
+  convertBase64 = (file: File) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
 
   saveChanges() {
     if (this.validateForm()) {
       //call api
+      console.log(this.base64);
     }
 
   }
@@ -47,13 +60,13 @@ export class UserProfileComponent implements OnInit {
     info1.style.display = "none"
     info2.style.display = "none"
 
-    if (this.validator?.isElementEmpty(this.email)) {
+    if (this.validator?.isElementEmpty((document.getElementById("email") as HTMLInputElement))) {
       info1.innerText = "هذا الحقل مطلوب";
       info1.style.display = "block";
       return false;
     }
 
-    if (this.validator?.isElementEmpty(this.phone)) {
+    if (this.validator?.isElementEmpty((document.getElementById("phone") as HTMLInputElement))) {
       info2.innerText = "هذا الحقل مطلوب";
       info2.style.display = "block";
       return false;
@@ -62,30 +75,39 @@ export class UserProfileComponent implements OnInit {
     return true;
   }
 
+  private fillData() {
+    (document.getElementById("fname") as HTMLInputElement).value = this.userData.firstName;
+    (document.getElementById("lname") as HTMLInputElement).value = this.userData.lastName;
+    (document.getElementById("username") as HTMLInputElement).value = this.userData.userName;
+    (document.getElementById("country") as HTMLInputElement).value = this.userData.country;
+    (document.getElementById("city") as HTMLInputElement).value = this.userData.city;
+    (document.getElementById("place") as HTMLInputElement).value = this.userData.town;
+    (document.getElementById("address1") as HTMLInputElement).value = this.userData.address1;
+    (document.getElementById("address2") as HTMLInputElement).value = this.userData.address2;
+    (document.getElementById("postal") as HTMLInputElement).value = this.userData.postCode;
+    (document.getElementById("company") as HTMLInputElement).value = this.userData.company;
+    (document.getElementById("email") as HTMLInputElement).value = this.userData.email;
+    (document.getElementById("phone") as HTMLInputElement).value = this.userData.phoneNumber;
+    (document.getElementById("emailUnderImage") as HTMLSpanElement).innerText = this.userData.email;
+    (document.getElementById("nameUnderImage") as HTMLSpanElement).innerText = this.userData.firstName + " " + this.userData.lastName;
+  }
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.fname = document.getElementById("fname") as HTMLInputElement;
-    this.lname = document.getElementById("lname") as HTMLInputElement;
-    this.username = document.getElementById("username") as HTMLInputElement;
-    this.marketerImage = document.getElementById("marketerImage") as HTMLImageElement;
-    this.email = document.getElementById("email") as HTMLInputElement;
-    this.phone = document.getElementById("phone") as HTMLInputElement;
-    this.country = document.getElementById("country") as HTMLInputElement;
-    this.city = document.getElementById("city") as HTMLInputElement;
-    this.place = document.getElementById("place") as HTMLInputElement;
-    this.address1 = document.getElementById("address1") as HTMLInputElement;
-    this.address2 = document.getElementById("address2") as HTMLInputElement;
-    this.postal = document.getElementById("postal") as HTMLInputElement;
-    this.company = document.getElementById("company") as HTMLInputElement;
-    this.shopify = document.getElementById("shopify") as HTMLInputElement;
-    this.facebook = document.getElementById("facebook") as HTMLInputElement;
-    this.insta = document.getElementById("insta") as HTMLInputElement;
-    this.oldPassword = document.getElementById("oldPassword") as HTMLInputElement;
-    this.newPassword = document.getElementById("newPassword") as HTMLInputElement;
-    this.confirmNewPassword = document.getElementById("confirmNewPassword") as HTMLInputElement;
+    (document.getElementById("up") as HTMLInputElement).addEventListener("change", (e) => {
+      this.uploadImage(e);
+    });
 
-    this.fname.value = "Owies";
-    this.lname.value = "Alomari";
+
+    this.alert.showSpinner();
+    this.globalUserService.getUser().subscribe(res => {
+      this.userData = res;
+      var contentContainer: HTMLDivElement = document.getElementById("content_continer") as HTMLDivElement
+      this.alert.hideSpinner();
+      contentContainer.style.display = "block";
+      this.fillData()
+    }, err => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
   }
-
 }

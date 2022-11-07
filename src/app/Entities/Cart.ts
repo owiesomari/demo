@@ -1,4 +1,9 @@
+
 export class Cart {
+    cartItemsResponse:CartDetails = new CartDetails();
+}
+
+export class CartDetails{
     image: Image = new Image();
     productName: string = "";
     sku: string = "";

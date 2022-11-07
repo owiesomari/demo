@@ -53,18 +53,34 @@ export class ProductsComponent implements OnInit {
       return obj.sku == sku;
     })[0];
     (document.getElementById("title") as HTMLHeadingElement).innerText = a.name;
-    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.costPrice.toString() + " د.أ"
-    /*(document.getElementById("wieght") as HTMLTableCellElement).innerText = a.getWeight().toString();
-     (document.getElementById("sku") as HTMLTableCellElement).innerText = a.getSKU().toString();
-     (document.getElementById("place") as HTMLTableCellElement).innerText = a.getCountryOfManufacture().toString();
-     (document.getElementById("quality") as HTMLTableCellElement).innerText = a.getQuality().toString();
-     (document.getElementById("siling") as HTMLTableCellElement).innerText = a.getSellingPrice().toString()+ " د.أ";
-     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
-     (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.getQuaranty().toString();
-     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.getDimentions().toString();
-     (document.getElementById("description") as HTMLTextAreaElement).value = a.getDiscription().toString();
-     (document.getElementById("totoriul") as HTMLAnchorElement).href = a.getTotorial().toString();
-     (document.getElementById("totoriul") as HTMLAnchorElement).innerHTML = a.getTotorial().toString();*/
+    (document.getElementById("cost") as HTMLHeadingElement).innerText = a.costPrice.toString() + " د.أ";
+    (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.weight.toString();
+     (document.getElementById("sku") as HTMLTableCellElement).innerText = a.sku.toString();
+     (document.getElementById("place") as HTMLTableCellElement).innerText = a.madeIn.toString();
+     (document.getElementById("quality") as HTMLTableCellElement).innerText = a.quality.toString();
+     (document.getElementById("siling") as HTMLTableCellElement).innerText = a.suggestedPrice.toString()+ " د.أ";
+     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.warranty.toString();
+     (document.getElementById("orginal") as HTMLTableCellElement).innerText =  a.original?'نعم':'لا';
+     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
+     (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
+
+     if (a.marketingVideoUrl != null && a.marketingVideoUrl != "") {
+      (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
+
+    } else {
+      (document.getElementById("totoriulRow") as HTMLTableRowElement).style.display = 'none'
+    }
+
+    let imagesParent = document.getElementById("catalogImages") as HTMLDivElement;
+    let images = imagesParent.childNodes;
+    let mainImage = document.getElementById("mainImg") as HTMLImageElement;
+    mainImage.src = `data:${a.images[0].type};base64,${a.images[0].image}`;
+    for (var i = 1; i < a.images.length; i++) {
+      (images[i] as HTMLImageElement).style.display = "inline";
+      if (images[i] != mainImage) {
+        (images[i] as HTMLImageElement).src = `data:${a.images[i].type};base64,${a.images[i].image}`;
+      }
+    }
 
   }
 
@@ -124,6 +140,19 @@ export class ProductsComponent implements OnInit {
     return active ? '#67CFA2' : '#CE0000';
   }
 
+  addToCart(sku: string) {
+    this.alert.showSpinner();
+    this.globalProductService.addToMyCart(sku).subscribe(res => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح")
+
+    }, err => {
+      console.log(err)
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
+    })
+  }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
@@ -135,7 +164,6 @@ export class ProductsComponent implements OnInit {
       contentContainer.style.display = "block";
     }, err => {
       this.alert.hideSpinner();
-      console.log(err)
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })
   }

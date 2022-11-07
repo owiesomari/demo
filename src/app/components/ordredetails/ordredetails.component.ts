@@ -38,6 +38,7 @@ export class OrdredetailsComponent implements OnInit {
   }
 
   cancelOrder() {
+    if ((document.getElementById("reason") as HTMLTextAreaElement).value == '') return;
     this.alert.showSpinner();
     var textArea = (document.getElementById("reason") as HTMLTextAreaElement)
     this.globalorderDeatialsService.deleteOrder(this.orderNumber!, textArea.value).subscribe(res => {
@@ -52,17 +53,62 @@ export class OrdredetailsComponent implements OnInit {
     })
   }
 
+  getStatusCellValue(status: string): string {
+    switch (status) {
+      case "PENDING": {
+        return "معلقة";
+      }
+      case "SUSPENDED": {
+        return "قيد التجهيز";
+      }
+      case "OTW": {
+        return "قيد التسليم";
+      }
+      case "COMPLETED": {
+        return "مكتملة";
+      }
+      case "CANCELLED": {
+        return "ملغية";
+      }
+    }
+    return "";
+  }
+
+  getPaymentMethodValue(paymentMethod: string): string {
+    switch (paymentMethod) {
+
+      case "ONLINE": {
+        return "الكتروني";
+      }
+      case "CASH": {
+        return "عند الاستلام";
+      }
+      case "WALLET": {
+        return "المحفظة المالية";
+      }
+    }
+    return "";
+
+  }
+
+  showOrderLink(): string {
+    if (this.orderDeails.orderDetails.orderLink == '' || this.orderDeails.orderDetails.orderLink == null) return 'none';
+    else return 'block'
+  }
+
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
     this.globalorderDeatialsService.getOrderDetails(this.orderNumber!).subscribe(res => {
       this.orderDeails = res;
+      console.log(res)
       this.textAreadDisabled = this.orderDeails.orderDetails.orderStatus == "CANCELLED" ? true : false
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
     }, err => {
+      console.log(err);
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })

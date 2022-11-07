@@ -50,7 +50,7 @@ export class OrdersComponent implements OnInit {
       } break;
 
       case "pending": {
-        this.filterData("PROCESSING");
+        this.filterData("PENDING");
       } break;
 
       case "tajheez": {
@@ -71,7 +71,6 @@ export class OrdersComponent implements OnInit {
         this.filterData("CANCELLED");
       } break;
     }
-
   }
 
   private filterData(filterText: string) {
@@ -99,14 +98,19 @@ export class OrdersComponent implements OnInit {
 
   closeModal() {
     this.modalComponent?.hide();
-
+    window.location.reload();
   }
 
   cancelOrder() {
     var textArea = (document.getElementById("r_ca_modal") as HTMLTextAreaElement);
+    if(textArea.value == ''){
+      (document.getElementById("cancel_hint") as HTMLParagraphElement).style.display = "block";
+      return;
+    }
     this.alert.showSpinner();
     this.globalOrdersService.deleteOrder(this.modalOrderID, textArea.value).subscribe(res => {
       this.alert.hideSpinner();
+      this.closeModal();
       this.alert.setupAlertDiv("s", "تمت بنجاح", "تم الالغاء بنجاح");
       setTimeout(function(){
         window.location.reload();
@@ -132,7 +136,7 @@ export class OrdersComponent implements OnInit {
   getCellColor(status: string): string {
     switch (status) {
 
-      case "PROCESSING": {
+      case "PENDING": {
         return "#FC7383";
       }
       case "SUSPENDED": {
@@ -149,6 +153,44 @@ export class OrdersComponent implements OnInit {
       }
     }
     return "";
+  }
+
+  getStatusCellValue(status: string):string{
+    switch (status) {
+      case "PENDING": {
+        return "معلقة";
+      }
+      case "SUSPENDED": {
+        return "قيد التجهيز";
+      }
+      case "OTW": {
+        return "قيد التسليم";
+      }
+      case "COMPLETED": {
+        return "مكتملة";
+      }
+      case "CANCELLED": {
+        return "ملغية";
+      }
+    }
+    return "";
+  }
+
+  getPaymentMethodValue(paymentMethod:string):string{
+    switch (paymentMethod) {
+
+      case "ONLINE": {
+        return "الكتروني";
+      }
+      case "CASH": {
+        return "عند الاستلام";
+      }
+      case "WALLET": {
+        return "المحفظة المالية";
+      }
+    }
+    return "";
+
   }
 
   ngOnInit(): void {

@@ -15,10 +15,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">{{orderDeails.marketerName}}</th>
+                            <th scope="row">{{orderDeails.marketerInfo.name}}</th>
                             <td>{{orderDeails.orderDetails.orderDate}}</td>
-                            <td>{{orderDeails.orderDetails.orderStatus}}</td>
-                            <td>{{orderDeails.orderDetails.paymentMethod}}</td>
+                            <td>{{getStatusCellValue(orderDeails.orderDetails.orderStatus)}}</td>
+                            <td>{{getPaymentMethodValue(orderDeails.orderDetails.paymentMethod)}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -32,16 +32,17 @@
                             <tr style=" border-bottom: 1px solid #aeaeae;">
                                 <th scope="col">صوره</th>
                                 <th scope="col">الوصف</th>
-                                <th scope="col">سعر التكلفه</th>
+                                <th scope="col">سعر التكلفة</th>
                                 <th scope="col">سعر البيع</th>
-                                <th scope="col">الكميه</th>
+                                <th scope="col">الكمية</th>
                                 <th scope="col">الاجمالي</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let x of orderDeails.productInfos">
-                                <td><img src="{{x.iamge[0]}}" width="50" height="50" style="border-radius: 50%"></td>
-                                <td>{{x.description}}</td>
+                            <tr *ngFor="let x of orderDeails.productsInfo">
+                                <td><img src="data:image/png;base64,{{x.productImage.image}}" width="50" height="50"
+                                        style="border-radius: 50%"></td>
+                                <td>{{x.productName}}</td>
                                 <td>{{x.costPrice}}</td>
                                 <td>{{x.sellingPrice}}</td>
                                 <td>{{x.quantity}}</td>
@@ -59,7 +60,7 @@
                         <tbody>
                             <tr>
                                 <td class="stylefirsttd">الاسم</td>
-                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.name}}
+                                <td class="stylesecondtd">{{orderDeails.customerShipmentDetails.customerName}}
                                 </td>
                             </tr>
                             <tr>
@@ -102,7 +103,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="card mb-4" style="border:none; border-radius: 0;">
+                <div class="card mb-4" style="border:none; border-radius: 0;" [ngStyle]="{'display':showOrderLink()}">
                     <div style="padding: 1.25rem;">
                         <h4 class="styleh4">رقم تتبع الشحنة الخاص بك</h4>
                         <input class="styleinput" value="{{orderDeails.orderDetails.orderLink}}" disabled="">
@@ -114,10 +115,12 @@
                     <h4 class="styleh4">إلغاء الطلب</h4>
                     <label for="reason" class="stylelabel">سبب الإلغاء</label>
                     <div style="margin-bottom: 1rem;">
-                        <textarea placeholder="يرجى إدخال سبب الإلغاء هنا" id="reason" name="reason"
-                            class="styletextarea" [disabled]="textAreadDisabled"></textarea>
-                        <input *ngIf="!textAreadDisabled" class="btn btn-danger" type="button" id="cacel_btn"
-                            value="الغاء" style="width: 100px;" (click)="cancelOrder()">
+                        <form onsubmit="return false;">
+                            <textarea placeholder="يرجى إدخال سبب الإلغاء هنا" id="reason" name="reason"
+                                class="styletextarea" [value]="orderDeails.cancellationReason" [disabled]="textAreadDisabled" required ></textarea>
+                            <input *ngIf="!textAreadDisabled" class="btn btn-danger" type="submit" id="cacel_btn"
+                                value="الغاء" style="width: 100px;" (click)="cancelOrder()">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -148,14 +151,14 @@
                                     </tr>
                                     <tr>
                                         <td class="stylettd">مدة التوصيل</td>
-                                        <td class="stylettd">{{orderDeails.orderBrief.shippingPeriod}}</td>
+                                        <td class="stylettd">{{orderDeails.orderBrief.shippingPeriod}} يوم عمل</td>
                                     </tr>
 
                                     <tr>
                                         <td class="stylettd">الإجمالي على المسوق</td>
                                         <td class="stylettd">
                                             <strong>
-                                                <span>{{orderDeails.orderBrief.totalCostPrice}} د.أ</span>
+                                                <span>{{orderDeails.orderBrief.totalCostAmount}} د.أ</span>
                                             </strong>
                                         </td>
                                     </tr>
@@ -163,7 +166,7 @@
                                         <td class="stylettd">المطلوب من الزبون</td>
                                         <td class="stylettd">
                                             <strong>
-                                                <span>{{orderDeails.orderDetails.totalPrice}} د.أ</span>
+                                                <span>{{orderDeails.orderBrief.totalCustomerAmount}} د.أ</span>
                                             </strong>
                                         </td>
                                     </tr>

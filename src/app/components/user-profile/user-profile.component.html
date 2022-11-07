@@ -1,4 +1,4 @@
-<div style="padding: 30px;">
+<div style="padding: 30px; display: none;" id="content_continer">
     <h2>اعدادات الحساب</h2>
 
     <div class=" rounded bg-white mt-5 mb-5">
@@ -6,12 +6,11 @@
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5"
-                        width="150px"
-                        id="marketerImage"
+                    <img class="rounded-circle mt-5" width="150px" id="marketerImage"
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                        class="font-weight-bold">Owies Alomari</span><span
-                        class="text-black-50">owies.omari3@gmail.com</span><span> </span></div>
+                        class="font-weight-bold" id="nameUnderImage">Owies Alomari</span><span class="text-black-50"
+                        id="emailUnderImage">owies.omari3@gmail.com</span><span> </span>
+                </div>
             </div>
             <div class="col-md-5 border-right">
                 <div class="p-3 py-5">
@@ -31,7 +30,7 @@
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels"> اسم المستخدم</label>
-                            <input type="text" class="form-control" value="owies.omari3" disabled id="username">
+                            <input type="text" class="form-control" disabled id="username">
 
                         </div>
                         <div class="col-md-12">
@@ -96,7 +95,7 @@
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels">رابط Shopify</label>
-                            <input type="text"class="form-control" placeholder="رابط Shopify" id="shopify">
+                            <input type="text" class="form-control" placeholder="رابط Shopify" id="shopify">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">رابط Facebook</label>
@@ -145,4 +144,5 @@
         <button style="width:100%" id="idButton" class="btn" type="button" (click)="saveChanges()">حفظ التغيرات</button>
     </div>
 
+    <input type="file" id="up">
 </div>
