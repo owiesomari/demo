@@ -15,7 +15,7 @@ import { CustomerShipmentDetails, OrdersRequest, ProductInfo } from 'src/app/Ent
 })
 export class CartComponent implements OnInit {
 
-  cartData: CartDetails [] =[];
+  cartData: CartDetails[] = [];
   private errorMsgs: string[] = [];
   private customerName: HTMLInputElement | undefined
   private phoneNumber: HTMLInputElement | undefined
@@ -37,12 +37,9 @@ export class CartComponent implements OnInit {
     this.alert.showSpinner();
     var indexToBeDeleted = this.cartData.findIndex(d => d.sku == id);
     this.cartData.splice(indexToBeDeleted, 1);
-    debugger
     this.globalCartServicd.removeFromCart(id).subscribe(() => {
-      debugger
       this.alert.hideSpinner();
     }, () => {
-      debugger
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })
@@ -107,7 +104,6 @@ export class CartComponent implements OnInit {
   }
 
   createOrder() {
-    debugger
     if (!this.validations())
       return;
 
@@ -136,8 +132,6 @@ export class CartComponent implements OnInit {
     customerShipmentDetails.address = (document.getElementById("address") as HTMLTextAreaElement).value;
     customerShipmentDetails.notes = (document.getElementById("notes") as HTMLTextAreaElement).value;
 
-
-
     var methods = document.getElementsByName('methods');
     var selectedMethod = "";
     for (var i = 0; i < methods.length; i++) {
@@ -150,7 +144,7 @@ export class CartComponent implements OnInit {
     ordersRequest.productsInfo = productInfos;
     ordersRequest.paymentMethod = selectedMethod?.toString();
     this.globalCartServicd.createOrder(ordersRequest).subscribe(res => {
-
+      this.router.navigateByUrl('/orderConfirmation')
     }, err => {
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })
@@ -163,7 +157,7 @@ export class CartComponent implements OnInit {
       this.errorMsgs.push("حقل اسم العميل مطلوب")
     }
 
-    if ((document.getElementById("phone_number") as HTMLInputElement).value=='') {
+    if ((document.getElementById("phone_number") as HTMLInputElement).value == '') {
       this.errorMsgs.push("حقل رقم الهاتف مطلوب")
     }
 
@@ -249,8 +243,6 @@ export class CartComponent implements OnInit {
 
     this.globalCartServicd.getCartData().subscribe(res => {
       this.cartData = res.cartItemsResponse;
-      debugger
-      console.log(res)
       if (this.cartData.length == 0) this.router.navigateByUrl('/catalog')
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement;
       this.alert.hideSpinner();

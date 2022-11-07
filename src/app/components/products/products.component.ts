@@ -147,7 +147,6 @@ export class ProductsComponent implements OnInit {
       this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح")
 
     }, err => {
-      console.log(err)
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
     })

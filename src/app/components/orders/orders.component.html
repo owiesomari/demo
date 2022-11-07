@@ -124,6 +124,10 @@
                                             [id]="x.orderNumber" class="rd-50 btn btn-small bg-danger"><i
                                                 (click)="openModal($event)" [id]="x.orderNumber" class="bi bi-trash"
                                                 style="color: #fff;"></i></button></span>
+
+                                    <span *ngIf="x.orderStatus=='CANCELLED'"><button
+                                            class="rd-50 btn btn-small bg-danger"
+                                            style="visibility: hidden;">ds</button></span>
                                 </td>
                             </tr>
                         </tbody>

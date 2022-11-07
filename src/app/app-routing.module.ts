@@ -9,18 +9,21 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrdredetailsComponent } from './components/ordredetails/ordredetails.component';
+import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 
 
 const routes: Routes = [
-  {path: "", redirectTo:'dashboard', pathMatch: "full"},
-  {path: "products", component:ProductsComponent},
-  {path: "dashboard", component: DashboardComponent},
-  {path: "catalog", component: CatalogComponent},
-  {path: "orders", component: OrdersComponent},
-  {path: "userProfile", component: UserProfileComponent},
-  {path: "wallet", component: WalletComponent},
-  {path: "cart", component: CartComponent},
-  {path: "orderdeatils/:order_number", component: OrdredetailsComponent}
+  { path: "", redirectTo: 'dashboard', pathMatch: "full" },
+  { path: "products", component: ProductsComponent },
+  { path: "dashboard", component: DashboardComponent },
+  { path: "catalog", component: CatalogComponent },
+  { path: "orders", component: OrdersComponent },
+  { path: "userProfile", component: UserProfileComponent },
+  { path: "wallet", component: WalletComponent },
+  { path: "cart", component: CartComponent },
+  { path: "orderdeatils/:order_number", component: OrdredetailsComponent },
+  { path: "orderConfirmation", component: OrderConfirmationComponent }
+
 ];
 
 @NgModule({

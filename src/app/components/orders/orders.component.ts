@@ -13,6 +13,7 @@ export class OrdersComponent implements OnInit {
 
   orders: Order[] = [];
   tempOrders: Order[] = [];
+  clonedOrders: Order[] = [];
 
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
@@ -21,6 +22,7 @@ export class OrdersComponent implements OnInit {
   globalOrdersService: OrdersService
   alert = new Alert();
   modalOrderID = ""
+  isFiltered = false;
 
   constructor(ordersService: OrdersService) {
     this.globalOrdersService = ordersService
@@ -46,7 +48,11 @@ export class OrdersComponent implements OnInit {
     this.setFilterButtonBackground(id);
     switch (id) {
       case "all": {
-        this.tempOrders = this.orders;
+        if (this.isFiltered)
+          this.tempOrders = this.tempOrders;
+        else
+          this.tempOrders = this.orders;
+
       } break;
 
       case "pending": {
@@ -74,9 +80,15 @@ export class OrdersComponent implements OnInit {
   }
 
   private filterData(filterText: string) {
-    this.tempOrders = this.orders.filter((obj) => {
-      return obj.orderStatus == filterText
-    });
+    if (this.isFiltered) {
+      this.tempOrders = this.tempOrders.filter((obj) => {
+        return obj.orderStatus == filterText
+      });
+    } else {
+      this.tempOrders = this.orders.filter((obj) => {
+        return obj.orderStatus == filterText
+      });
+    }
   }
 
   private setFilterButtonBackground(id: string) {
@@ -103,7 +115,7 @@ export class OrdersComponent implements OnInit {
 
   cancelOrder() {
     var textArea = (document.getElementById("r_ca_modal") as HTMLTextAreaElement);
-    if(textArea.value == ''){
+    if (textArea.value == '') {
       (document.getElementById("cancel_hint") as HTMLParagraphElement).style.display = "block";
       return;
     }
@@ -112,9 +124,9 @@ export class OrdersComponent implements OnInit {
       this.alert.hideSpinner();
       this.closeModal();
       this.alert.setupAlertDiv("s", "تمت بنجاح", "تم الالغاء بنجاح");
-      setTimeout(function(){
+      setTimeout(function () {
         window.location.reload();
-      },1000);
+      }, 1000);
     }, err => {
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
@@ -128,9 +140,55 @@ export class OrdersComponent implements OnInit {
     (document.getElementById("c_orderNumber") as HTMLSpanElement).innerText = a.orderNumber.toString();
   }
 
-
   filterDate(event: any) {
-    console.log(event.target.value)
+    this.isFiltered = true;
+    switch (event.target.value) {
+      case "none": {
+        this.isFiltered = false;
+        this.tempOrders = this.orders;
+      } break;
+      case "today": {
+        this.filterByDays(1);
+      } break;
+
+      case "yestarday": {
+        this.filterByDays(2);
+      } break;
+
+      case "lastweek": {
+        var today = new Date();
+        this.tempOrders = this.orders.filter((obj) => {
+          var date = new Date(obj.orderDate);
+          var difference = today.getTime() - date.getTime();
+          var TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+          if (TotalDays >= 1 && TotalDays < 8) return obj
+          else return null
+        });
+      } break;
+
+      case "lastmonth": {
+        var today = new Date();
+        this.tempOrders = this.orders.filter((obj) => {
+          var date = new Date(obj.orderDate);
+          var difference = today.getTime() - date.getTime();
+          var TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+          if (TotalDays >= 1 && TotalDays <= 31) return obj
+          else return null
+        });
+      } break;
+    }
+  }
+
+  filterByDays(days: number) {
+    var today = new Date();
+    this.tempOrders = this.orders.filter((obj) => {
+      var date = new Date(obj.orderDate);
+      var difference = today.getTime() - date.getTime();
+      var TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+      if (TotalDays == days) return obj
+      else return null
+    });
+
   }
 
   getCellColor(status: string): string {
@@ -155,7 +213,7 @@ export class OrdersComponent implements OnInit {
     return "";
   }
 
-  getStatusCellValue(status: string):string{
+  getStatusCellValue(status: string): string {
     switch (status) {
       case "PENDING": {
         return "معلقة";
@@ -176,9 +234,8 @@ export class OrdersComponent implements OnInit {
     return "";
   }
 
-  getPaymentMethodValue(paymentMethod:string):string{
+  getPaymentMethodValue(paymentMethod: string): string {
     switch (paymentMethod) {
-
       case "ONLINE": {
         return "الكتروني";
       }
@@ -190,7 +247,6 @@ export class OrdersComponent implements OnInit {
       }
     }
     return "";
-
   }
 
   ngOnInit(): void {
@@ -199,6 +255,7 @@ export class OrdersComponent implements OnInit {
     this.globalOrdersService.getOrders().subscribe(res => {
       this.orders = res;
       this.tempOrders = res;
+      this.clonedOrders = res;
       var contentContainer: HTMLDivElement = document.getElementById("content") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";

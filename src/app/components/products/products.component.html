@@ -1,13 +1,18 @@
 <div style="padding: 50px;display: none;" id="content_continer">
-  <div class="search row search_div" id="">
-    <div class="input-group ">
-      <input style="background-color: #f0f0f0;" type="text" class="form-control" placeholder="ادخل اسم المنتج أو SKU"
-        aria-label="search" aria-describedby="basic-addon2" (keyup)="filterTable($event)">
-
-    </div>
-  </div>
-
+  <h2>قائمة المنتجات</h2>
+<br>
   <div class="row search_div">
+
+    <div class="search  col-md-6 ">
+      <label for="ss">الوصول السريع للمنتج</label><br><br>
+      <div class="input-group ">
+        <input style="background-color: #f0f0f0;" type="text" id="ss" class="form-control" placeholder="ادخل اسم المنتج أو SKU"
+          aria-label="search" aria-describedby="basic-addon2" (keyup)="filterTable($event)">
+  
+      </div>
+      <br>
+    </div>
+<br>
     <h2>منتجاتي</h2>
     <br>
     <div class="table-responsive">

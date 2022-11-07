@@ -372,7 +372,6 @@ export class CatalogComponent implements OnInit {
     }, err => {
       this.alert.hideSpinner();
       this.closeModal();
-      console.log(err)
       this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
     })
   }
@@ -385,7 +384,6 @@ export class CatalogComponent implements OnInit {
       this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح")
 
     }, err => {
-      console.log(err)
       this.alert.hideSpinner();
       this.closeModal();
       this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
@@ -410,7 +408,6 @@ export class CatalogComponent implements OnInit {
 
     }, err => {
       this.alert.hideSpinner();
-      console.log(err)
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })
   }
