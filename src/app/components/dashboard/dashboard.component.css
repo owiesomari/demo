@@ -76,3 +76,9 @@ th{
         color: #fff;
         background-color: #dc3545 !important;
         }
+
+        .wallet-total-balance  {
+            color: #61cb93;
+            font-size: 30px;
+            font-weight: 700;
+        }

@@ -18,13 +18,11 @@ export class CartComponent implements OnInit {
   cartData: CartDetails[] = [];
   private errorMsgs: string[] = [];
   private customerName: HTMLInputElement | undefined
-  private phoneNumber: HTMLInputElement | undefined
   private address: HTMLInputElement | undefined
-  modalElement: HTMLElement | undefined
-  modalComponent: Modal | undefined
-  globalCartServicd: CartService
-  alert = new Alert();
-
+  private modalElement: HTMLElement | undefined
+  private modalComponent: Modal | undefined
+  private globalCartServicd: CartService
+  private alert = new Alert();
   private validator: Validator | undefined
 
   constructor(private router: Router, cartService: CartService) {
@@ -237,7 +235,6 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.customerName = document.getElementById("customer_name") as HTMLInputElement;
-    this.phoneNumber = document.getElementById("phone_number") as HTMLInputElement;
     this.address = document.getElementById("address") as HTMLInputElement;
     this.alert.showSpinner();
 
@@ -248,7 +245,7 @@ export class CartComponent implements OnInit {
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
       this.setDeafultCalculations();
-    }, err => {
+    }, () => {
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })

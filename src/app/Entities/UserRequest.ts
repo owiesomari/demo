@@ -1,11 +1,4 @@
 export class UserRequest {
-    userName: string = "";
-    command: Command = new Command();
-    personalImage: string = "";
-    marketerLogo: string = "";
-}
-
-export class Command {
     firstName: string = "";
     lastName: string = "";
     country: string = "";
@@ -21,11 +14,18 @@ export class Command {
     oldPassword: string = "";
     newPassword: string = "";
     reEnteredNewPassword: string = "";
-    personalImage: string = "";
-    marketerLogo: string = "";
+    personalImage: MarketerLogo = new MarketerLogo();
+    marketerLogo: MarketerLogo = new MarketerLogo();
 }
 
 export class DropphiLink {
     name: string = "";
     url: string = "";
+}
+
+export class MarketerLogo {
+    id: string = "";
+    name: string = "";
+    type: string = "";
+    image: string = "";
 }

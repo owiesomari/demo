@@ -22,6 +22,7 @@ import { OrdersService } from './services/orders/orders.service';
 import { ProductService } from './services/producrs/product.service';
 import { CartService } from './services/cart/cart.service';
 import { UserService } from './services/user/user.service';
+import { DashboardService } from './services/dashboard.service';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 
 @NgModule({
@@ -47,7 +48,7 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
-  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService],
+  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

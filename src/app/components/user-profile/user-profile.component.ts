@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Resolve } from '@angular/router';
 import { User } from 'src/app/Entities/User';
+import { DropphiLink, UserRequest } from 'src/app/Entities/UserRequest';
 import { UserService } from 'src/app/services/user/user.service';
 import { Alert } from 'src/app/utils/Alert';
 import { Validator } from 'src/app/utils/Valitator';
@@ -14,11 +14,9 @@ export class UserProfileComponent implements OnInit {
 
   private globalUserService: UserService
   private alert = new Alert();
-
-  userData = new User();
-
   private validator: Validator | undefined
   private base64: unknown
+  userData = new User();
 
   constructor(userService: UserService) {
     this.validator = new Validator();
@@ -27,10 +25,10 @@ export class UserProfileComponent implements OnInit {
 
   uploadImage = async (event: any) => {
     const file = event.target.files[0];
-    this.base64 = await this.convertBase64(file);
+    this.base64 = await this.convertToBase64(file);
   };
 
-  convertBase64 = (file: File) => {
+  convertToBase64 = (file: File) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
@@ -45,13 +43,63 @@ export class UserProfileComponent implements OnInit {
     });
   };
 
-
   saveChanges() {
     if (this.validateForm()) {
-      //call api
-      console.log(this.base64);
-    }
+      this.alert.showSpinner();
 
+      var userRequest = new UserRequest();
+      userRequest.firstName = (document.getElementById("fname") as HTMLInputElement).value;
+      userRequest.lastName = (document.getElementById("lname") as HTMLInputElement).value
+      userRequest.country = (document.getElementById("country") as HTMLInputElement).value
+
+      userRequest.city = (document.getElementById("city") as HTMLInputElement).value;
+      userRequest.town = (document.getElementById("place") as HTMLInputElement).value;
+      userRequest.address1 = (document.getElementById("address1") as HTMLInputElement).value;
+      userRequest.address2 = (document.getElementById("address2") as HTMLInputElement).value;
+      userRequest.postCode = (document.getElementById("postal") as HTMLInputElement).value;
+      userRequest.company = (document.getElementById("company") as HTMLInputElement).value;
+      userRequest.email = (document.getElementById("email") as HTMLInputElement).value;
+      userRequest.phoneNumber = (document.getElementById("phone") as HTMLInputElement).value;
+
+      var shopify = new DropphiLink();
+      if ((document.getElementById("shopify") as HTMLInputElement).value != '') {
+        shopify.name = "shopify"
+        shopify.url = (document.getElementById("shopify") as HTMLInputElement).value
+      }
+
+      var fb = new DropphiLink();
+      if ((document.getElementById("facebook") as HTMLInputElement).value != '') {
+        fb.name = "facebook"
+        fb.url = (document.getElementById("facebook") as HTMLInputElement).value
+      }
+
+      var insta = new DropphiLink();
+      if ((document.getElementById("insta") as HTMLInputElement).value != '') {
+        insta.name = "instagram"
+        insta.url = (document.getElementById("insta") as HTMLInputElement).value
+      }
+
+      if (shopify.name != '') userRequest.dropphiLinks.push(shopify)
+      if (fb.name != '') userRequest.dropphiLinks.push(fb)
+      if (insta.name != '') userRequest.dropphiLinks.push(insta)
+      if (this.base64 != undefined) {
+        userRequest.personalImage.image = String(this.base64).split(";")[1].split(",")[1];
+        userRequest.personalImage.type = String(this.base64).split(";")[0].split(":")[1];
+        userRequest.personalImage.name = "image1"
+      }
+      console.log(userRequest)
+      debugger
+      this.globalUserService.updateUserInfo(userRequest).subscribe(res => {
+        this.alert.hideSpinner();
+        this.alert.setupAlertDiv("s", "تمت بنجاح", "تم تغيير معلوماتك بنجاح");
+        window.location.reload();
+
+      }, err => {
+        console.log(err);
+        this.alert.hideSpinner();
+        this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+      })
+    }
   }
 
   private validateForm(): Boolean {
@@ -71,7 +119,6 @@ export class UserProfileComponent implements OnInit {
       info2.style.display = "block";
       return false;
     }
-
     return true;
   }
 
@@ -90,22 +137,39 @@ export class UserProfileComponent implements OnInit {
     (document.getElementById("phone") as HTMLInputElement).value = this.userData.phoneNumber;
     (document.getElementById("emailUnderImage") as HTMLSpanElement).innerText = this.userData.email;
     (document.getElementById("nameUnderImage") as HTMLSpanElement).innerText = this.userData.firstName + " " + this.userData.lastName;
+    if (this.userData.dropphiLinks.length > 0) {
+      
+      (document.getElementById("shopify") as HTMLInputElement).value = this.userData.dropphiLinks.filter((obj) => {
+        return obj.name == "shopify"
+      })[0].url;
+
+      (document.getElementById("facebook") as HTMLInputElement).value = this.userData.dropphiLinks.filter((obj) => {
+        return obj.name == "facebook"
+      })[0].url;
+
+      (document.getElementById("insta") as HTMLInputElement).value = this.userData.dropphiLinks.filter((obj) => {
+        return obj.name == "instagram"
+      })[0].url;
+    }
+    
   }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     (document.getElementById("up") as HTMLInputElement).addEventListener("change", (e) => {
       this.uploadImage(e);
     });
 
-
     this.alert.showSpinner();
     this.globalUserService.getUser().subscribe(res => {
       this.userData = res;
+      console.log(this.userData)
       var contentContainer: HTMLDivElement = document.getElementById("content_continer") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
       this.fillData()
     }, err => {
+      console.log(err);
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })

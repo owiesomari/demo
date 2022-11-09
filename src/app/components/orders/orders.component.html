@@ -64,7 +64,8 @@
 
                 <div class="col-md-6">
                     <label for="daysFilter">فرز حسب التاريخ</label>
-                    <select id="daysFilter" class="effect-9" style="margin-right: 10px;width:50%;height:40px"
+                    <br>
+                    <select id="daysFilter" class="effect-9" style="margin-right: 0px;width:50%;height:40px"
                         (change)="filterDate($event)">
                         <option value="none"></option>
                         <option value="today">اليوم</option>
@@ -81,6 +82,7 @@
             <br>
             <div class="row margin-top-xl">
                 <label for="orderNumber">الوصول السريع للطلب</label>
+                <br>
                 <input class="effect-9 col-md-5 margin-top-s" type="text" style="width: 26%;border-radius: 10px;"
                     id="orderNumber" placeholder=" ادخل اسم العميل" (keyup)="filterTable($event)">
             </div>
@@ -120,9 +122,10 @@
                                             [routerLink]="['/orderdeatils',x.orderNumber]"><i class="bi bi-eye"
                                                 style="color: #fff;"></i>
                                         </button></span>
-                                    <span *ngIf="x.orderStatus!='CANCELLED'"><button (click)="openModal($event)"
-                                            [id]="x.orderNumber" class="rd-50 btn btn-small bg-danger"><i
-                                                (click)="openModal($event)" [id]="x.orderNumber" class="bi bi-trash"
+                                    <span *ngIf="x.orderStatus!='CANCELLED' && x.orderStatus!='COMPLETED' "><button
+                                            (click)="openModal($event)" [id]="x.orderNumber"
+                                            class="rd-50 btn btn-small bg-danger"><i (click)="openModal($event)"
+                                                [id]="x.orderNumber" class="bi bi-trash"
                                                 style="color: #fff;"></i></button></span>
 
                                     <span *ngIf="x.orderStatus=='CANCELLED'"><button

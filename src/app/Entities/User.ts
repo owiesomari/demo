@@ -26,5 +26,5 @@ export class MarketerLogo {
     id: string = "";
     name: string = "";
     type: string = "";
-    image: string[] = [];
+    image: string = "";
 }

@@ -49,7 +49,7 @@ export class OrdersComponent implements OnInit {
     switch (id) {
       case "all": {
         if (this.isFiltered)
-          this.tempOrders = this.tempOrders;
+          this.tempOrders = this.clonedOrders;
         else
           this.tempOrders = this.orders;
 
@@ -81,7 +81,7 @@ export class OrdersComponent implements OnInit {
 
   private filterData(filterText: string) {
     if (this.isFiltered) {
-      this.tempOrders = this.tempOrders.filter((obj) => {
+      this.tempOrders = this.clonedOrders.filter((obj) => {
         return obj.orderStatus == filterText
       });
     } else {
@@ -177,6 +177,7 @@ export class OrdersComponent implements OnInit {
         });
       } break;
     }
+    this.clonedOrders = this.tempOrders;
   }
 
   filterByDays(days: number) {

@@ -1,4 +1,4 @@
-<div style="padding: 20px">
+<div style="padding: 20px;display: none;" id="content">
     <div class="row">
         <div class="col-md-2">
             <label class="toggle">
@@ -116,16 +116,17 @@
                             style="margin-right: 10px; margin-bottom: 5px;display: inline-block;">المحفظة المالية</span>
                     </div>
 
-                    <div class="crad-text" style="text-align: center; padding-bottom: 30px;">
+                    <div class="crad-text  margin-top-xxl" style="text-align: center; padding-bottom: 30px; ">
                         <h1><i style="color: green" class="bi bi-patch-check-fill"></i></h1>
+                        <br>
                         <p>إجمالي الرصيد المتاح</p>
-                        <p style="color: green">0 د.آ</p>
-                        <span>ارباح المبيعات</span> <label
+                        <p class="wallet-total-balance">{{dashboardData.totalAvailableAmount}} د.أ</p>
+                        <!-- <span>ارباح المبيعات</span> <label
                             style="background-color: #408955; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
                         <span style="margin-right: 10px;"> رصيد مرجع</span> <label
                             style="background-color: #7dc897; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
                         <span style="margin-right: 10px;">ارباح الجوائز</span> <label
-                            style="background-color: #f9d749; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>
+                            style="background-color: #f9d749; width: 35px; height: 10px; color: green; margin-right: 5px;"></label>-->
 
                     </div>
                 </div>
@@ -185,12 +186,12 @@
     </div>
 
     <div class="row" style="margin-top: 30px;">
-       
+
         <div class="col-md-6" style="margin-bottom: 8px">
             <div class="container border-20" style="background-color: white;">
                 <div class="centered-element">
                     <p>اجمالي الطلبات المسلمة</p>
-                    <h2 style="color: #FF81A3">20</h2>
+                    <h2 style="color: #FF81A3">{{dashboardData.totalCompletedOrders}}</h2>
                 </div>
             </div>
         </div>
@@ -199,7 +200,7 @@
             <div class="container border-20" style="background-color: white;">
                 <div class="centered-element">
                     <p>اجمالي المبيعات</p>
-                    <h2 style="color: #ce0000; font-weight: 700; ">200 د.ا</h2>
+                    <h2 style="color: #ce0000; font-weight: 700; ">{{dashboardData.totalSalesAmount}} د.أ</h2>
                 </div>
             </div>
         </div>
