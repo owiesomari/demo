@@ -102,7 +102,7 @@ export class OrdredetailsComponent implements OnInit {
     this.alert.showSpinner();
     this.globalorderDeatialsService.getOrderDetails(this.orderNumber!).subscribe(res => {
       this.orderDeails = res;
-      this.textAreadDisabled = this.orderDeails.orderDetails.orderStatus == "CANCELLED" ? true : false
+      this.textAreadDisabled = this.orderDeails.orderDetails.orderStatus == "CANCELLED" || this.orderDeails.orderDetails.orderStatus == "COMPLETED"
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";

@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit {
   uploadImage = async (event: any) => {
     const file = event.target.files[0];
     this.base64 = await this.convertToBase64(file);
+    (document.getElementById("marketerImage") as HTMLImageElement).src = String(this.base64);
   };
 
   convertToBase64 = (file: File) => {
@@ -88,7 +89,6 @@ export class UserProfileComponent implements OnInit {
         userRequest.personalImage.name = "image1"
       }
       console.log(userRequest)
-      debugger
       this.globalUserService.updateUserInfo(userRequest).subscribe(res => {
         this.alert.hideSpinner();
         this.alert.setupAlertDiv("s", "تمت بنجاح", "تم تغيير معلوماتك بنجاح");
@@ -137,21 +137,38 @@ export class UserProfileComponent implements OnInit {
     (document.getElementById("phone") as HTMLInputElement).value = this.userData.phoneNumber;
     (document.getElementById("emailUnderImage") as HTMLSpanElement).innerText = this.userData.email;
     (document.getElementById("nameUnderImage") as HTMLSpanElement).innerText = this.userData.firstName + " " + this.userData.lastName;
-    if (this.userData.dropphiLinks.length > 0) {
-      
-      (document.getElementById("shopify") as HTMLInputElement).value = this.userData.dropphiLinks.filter((obj) => {
-        return obj.name == "shopify"
-      })[0].url;
-
-      (document.getElementById("facebook") as HTMLInputElement).value = this.userData.dropphiLinks.filter((obj) => {
-        return obj.name == "facebook"
-      })[0].url;
-
-      (document.getElementById("insta") as HTMLInputElement).value = this.userData.dropphiLinks.filter((obj) => {
-        return obj.name == "instagram"
-      })[0].url;
+    if (this.userData.personalImage.image.length == 0) {
+      (document.getElementById("marketerImage") as HTMLImageElement).src = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+      (document.getElementById("uploadContainer") as HTMLDivElement).style.top = "56%";
     }
-    
+    else {
+      (document.getElementById("uploadContainer") as HTMLDivElement).style.top = "65%";
+    }
+    if (this.userData.dropphiLinks.length > 0) {
+      var shopify = this.userData.dropphiLinks.filter((obj) => {
+        return obj.name == "shopify"
+      });
+      if (shopify.length > 0) {
+        (document.getElementById("shopify") as HTMLInputElement).value = shopify[0].url;
+      }
+
+      var facebook = this.userData.dropphiLinks.filter((obj) => {
+        return obj.name == "facebook"
+      });
+
+      if (facebook.length > 0) {
+        (document.getElementById("facebook") as HTMLInputElement).value = facebook[0].url;
+      }
+
+      var insta = this.userData.dropphiLinks.filter((obj) => {
+        return obj.name == "instagram"
+      });
+
+      if (insta.length > 0) {
+        (document.getElementById("insta") as HTMLInputElement).value = insta[0].url;
+
+      }
+    }
   }
 
   ngOnInit(): void {

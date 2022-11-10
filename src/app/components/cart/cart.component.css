@@ -46,3 +46,15 @@ table td {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+/* Chrome, Safari, Edge, Opera */
+#phone_number::-webkit-outer-spin-button,
+#phone_number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#phone_number{
+  -moz-appearance: textfield;
+}

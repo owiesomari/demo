@@ -128,7 +128,7 @@
                                                 [id]="x.orderNumber" class="bi bi-trash"
                                                 style="color: #fff;"></i></button></span>
 
-                                    <span *ngIf="x.orderStatus=='CANCELLED'"><button
+                                    <span *ngIf="!showEmptyAction(x.orderStatus)"><button
                                             class="rd-50 btn btn-small bg-danger"
                                             style="visibility: hidden;">ds</button></span>
                                 </td>

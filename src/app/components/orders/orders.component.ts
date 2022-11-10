@@ -250,6 +250,10 @@ export class OrdersComponent implements OnInit {
     return "";
   }
 
+  showEmptyAction(status: string): Boolean {
+    return status == 'CANCELLED' || status == 'COMPLETED';
+  }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.alert.showSpinner();

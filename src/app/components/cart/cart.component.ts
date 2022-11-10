@@ -164,7 +164,7 @@ export class CartComponent implements OnInit {
     }
 
     this.validateSellingPrice();
-    this.validatePhoneNumber();
+   // this.validatePhoneNumber();
 
     if (this.errorMsgs.length == 0) {
       return true
@@ -184,7 +184,7 @@ export class CartComponent implements OnInit {
     }
   }
 
-  validatePhoneNumber() {
+ /* validatePhoneNumber() {
     var phone = document.getElementById("phone_number") as HTMLInputElement;
     if (!phone.value.startsWith("079") && !phone.value.startsWith("078") && !phone.value.startsWith("077") && !phone.value.startsWith("٠٧٩") && !phone.value.startsWith("٠٧٨") && !phone.value.startsWith("٠٧٧"))
       this.errorMsgs.push("رقم الهاتف يجب ان يبدأ ب 079 , 078 او 077")
@@ -192,7 +192,7 @@ export class CartComponent implements OnInit {
     if (phone.value.length < 10)
       this.errorMsgs.push("يجب ان يتكون رقم الهاتف من 10 خانات")
 
-  }
+  }*/
 
   openErrorModal() {
     var msg = ""

@@ -6,14 +6,25 @@
         <div class="row">
             <div class="col-md-3 border-right">
 
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5 img-div">
-                    <img class="rounded-circle mt-5" width="150px" id="marketerImage"
-                    src="data:image/png;base64,{{userData.personalImage.image}}"><span
-                        class="font-weight-bold" id="nameUnderImage">Owies Alomari</span><span class="text-black-50"
+                <div style="position: relative;"
+                    class="d-flex flex-column align-items-center text-center p-3 py-5 img-div">
+                    <img class="mt-5" width="150px" id="marketerImage" height="200"
+                        src="data:image/png;base64,{{userData.personalImage.image}}">
+                    <span class="font-weight-bold" id="nameUnderImage">Owies Alomari</span><span class="text-black-50"
                         id="emailUnderImage">owies.omari3@gmail.com</span><span> </span>
 
-                        <input type="file" id="up">
-                    </div>
+                    <input type="file" id="up" style="display: none;">
+
+                    <label for="up" style="font-weight: 400;">
+                        <div id="uploadContainer"
+                            style="position:absolute;left:38%; background-color: rgba(0, 0, 0, 0.5);border-radius: 40px; color: white;padding: 8px;">
+                            <i class="bi bi-file-image margin-left-m"></i>
+                            <span>رفع صورة</span>
+                        </div>
+                    </label>
+
+                </div>
+
             </div>
             <div class="col-md-5 border-right">
                 <div class="p-3 py-5">
@@ -146,5 +157,4 @@
     <div class="mt-5 text-center" style="width: 200px; margin:auto">
         <button style="width:100%" id="idButton" class="btn" type="button" (click)="saveChanges()">حفظ التغيرات</button>
     </div>
-
 </div>
