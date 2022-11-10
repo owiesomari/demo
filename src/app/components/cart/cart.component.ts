@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Cart, CartDetails } from 'src/app/Entities/Cart';
+import { CartDetails } from 'src/app/Entities/Cart';
 import { Router } from '@angular/router';
 import { Validator } from 'src/app/utils/Valitator';
 import { Modal } from 'bootstrap';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Alert } from 'src/app/utils/Alert';
 import { CustomerShipmentDetails, OrdersRequest, ProductInfo } from 'src/app/Entities/OrdersRequest';
-
 
 @Component({
   selector: 'app-cart',
@@ -24,6 +23,10 @@ export class CartComponent implements OnInit {
   private globalCartServicd: CartService
   private alert = new Alert();
   private validator: Validator | undefined
+  atLeastOneInacive = false
+  orderPreparationCost = 0;
+  orderShippingCost = 0;
+  shippingPeriod = "";
 
   constructor(private router: Router, cartService: CartService) {
     this.validator = new Validator();
@@ -46,12 +49,13 @@ export class CartComponent implements OnInit {
   }
 
   calculations(event: any) {
+    var sku = event.target.id.split(',')[1];
+
     var quntities: HTMLCollection = document.getElementsByClassName("qantity");
     var sells: HTMLCollection = document.getElementsByClassName("sell");
-    var id = event.target.id.split(',')[1];
-    var sellingPrice: HTMLInputElement = (document.getElementById("sellingPrice," + id)) as HTMLInputElement
-    var quantity: HTMLInputElement = (document.getElementById("qantity," + id)) as HTMLInputElement
-    var total: HTMLParagraphElement = (document.getElementById("totalValue," + id)) as HTMLParagraphElement
+    var sellingPrice: HTMLInputElement = (document.getElementById("sellingPrice," + sku)) as HTMLInputElement
+    var quantity: HTMLInputElement = (document.getElementById("qantity," + sku)) as HTMLInputElement
+    var total: HTMLParagraphElement = (document.getElementById("totalValue," + sku)) as HTMLParagraphElement
 
     if (sellingPrice.value == '' || sellingPrice.value == null) {
       total.innerText = "0.000"
@@ -65,25 +69,28 @@ export class CartComponent implements OnInit {
       var t = Math.round(Number(sellingPrice.value) * Number(quantity.value) * 100) / 100
       total.innerText = t.toString();
       var totalCost = 0;
+
       for (var i = 0; i < quntities.length; i++) {
-        totalCost += Number((quntities[i] as HTMLInputElement).value) * this.cartData[i].costPrice;
+        if (this.cartData[i].active)
+          totalCost += Number((quntities[i] as HTMLInputElement).value) * this.cartData[i].costPrice;
       }
 
       ((document.getElementById("totalCost")) as HTMLSpanElement).innerText = Math.round(Number(totalCost) * 100) / 100
         + " د.أ";
 
 
-      ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = Math.round(Number(totalCost + 2.75) * 100) / 100
+      ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = Math.round(Number(totalCost + this.orderShippingCost) * 100) / 100
         + " د.أ"
 
 
       //calculate for from customer money 
       var fromCustomer: number = 0;
       for (var i = 0; i < quntities.length; i++) {
-        fromCustomer += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value);
+        if (!quntities[i].hasAttribute("disabled"))
+          fromCustomer += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value);
       }
 
-      ((document.getElementById("fromCustomer")) as HTMLSpanElement).innerText = Math.round(Number(fromCustomer + 2.75) * 100) / 100 + "د.أ";
+      ((document.getElementById("fromCustomer")) as HTMLSpanElement).innerText = Math.round(Number(fromCustomer + this.orderShippingCost) * 100) / 100 + "د.أ";
 
       this.calculateProfit();
     }
@@ -95,10 +102,12 @@ export class CartComponent implements OnInit {
     var totalCost = 0;
     var totalSell = 0;
     for (var i = 0; i < quntities.length; i++) {
-      totalSell += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value)
-      totalCost += this.cartData[i].costPrice * Number((quntities[i] as HTMLInputElement).value);
+      if (!quntities[i].hasAttribute("disabled")) {
+        totalSell += Number((quntities[i] as HTMLInputElement).value) * Number((sells[i] as HTMLInputElement).value)
+        totalCost += this.cartData[i].costPrice * Number((quntities[i] as HTMLInputElement).value);
+      }
     }
-    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = Math.round(Number(totalSell - totalCost - 1) * 100) / 100 + " د.أ";
+    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = Math.round(Number(totalSell - totalCost - this.orderPreparationCost) * 100) / 100 + " د.أ";
   }
 
   createOrder() {
@@ -112,12 +121,14 @@ export class CartComponent implements OnInit {
     var skus: HTMLCollection = document.getElementsByClassName("sku");
     var totals: HTMLCollection = document.getElementsByClassName("total");
     for (var i = 0; i < sells.length; i++) {
-      var productInfo = new ProductInfo();
-      productInfo.sku = skus[i].innerHTML.toString();
-      productInfo.quantity = Number((quntities[i] as HTMLInputElement).value);
-      productInfo.sellingPrice = Number((sells[i] as HTMLInputElement).value);
-      productInfo.totalPrice = Number(totals[i].innerHTML);
-      productInfos.push(productInfo)//add this to ordersRequest
+      if (!sells[i].hasAttribute("disabled")) {
+        var productInfo = new ProductInfo();
+        productInfo.sku = skus[i].innerHTML.toString();
+        productInfo.quantity = Number((quntities[i] as HTMLInputElement).value);
+        productInfo.sellingPrice = Number((sells[i] as HTMLInputElement).value);
+        productInfo.totalPrice = Number(totals[i].innerHTML);
+        productInfos.push(productInfo)
+      }
     }
 
     var customerShipmentDetails = new CustomerShipmentDetails();
@@ -141,12 +152,12 @@ export class CartComponent implements OnInit {
     ordersRequest.customerShipmentDetails = customerShipmentDetails;
     ordersRequest.productsInfo = productInfos;
     ordersRequest.paymentMethod = selectedMethod?.toString();
+    console.log(ordersRequest)
     this.globalCartServicd.createOrder(ordersRequest).subscribe(res => {
       this.router.navigateByUrl('/orderConfirmation')
     }, err => {
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })
-
   }
 
   validations(): Boolean {
@@ -164,7 +175,7 @@ export class CartComponent implements OnInit {
     }
 
     this.validateSellingPrice();
-   // this.validatePhoneNumber();
+    // this.validatePhoneNumber();
 
     if (this.errorMsgs.length == 0) {
       return true
@@ -177,22 +188,23 @@ export class CartComponent implements OnInit {
   validateSellingPrice() {
     var sells: HTMLCollection = document.getElementsByClassName("sell");
     for (var i = 0; i < this.cartData.length; i++) {
-      if (Number((sells[i] as HTMLInputElement).value) < this.cartData[i].costPrice) {
-        this.errorMsgs.push("يرجى التاكد من ان الاسعار اكبر من سعر التكلفة")
-        return;
-      }
+      if (this.cartData[i].active)
+        if (Number((sells[i] as HTMLInputElement).value) < this.cartData[i].costPrice) {
+          this.errorMsgs.push("يرجى التاكد من ان الاسعار اكبر من سعر التكلفة")
+          return;
+        }
     }
   }
 
- /* validatePhoneNumber() {
-    var phone = document.getElementById("phone_number") as HTMLInputElement;
-    if (!phone.value.startsWith("079") && !phone.value.startsWith("078") && !phone.value.startsWith("077") && !phone.value.startsWith("٠٧٩") && !phone.value.startsWith("٠٧٨") && !phone.value.startsWith("٠٧٧"))
-      this.errorMsgs.push("رقم الهاتف يجب ان يبدأ ب 079 , 078 او 077")
-
-    if (phone.value.length < 10)
-      this.errorMsgs.push("يجب ان يتكون رقم الهاتف من 10 خانات")
-
-  }*/
+  /* validatePhoneNumber() {
+     var phone = document.getElementById("phone_number") as HTMLInputElement;
+     if (!phone.value.startsWith("079") && !phone.value.startsWith("078") && !phone.value.startsWith("077") && !phone.value.startsWith("٠٧٩") && !phone.value.startsWith("٠٧٨") && !phone.value.startsWith("٠٧٧"))
+       this.errorMsgs.push("رقم الهاتف يجب ان يبدأ ب 079 , 078 او 077")
+ 
+     if (phone.value.length < 10)
+       this.errorMsgs.push("يجب ان يتكون رقم الهاتف من 10 خانات")
+ 
+   }*/
 
   openErrorModal() {
     var msg = ""
@@ -213,23 +225,34 @@ export class CartComponent implements OnInit {
     var total: HTMLSpanElement = (document.getElementById("totalCost")) as HTMLSpanElement
     var totalCost = 0;
     for (var i = 0; i < this.cartData.length; i++) {
-      totalCost += this.cartData[i].costPrice * this.cartData[i].quantity;
+      if (this.cartData[i].active)
+        totalCost += this.cartData[i].costPrice * this.cartData[i].quantity;
     }
 
     total.innerText = totalCost.toString() + " د.أ";
-    ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = totalCost + 2.75 + " د.أ";
 
+    ((document.getElementById("totalCostPlusShiping")) as HTMLSpanElement).innerText = totalCost + this.orderShippingCost + " د.أ";
 
     //from customer
     var fromCustomer_ = 0
     for (var i = 0; i < this.cartData.length; i++) {
-      fromCustomer_ += this.cartData[i].suggestedPrice * this.cartData[i].quantity;
+      if (this.cartData[i].active)
+        fromCustomer_ += this.cartData[i].suggestedPrice * this.cartData[i].quantity;
     }
-    ((document.getElementById("fromCustomer")) as HTMLSpanElement).innerText = fromCustomer_ + 2.75 + "د.أ";
-
+    ((document.getElementById("fromCustomer")) as HTMLSpanElement).innerText = fromCustomer_ + this.orderShippingCost + "د.أ";
 
     //profit
-    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = fromCustomer_ - totalCost - 1 + " د.أ";
+    ((document.getElementById("your_profit")) as HTMLSpanElement).innerText = fromCustomer_ - totalCost - this.orderPreparationCost + " د.أ";
+  }
+
+  getRowColor(sku: string): string {
+    if (!this.cartData.filter((obj) => {
+      return obj.sku == sku
+    })[0].active) {
+      return "#f8d7da"
+    } else {
+      return '';
+    }
   }
 
   ngOnInit(): void {
@@ -240,6 +263,20 @@ export class CartComponent implements OnInit {
 
     this.globalCartServicd.getCartData().subscribe(res => {
       this.cartData = res.cartItemsResponse;
+      this.orderPreparationCost = res.orderPreparationCost;
+      this.orderShippingCost = res.orderShippingCost;
+      this.shippingPeriod = res.shippingPeriod;
+
+      if (this.cartData.filter((obj) => {
+        return obj.active
+      }).length == 0) {
+        (document.getElementById("createOrderBtn") as HTMLButtonElement).disabled = true
+      }
+      this.atLeastOneInacive = this.cartData.filter((obj) => {
+        return !obj.active
+      }).length != 0;
+
+
       if (this.cartData.length == 0) this.router.navigateByUrl('/catalog')
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement;
       this.alert.hideSpinner();

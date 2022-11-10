@@ -58,3 +58,7 @@ table td {
 #phone_number{
   -moz-appearance: textfield;
 }
+
+tr{
+    border-bottom: 1px solid #eee;
+}

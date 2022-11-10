@@ -17,8 +17,8 @@
                             <th scope="col"> </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr *ngFor="let c of cartData">
+                    <tbody onload="setInActiveRowsBackground()">
+                        <tr *ngFor="let c of cartData" [ngStyle]="{'background-color':getRowColor(c.sku)}">
                             <td style="padding-top: 40px;">
                                 <p class="table-content sku">{{c.sku}}</p>
                             </td>
@@ -34,14 +34,15 @@
                                 <input class="effect-9 sell" type="number"
                                     style="width: 300px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
                                     id="sellingPrice,{{c.sku}}" min="0" [value]="c.suggestedPrice"
-                                    (keyup)="calculations($event)" (change)="calculations($event)">
+                                    (keyup)="calculations($event)" (change)="calculations($event)"
+                                    [disabled]="!c.active">
 
                             </td>
                             <td style="padding-top: 40px;">
                                 <input class="effect-9 qantity" type="number"
                                     style="width: 100px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
                                     id="qantity,{{c.sku}}" min="0" [value]="c.quantity" (change)="calculations($event)"
-                                    (keyup)="calculations($event)">
+                                    (keyup)="calculations($event)" [disabled]="!c.active">
 
                             </td>
                             <td style="padding-top: 40px;">
@@ -56,11 +57,11 @@
                             </td>
                         </tr>
                     </tbody>
+                    <p class="margin-top-xl" style="color:#ce0000;" *ngIf="atLeastOneInacive">* المنتجات المظللة بالاحمر غير متاحة في الوقت الحالي</p>
                 </table>
-                <br>
-                <hr>
             </div>
         </div>
+        <hr>
         <br>
         <div class="row">
             <div class="col-md-7">
@@ -109,7 +110,8 @@
 
                         <div class="form-group col-md-5">
                             <label for="phone">رقم الهاتف*</label>
-                            <input type="number" class="form-control client" id="phone_number" placeholder="ادخل رقم الهاتف">
+                            <input type="number" class="form-control client" id="phone_number"
+                                placeholder="ادخل رقم الهاتف">
                         </div>
                         <div class="form-group col-md-5">
                             <label for="store_name">اسم متجرك/صفحتك</label>
@@ -152,7 +154,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">تكلفة شحن الطلب&nbsp;&nbsp;&nbsp;<span class="bold">2.75 د.أ</span></div>
+                    <div class="col-md-6">تكلفة شحن الطلب&nbsp;&nbsp;&nbsp;<span class="bold">{{orderShippingCost}}
+                            د.أ</span></div>
                 </div>
 
                 <div class="row">
@@ -168,29 +171,27 @@
 
                 <hr>
                 <div class="row">
-                    <div class="col-md-6">تكلفة تجهيز الطلب&nbsp;&nbsp;&nbsp;<span class="bold">1 د.أ</span></div>
+                    <div class="col-md-6">تكلفة تجهيز الطلب&nbsp;&nbsp;&nbsp;<span class="bold">{{orderPreparationCost}}
+                            د.أ</span></div>
                 </div>
 
                 <div class="row">
-                    <h3>ارباحك من الطلب:&nbsp;&nbsp;&nbsp;<span id="your_profit" class="green-text bold">15.5د.أ</span>
+                    <h3>ارباحك من الطلب:&nbsp;&nbsp;&nbsp;<span id="your_profit" class="green-text bold"></span>
                     </h3>
                     <span>* بعد إضافة تكلفة الشحن </span>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5">مدة توصيل الطلب&nbsp;&nbsp;&nbsp;<span>1 - 3 أيام عمل </span></div>
+                    <div class="col-md-5">مدة توصيل الطلب&nbsp;&nbsp;&nbsp;<span>{{shippingPeriod}} أيام عمل </span>
+                    </div>
                 </div>
 
                 <hr>
 
                 <div class="payment-method">
-
                     <h5 class="methods-title">طريقة الدفع</h5>
-
                     <div class="method-input">
-
                         <h5 class="text-muted">الرجاء إختيار طريقة الدفع المفضلة لهذا الطلب.</h5>
-
                         <input class="margin-top-m" type="radio" name="methods" value="CASH" checked>&nbsp; <span
                             class="red-text">دفع عند الاستلام</span>
                         <br>
@@ -200,15 +201,12 @@
                         <input class="margin-top-s" type="radio" name="methods" value="ONLINE">&nbsp;<span
                             class="red-text">دفع الكتروني</span>
                     </div>
-
                 </div>
-
                 <div class="proceed-to-checkout mt-4 text-center">
                     <button type="submit" class="btn btn-danger corner-btn"
-                        style="width: 200px;padding: 10px;font-size: 20px;" (click)="createOrder()">اعتماد الطلب
+                        style="width: 200px;padding: 10px;font-size: 20px;" (click)="createOrder()" id="createOrderBtn">اعتماد الطلب
                         الآن</button>
                 </div>
-
             </div>
         </div>
     </div>
