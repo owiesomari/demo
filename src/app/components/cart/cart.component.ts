@@ -5,6 +5,7 @@ import { Validator } from 'src/app/utils/Valitator';
 import { Modal } from 'bootstrap';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { Alert } from 'src/app/utils/Alert';
+
 import { CustomerShipmentDetails, OrdersRequest, ProductInfo } from 'src/app/Entities/OrdersRequest';
 
 @Component({
@@ -152,7 +153,6 @@ export class CartComponent implements OnInit {
     ordersRequest.customerShipmentDetails = customerShipmentDetails;
     ordersRequest.productsInfo = productInfos;
     ordersRequest.paymentMethod = selectedMethod?.toString();
-    console.log(ordersRequest)
     this.globalCartServicd.createOrder(ordersRequest).subscribe(res => {
       this.router.navigateByUrl('/orderConfirmation')
     }, err => {
@@ -263,6 +263,9 @@ export class CartComponent implements OnInit {
 
     this.globalCartServicd.getCartData().subscribe(res => {
       this.cartData = res.cartItemsResponse;
+      this.cartData[0].active=true;
+      this.cartData[1].active=true;
+
       this.orderPreparationCost = res.orderPreparationCost;
       this.orderShippingCost = res.orderShippingCost;
       this.shippingPeriod = res.shippingPeriod;
@@ -275,8 +278,6 @@ export class CartComponent implements OnInit {
       this.atLeastOneInacive = this.cartData.filter((obj) => {
         return !obj.active
       }).length != 0;
-
-
       if (this.cartData.length == 0) this.router.navigateByUrl('/catalog')
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement;
       this.alert.hideSpinner();

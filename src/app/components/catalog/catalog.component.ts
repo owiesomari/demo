@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
+import * as saveAs from 'file-saver';
+import * as JSZip from 'jszip';
 import { AllProduct, Catalog } from 'src/app/Entities/Catalog';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Alert } from 'src/app/utils/Alert';
@@ -388,6 +390,17 @@ export class CatalogComponent implements OnInit {
       this.closeModal();
       this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
     })
+  }
+
+  download(){
+    const jszip = new JSZip();
+    jszip.file('images.png', `${this.catalogs.allProducts[0].images[0].image[0]}`);
+
+    jszip.generateAsync({ type: 'blob' }).then(function(content) {
+      // see FileSaver.js
+      saveAs(content, 'example.zip');
+    });
+  
   }
 
   ngOnInit(): void {

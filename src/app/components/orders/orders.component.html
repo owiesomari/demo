@@ -62,10 +62,11 @@
             </div>
             <div class="row">
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="daysFilter">فرز حسب التاريخ</label>
                     <br>
-                    <select id="daysFilter" class="effect-9" style="margin-right: 0px;width:50%;height:40px"
+                    <select id="daysFilter" class="effect-9"
+                        style="margin-right: 0px;width:30%;height:40px;background-color: #f0f0f0;border-radius: 10px"
                         (change)="filterDate($event)">
                         <option value="none"></option>
                         <option value="today">اليوم</option>
@@ -74,17 +75,26 @@
                         <option value="lastmonth">اخر شهر</option>
                         <option value="custom">نطاق مخصص</option>
                     </select>
+
+                    <label id="fromDateLabel" for="fromDate"
+                        style="margin-right: 100px; margin-left: 10px;display:none ;">من</label>
+                    <input type="date" id="fromDate" class="effect-9 margin-top-s" min="2022-05-11"
+                        style="display:none ;background-color: #f0f0f0;border-radius: 10px" (change)="filterRange()">
+
+                    <label id="toDateLabel" for="toDate"
+                        style="margin-right: 70px;margin-left: 10px;display:none ;">الى</label>
+                    <input type="date" id="toDate" class="effect-9 margin-top-s" min="2020-05-11"
+                        style="display:none ;background-color: #f0f0f0;border-radius: 10px" (change)="filterRange()">
+
                 </div>
-
-                <div class="col-md-6"></div>
-
             </div>
             <br>
             <div class="row margin-top-xl">
                 <label for="orderNumber">الوصول السريع للطلب</label>
                 <br>
-                <input class="effect-9 col-md-5 margin-top-s" type="text" style="width: 26%;border-radius: 10px;"
-                    id="orderNumber" placeholder=" ادخل اسم العميل" (keyup)="filterTable($event)">
+                <input class="effect-9 col-md-5 margin-top-s" type="text"
+                    style="width: 26%;border-radius: 10px;background-color: #f0f0f0;" id="orderNumber"
+                    placeholder=" ادخل اسم العميل" (keyup)="filterTable($event)">
             </div>
             <div class="row prodTable margin-top-xl">
                 <div class="table-responsive">
@@ -140,8 +150,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!-- Cancle Modal -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"

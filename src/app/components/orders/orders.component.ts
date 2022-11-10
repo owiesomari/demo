@@ -3,6 +3,7 @@ import { Order } from 'src/app/Entities/Order';
 import { Modal } from 'bootstrap';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { Alert } from 'src/app/utils/Alert';
+import { throwIfEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -141,6 +142,7 @@ export class OrdersComponent implements OnInit {
   }
 
   filterDate(event: any) {
+    this.showHideDates("none");
     this.isFiltered = true;
     switch (event.target.value) {
       case "none": {
@@ -176,8 +178,23 @@ export class OrdersComponent implements OnInit {
           else return null
         });
       } break;
+      case "custom": {
+        var from = document.getElementById("fromDate") as HTMLInputElement;
+        var to = document.getElementById("toDate") as HTMLInputElement;
+        this.showHideDates("inline");
+        from.value = ''
+        to.value = ''
+      } break;
     }
     this.clonedOrders = this.tempOrders;
+  }
+
+  showHideDates(state: string) {
+    (document.getElementById("fromDateLabel") as HTMLLabelElement).style.display = state;
+    (document.getElementById("fromDate") as HTMLInputElement).style.display = state;
+    (document.getElementById("toDateLabel") as HTMLLabelElement).style.display = state;
+    (document.getElementById("toDate") as HTMLInputElement).style.display = state;
+
   }
 
   filterByDays(days: number) {
@@ -189,7 +206,19 @@ export class OrdersComponent implements OnInit {
       if (TotalDays == days) return obj
       else return null
     });
+  }
 
+  filterRange() {
+    var from = document.getElementById("fromDate") as HTMLInputElement;
+    var to = document.getElementById("toDate") as HTMLInputElement;
+    if (from.value != '' && to.value != '') {
+      this.tempOrders = this.orders.filter((obj) => {
+        var date = new Date(obj.orderDate);
+        if (date >= new Date(from.value) && date <= new Date(to.value)) return obj;
+        else return null
+      });
+    }
+    this.clonedOrders = this.tempOrders;
   }
 
   getCellColor(status: string): string {
@@ -254,6 +283,12 @@ export class OrdersComponent implements OnInit {
     return status == 'CANCELLED' || status == 'COMPLETED';
   }
 
+  disableFutureDate() {
+    var nextDayDate = new Date(new Date().getTime() + 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    (document.getElementById("fromDate") as HTMLInputElement).max = nextDayDate;
+    (document.getElementById("toDate") as HTMLInputElement).max = nextDayDate;
+  }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
@@ -264,7 +299,7 @@ export class OrdersComponent implements OnInit {
       var contentContainer: HTMLDivElement = document.getElementById("content") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
-
+      this.disableFutureDate();
     }, err => {
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");

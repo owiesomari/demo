@@ -16,6 +16,8 @@ export class UserProfileComponent implements OnInit {
   private alert = new Alert();
   private validator: Validator | undefined
   private base64: unknown
+  private base64logo: unknown
+
   userData = new User();
 
   constructor(userService: UserService) {
@@ -43,6 +45,13 @@ export class UserProfileComponent implements OnInit {
       };
     });
   };
+
+  uploadImage2 = async (event: any) => {
+    const file = event.target.files[0];
+    this.base64logo = await this.convertToBase64(file);
+    (document.getElementById("marketerlogo") as HTMLImageElement).src = String(this.base64logo);
+  };
+
 
   saveChanges() {
     if (this.validateForm()) {
@@ -88,14 +97,19 @@ export class UserProfileComponent implements OnInit {
         userRequest.personalImage.type = String(this.base64).split(";")[0].split(":")[1];
         userRequest.personalImage.name = "image1"
       }
-      console.log(userRequest)
+
+      if (this.base64logo != undefined) {
+        userRequest.marketerLogo.image = String(this.base64logo).split(";")[1].split(",")[1];
+        userRequest.personalImage.type = String(this.base64logo).split(";")[0].split(":")[1];
+        userRequest.personalImage.name = "image1"
+      }
+
       this.globalUserService.updateUserInfo(userRequest).subscribe(res => {
         this.alert.hideSpinner();
         this.alert.setupAlertDiv("s", "تمت بنجاح", "تم تغيير معلوماتك بنجاح");
         window.location.reload();
 
       }, err => {
-        console.log(err);
         this.alert.hideSpinner();
         this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
       })
@@ -137,8 +151,12 @@ export class UserProfileComponent implements OnInit {
     (document.getElementById("phone") as HTMLInputElement).value = this.userData.phoneNumber;
     (document.getElementById("emailUnderImage") as HTMLSpanElement).innerText = this.userData.email;
     (document.getElementById("nameUnderImage") as HTMLSpanElement).innerText = this.userData.firstName + " " + this.userData.lastName;
+    if (this.userData.marketerLogo.image.length == 0) {
+      (document.getElementById("marketerlogo") as HTMLImageElement).src = "../../../assets/logo-placeholder.jpg"
+
+    }
     if (this.userData.personalImage.image.length == 0) {
-      (document.getElementById("marketerImage") as HTMLImageElement).src = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+      (document.getElementById("marketerImage") as HTMLImageElement).src = "../../../assets/uswe_default.jpeg";
       (document.getElementById("uploadContainer") as HTMLDivElement).style.top = "56%";
     }
     else {
@@ -166,7 +184,6 @@ export class UserProfileComponent implements OnInit {
 
       if (insta.length > 0) {
         (document.getElementById("insta") as HTMLInputElement).value = insta[0].url;
-
       }
     }
   }
@@ -177,16 +194,18 @@ export class UserProfileComponent implements OnInit {
       this.uploadImage(e);
     });
 
+    (document.getElementById("uplogo") as HTMLInputElement).addEventListener("change", (e) => {
+      this.uploadImage2(e);
+    });
+
     this.alert.showSpinner();
     this.globalUserService.getUser().subscribe(res => {
       this.userData = res;
-      console.log(this.userData)
       var contentContainer: HTMLDivElement = document.getElementById("content_continer") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
       this.fillData()
     }, err => {
-      console.log(err);
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })

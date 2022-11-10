@@ -88,6 +88,26 @@
                             <input type="text" class="form-control" placeholder=" رقم الهاتف*" id="phone">
                             <p> <small style="color: red;display: none;" id="infotext2" class="form-text "></small></p>
                         </div>
+
+                        <div class="col-md-12">
+                            <label class="labels">شعار المسوق</label>
+
+                            <div style="position: relative;"
+                                class="d-flex flex-column align-items-center text-center">
+                                <img class="mt-5" width="400px" id="marketerlogo" height="300"
+                                    src="data:image/png;base64,{{userData.marketerLogo.image}}">
+
+                                <input type="file" id="uplogo" style="display: none;">
+
+                                <label for="uplogo" style="font-weight: 400;">
+                                    <div id="uploadContainer"
+                                        style="position:absolute;left:43%; background-color: rgba(0, 0, 0, 0.5);border-radius: 40px;top: 87%; color: white;padding: 8px;">
+                                        <i class="bi bi-file-image margin-left-m"></i>
+                                        <span>رفع صورة</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

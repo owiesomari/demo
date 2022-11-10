@@ -10,7 +10,7 @@ export class CartDetails {
     costPrice: number = 0;
     suggestedPrice: number = 0;
     quantity: number = 0;
-    active: boolean = false;
+    active: boolean = true;
 }
 
 export class Image {
