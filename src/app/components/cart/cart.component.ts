@@ -114,6 +114,7 @@ export class CartComponent implements OnInit {
   createOrder() {
     if (!this.validations())
       return;
+    this.alert.showSpinner();
 
     var ordersRequest = new OrdersRequest();
     var productInfos: ProductInfo[] = [];
@@ -154,8 +155,10 @@ export class CartComponent implements OnInit {
     ordersRequest.productsInfo = productInfos;
     ordersRequest.paymentMethod = selectedMethod?.toString();
     this.globalCartServicd.createOrder(ordersRequest).subscribe(res => {
+      this.alert.hideSpinner();
       this.router.navigateByUrl('/orderConfirmation')
     }, err => {
+      this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })
   }
@@ -263,8 +266,8 @@ export class CartComponent implements OnInit {
 
     this.globalCartServicd.getCartData().subscribe(res => {
       this.cartData = res.cartItemsResponse;
-      this.cartData[0].active=true;
-      this.cartData[1].active=true;
+      this.cartData[0].active = true;
+      this.cartData[1].active = true;
 
       this.orderPreparationCost = res.orderPreparationCost;
       this.orderShippingCost = res.orderShippingCost;
