@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
 import * as saveAs from 'file-saver';
 import * as JSZip from 'jszip';
-import { AllProduct, Catalog } from 'src/app/Entities/Catalog';
+import { AllProduct, Catalog, Image } from 'src/app/Entities/Catalog';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Alert } from 'src/app/utils/Alert';
 
@@ -392,15 +392,29 @@ export class CatalogComponent implements OnInit {
     })
   }
 
-  download(){
+  downloadProductImages() {
+    var currentProduct = this.catalogs.allProducts.filter((obj) => {
+      return obj.sku == this.modalProductSku;
+    })[0];
     const jszip = new JSZip();
-    jszip.file('images.png', `${this.catalogs.allProducts[0].images[0].image[0]}`);
+    for (let i = 0; i < currentProduct.images.length; i++) {
+      var binary = atob(currentProduct.images[i].image.toString());
+      var array = [];
+      for (let j = 0; j < binary.length; j++) {
+        array.push(binary.charCodeAt(j));
+      }
+      let image = new Blob([new Uint8Array(array)], {
+        type: currentProduct.images[i].type
+      });
+      jszip.file(`${currentProduct.name} ${i + 1}.${currentProduct.images[i].type.split("/")[1]}`, image)
+      if (i === (currentProduct.images.length - 1)) {
+        jszip.generateAsync({ type: 'blob' }).then(function (content) {
+          // see FileSaver.js
+          saveAs(content, currentProduct.name);
+        });
+      }
+    }
 
-    jszip.generateAsync({ type: 'blob' }).then(function(content) {
-      // see FileSaver.js
-      saveAs(content, 'example.zip');
-    });
-  
   }
 
   ngOnInit(): void {
