@@ -266,10 +266,6 @@ export class CartComponent implements OnInit {
 
     this.globalCartServicd.getCartData().subscribe(res => {
       this.cartData = res.cartItemsResponse;
-      console.log("res");
-      console.log(res);
-      console.log(this.cartData)
-
       this.orderPreparationCost = res.orderPreparationCost;
       this.orderShippingCost = res.orderShippingCost;
       this.shippingPeriod = res.shippingPeriod;
