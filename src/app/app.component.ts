@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CacheManager } from './utils/CasheManager';
 
 @Component({
   selector: 'app-root',

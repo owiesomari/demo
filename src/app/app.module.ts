@@ -24,6 +24,7 @@ import { CartService } from './services/cart/cart.service';
 import { UserService } from './services/user/user.service';
 import { DashboardService } from './services/dashboard.service';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
+import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
     WalletComponent,
     CartComponent,
     OrdredetailsComponent,
-    OrderConfirmationComponent
+    OrderConfirmationComponent,
+    AdminOrdersComponent
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,6 @@ import { Order } from 'src/app/Entities/Order';
 import { Modal } from 'bootstrap';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { Alert } from 'src/app/utils/Alert';
-import { throwIfEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
