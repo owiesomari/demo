@@ -92,16 +92,26 @@ export class UserProfileComponent implements OnInit {
       if (shopify.name != '') userRequest.dropphiLinks.push(shopify)
       if (fb.name != '') userRequest.dropphiLinks.push(fb)
       if (insta.name != '') userRequest.dropphiLinks.push(insta)
+      
+
+      userRequest.personalImage.image =this.userData.personalImage.image
+      userRequest.personalImage.type = this.userData.personalImage.type
+      userRequest.personalImage.name = "image1"
+
       if (this.base64 != undefined) {
-        userRequest.personalImage.image = String(this.base64).split(";")[1].split(",")[1];
+        userRequest.personalImage.image =String(this.base64).split(";")[1].split(",")[1];
         userRequest.personalImage.type = String(this.base64).split(";")[0].split(":")[1];
         userRequest.personalImage.name = "image1"
       }
 
+      userRequest.marketerLogo.image = this.userData.marketerLogo.image
+      userRequest.marketerLogo.type = this.userData.marketerLogo.type
+      userRequest.marketerLogo.name = "image1"
+
       if (this.base64logo != undefined) {
         userRequest.marketerLogo.image = String(this.base64logo).split(";")[1].split(",")[1];
-        userRequest.personalImage.type = String(this.base64logo).split(";")[0].split(":")[1];
-        userRequest.personalImage.name = "image1"
+        userRequest.marketerLogo.type = String(this.base64logo).split(";")[0].split(":")[1];
+        userRequest.marketerLogo.name = "image1"
       }
 
       this.globalUserService.updateUserInfo(userRequest).subscribe(res => {
