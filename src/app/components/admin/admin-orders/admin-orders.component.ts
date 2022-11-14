@@ -6,7 +6,6 @@ import { Utils } from 'src/app/utils/utils';
 import { AdminOrderService } from 'src/app/services/admin/order/admin-order.service';
 import { AdminActionRequest, Order } from 'src/app/Entities/admin/AdminOrderActionRequest';
 
-
 @Component({
   selector: 'app-admin-orders',
   templateUrl: './admin-orders.component.html',
@@ -21,8 +20,6 @@ export class AdminOrdersComponent implements OnInit {
   private adminActionRequest: AdminActionRequest = new AdminActionRequest();
   private modalElement: HTMLElement | undefined
   private modalComponent: Modal | undefined
-  private datemodalElement: HTMLElement | undefined
-  private datemodalComponent: Modal | undefined
   private globalAdminOrderService: AdminOrderService
   private alert = new Alert();
   private modalOrderID = ""
@@ -44,6 +41,7 @@ export class AdminOrdersComponent implements OnInit {
           this.tempOrders = this.clonedOrders;
         else
           this.tempOrders = this.orders;
+
       } break;
 
       case "pending": {
@@ -342,19 +340,23 @@ export class AdminOrdersComponent implements OnInit {
       } break;
 
       case "cancelOrders": {
-        this.fillActionRequest("CANCELLED")
+        this.fillActionRequest("CANCELLED");
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
       } break;
 
       case "changeToTajheezBtn": {
-        this.fillActionRequest("SUSPENDED")
+        this.fillActionRequest("SUSPENDED");
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
       } break;
 
       case "changeToOtwBtn": {
-        this.fillActionRequest("OTW")
+        this.fillActionRequest("OTW");
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
       } break;
 
       case "changeToCompletedBtn": {
-        this.fillActionRequest("COMPLETED")
+        this.fillActionRequest("COMPLETED");
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
       } break;
 
       case "print": {
@@ -464,7 +466,7 @@ export class AdminOrdersComponent implements OnInit {
         } break;
 
         case "marketerNameInput": {
-          return obj.marketerName.includes(val);
+          return obj.marketerInfo.userName.includes(val);
         } break;
 
         case "paymentMethodInput": {
@@ -472,18 +474,18 @@ export class AdminOrdersComponent implements OnInit {
         } break;
 
         case "totalInput": {
-          return obj.totalPrice == Number(val);
+          return obj.totalProductsCostPrice == Number(val);
         } break;
 
         case "phoneNumberInput": {
-          return obj.customerPhoneNumber.includes(val);
+          return obj.customerShipmentDetails.phoneNumber.includes(val);
         } break;
 
         case "linkInput": {
           return obj.orderLink.includes(val);
         } break;
         case "completedDateInput": {
-          return obj.completedDate == new Date(val);
+          return obj.orderCompletionDate == new Date(val);
         } break;
         case "statusInput": {
           return obj.orderStatus.includes(val)
@@ -558,63 +560,18 @@ export class AdminOrdersComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.disableFutureDate();
-    let order: AdminOrder = new AdminOrder();
-    order.completedDate = new Date('1/10/2022');
-    order.customerPhoneNumber = "0797048997";
-    order.marketerName = "اويس العمري";
-    order.orderDate = new Date("9/10/2022");
-    order.orderNumber = "1234";
-    order.orderStatus = "PENDING";
-    order.paymentMethod = "WALLET";
-    order.totalPrice = 20;
-
-    let order2: AdminOrder = new AdminOrder();
-    order2.completedDate = new Date('1/10/2022');
-    order2.customerPhoneNumber = "0797048997";
-    order2.marketerName = "عبد الله العمري";
-    order2.orderDate = new Date("9/10/2022");
-    order2.orderNumber = "12345";
-    order2.orderStatus = "SUSPENDED";
-    order2.paymentMethod = "WALLET";
-    order2.totalPrice = 20;
-
-    let order3: AdminOrder = new AdminOrder();
-    order3.completedDate = new Date('1/10/2022');
-    order3.customerPhoneNumber = "0797048997";
-    order3.marketerName = "خالد الشبول";
-    order3.orderDate = new Date("9/10/2022");
-    order3.orderNumber = "12346";
-    order3.orderStatus = "OTW";
-    order3.paymentMethod = "WALLET";
-    order3.totalPrice = 20;
-
-    let order4: AdminOrder = new AdminOrder();
-    order4.completedDate = new Date('1/10/2022');
-    order4.customerPhoneNumber = "0797048997";
-    order4.marketerName = "عمران";
-    order4.orderDate = new Date("9/10/2022");
-    order4.orderNumber = "12347";
-    order4.orderStatus = "CANCELLED";
-    order4.paymentMethod = "WALLET";
-    order4.totalPrice = 20;
-
-    let order5: AdminOrder = new AdminOrder();
-    order5.completedDate = new Date('1/10/2022');
-    order5.customerPhoneNumber = "0797048997";
-    order5.marketerName = "شروخان";
-    order5.orderDate = new Date("9/10/2022");
-    order5.orderNumber = "12348";
-    order5.orderStatus = "COMPLETED";
-    order5.paymentMethod = "WALLET";
-    order5.totalPrice = 20;
-
-    this.orders.push(order);
-    this.orders.push(order2);
-    this.orders.push(order3);
-    this.orders.push(order4);
-    this.orders.push(order5);
-    this.tempOrders = this.orders;
-    this.clonedOrders = this.orders;
+    this.alert.showSpinner();
+    this.globalAdminOrderService.getOrders().subscribe(res => {
+      this.orders = res;
+      this.tempOrders = res;
+      this.clonedOrders = res;
+      var contentContainer: HTMLDivElement = document.getElementById("content") as HTMLDivElement
+      this.alert.hideSpinner();
+      contentContainer.style.display = "block";
+      this.disableFutureDate();
+    }, err => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+    })
   }
 }

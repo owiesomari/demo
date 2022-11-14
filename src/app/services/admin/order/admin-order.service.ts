@@ -12,11 +12,11 @@ export class AdminOrderService {
   constructor(private http: HttpClient) { }
 
   getOrders(): Observable<any> {
-    return this.http.get(Constants.baseUrl + "/") //add orders
+    return this.http.get(Constants.baseUrl + "/admin/orders");
   }
 
   changeStatus(request: AdminActionRequest): Observable<any> {
-    return this.http.patch(Constants.baseUrl + `/admin/users/`, request)
+    return this.http.patch(Constants.baseUrl + '/admin/orders/', request);
 
   }
 }

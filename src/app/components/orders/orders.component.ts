@@ -17,8 +17,6 @@ export class OrdersComponent implements OnInit {
 
   modalElement: HTMLElement | undefined
   modalComponent: Modal | undefined
-  datemodalElement: HTMLElement | undefined
-  datemodalComponent: Modal | undefined
   globalOrdersService: OrdersService
   alert = new Alert();
   modalOrderID = ""

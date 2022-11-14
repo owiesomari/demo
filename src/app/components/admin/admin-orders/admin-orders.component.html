@@ -1,4 +1,4 @@
-<div style="padding: 20px; " id="content">
+<div style="padding: 20px; display: none;" id="content">
 
     <h2>قائمة الطلبات</h2>
     <div id="content margin-top-l">
@@ -151,7 +151,7 @@
                                 <td class="tdd"><input type="text" class="effect-9" id="phoneNumberInput"
                                         (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
                                 <td class="tdd"><input type="text" class="effect-9" id="linkInput"
-                                        (keyup)="inputsFiltersTable($event)"style="width: 80px;"></td>
+                                        (keyup)="inputsFiltersTable($event)" style="width: 80px;"></td>
                                 <td class="tdd"><input type="text" class="effect-9" id="completedDateInput"
                                         (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
                                 <td class="tdd"><input type="text" class="effect-9" id="statusInput"
@@ -164,10 +164,10 @@
                                         (click)="selectRow($event)"></td>
                                 <td class="tdd">{{x.orderNumber}}</td>
                                 <td class="tdd">{{x.orderDate}}</td>
-                                <td class="tdd">{{x.marketerName}}</td>
+                                <td class="tdd">{{x.marketerInfo.userName}}</td>
                                 <td class="tdd">{{getPaymentMethodValue(x.paymentMethod)}}</td>
-                                <td class="tdd">{{x.totalPrice}} د.أ</td>
-                                <td class="tdd">{{x.customerPhoneNumber}}</td>
+                                <td class="tdd">{{x.totalProductsCostPrice}} د.أ</td>
+                                <td class="tdd">{{x.customerShipmentDetails.phoneNumber}}</td>
 
                                 <td class="tdd">
                                     <span *ngIf="x.orderLink=='' || x.orderLink==null">لا يوجد</span>
@@ -175,7 +175,7 @@
                                         class="url"><i class="bi bi-box-arrow-up-right"></i></a>
                                 </td>
 
-                                <td class="tdd">{{x.completedDate}}</td>
+                                <td class="tdd">{{x.orderCompletionDate}}</td>
 
                                 <td class="tdd"><span [ngStyle]="{'background-color':getCellColor(x.orderStatus)}"
                                         class="status sat">{{getStatusCellValue(x.orderStatus)}}</span></td>
