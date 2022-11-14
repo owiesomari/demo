@@ -184,6 +184,7 @@ label {
 
 .toolbar i {
     color: #000;
+    font-size: 25px;
 }
 
 .toolbar:hover {
@@ -192,4 +193,12 @@ label {
 
 .toolbar {
     box-shadow: 1px 1px 1px #888888 !important;
+    width: 60px;
+    height: 50px;
+    border-radius: 0 !important;
+}
+
+.tdd {
+    border: 1px solid #c5c3c3;
+    border-collapse: collapse;
 }

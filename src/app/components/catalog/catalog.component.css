@@ -44,13 +44,6 @@
   border-radius: 8px;
 }
 
-#pagination {
-  bottom: 0;
-  right: 10px;
-  width: 200px;
-  margin: auto;
-}
-
 .top-bar {
   flex-shrink: 10000;
 }

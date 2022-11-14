@@ -6,7 +6,7 @@
             <h2>الفرز</h2>
             <div class="margin-top-xl" id="combo-tags">
                 <div class="margin-top-xl row">
-                    <div class="col-md-8 margin-top-xl">
+                    <div class="col-md-6 margin-top-xl">
                         <div class="btn btn-primary-group flex-wrap" role="group" aria-label="Basic example"
                             id="buttons">
                             <div style="display: inline-block">
@@ -56,41 +56,36 @@
 
                         </div>
                     </div>
+                    <div class="col-md-6" style="margin-top: 35px;">
+                        <label for="daysFilter">فرز حسب التاريخ</label>
+                        <select id="daysFilter" class="effect-9"
+                            style="margin-right: 10px;width: 35%; height:40px;background-color: #f0f0f0;border-radius: 10px;"
+                            (change)="filterDate($event)">
+                            <option value="none"></option>
+                            <option value="today">اليوم</option>
+                            <option value="yestarday">الامس</option>
+                            <option value="lastweek">اخر 7 ايام</option>
+                            <option value="lastmonth">اخر شهر</option>
+                            <option value="custom">نطاق مخصص</option>
+                        </select>
+                        <br>
+                        <br>
+                        <label id="fromDateLabel" for="fromDate" style=" margin-left: 10px;display:none ;">من</label>
+                        <input type="date" id="fromDate" class="effect-9 margin-top-s" min="2022-05-11"
+                            style="display:none ;background-color: #f0f0f0;border-radius: 10px"
+                            (change)="filterRange()">
+
+                        <label id="toDateLabel" for="toDate"
+                            style="margin-right: 50px;margin-left: 10px;display:none ;">الى</label>
+                        <input type="date" id="toDate" class="effect-9 margin-top-s" min="2020-05-11"
+                            style="display:none ;background-color: #f0f0f0;border-radius: 10px"
+                            (change)="filterRange()">
+                    </div>
                 </div>
             </div>
-            <div class="row">
-
-                <div class="col-md-4">
-                    <label for="daysFilter">فرز حسب التاريخ</label>
-                    <br>
-                    <select id="daysFilter" class="effect-9"
-                        style="margin-right: 0px;width:50%;height:40px;background-color: #f0f0f0;border-radius: 10px"
-                        (change)="filterDate($event)">
-                        <option value="none"></option>
-                        <option value="today">اليوم</option>
-                        <option value="yestarday">الامس</option>
-                        <option value="lastweek">اخر 7 ايام</option>
-                        <option value="lastmonth">اخر شهر</option>
-                        <option value="custom">نطاق مخصص</option>
-                    </select>
-
-                    <label id="fromDateLabel" for="fromDate"
-                        style="margin-right: 100px; margin-left: 10px;display:none ;">من</label>
-                    <input type="date" id="fromDate" class="effect-9 margin-top-s" min="2022-05-11"
-                        style="display:none ;background-color: #f0f0f0;border-radius: 10px" (change)="filterRange()">
-
-                    <label id="toDateLabel" for="toDate"
-                        style="margin-right: 70px;margin-left: 10px;display:none ;">الى</label>
-                    <input type="date" id="toDate" class="effect-9 margin-top-s" min="2020-05-11"
-                        style="display:none ;background-color: #f0f0f0;border-radius: 10px" (change)="filterRange()">
-
-                </div>
-            </div>
-            <br>
-
-            <div class="row prodTable margin-top-xl">
+            <div class="row prodTable margin-top-s">
                 <div class="table-responsive">
-                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-toolbar flex-wrap" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group mr-2" role="group" aria-label="First group">
                             <button type="button" class="btn btn-secondary toolbar" title="عرض تفاصيل الطلب"
                                 id="viewOrder" disabled (click)="toolbarBtnClick($event)"><i
@@ -126,7 +121,7 @@
                     <table class="table table-striped" style="text-align: center;">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox" id="selectAll" (click)="selectAll()"></th>
+                                <th scope="col"></th>
                                 <th scope="col">رقم الطلب</th>
                                 <th scope="col">تاريخ الطلب</th>
                                 <th scope="col">اسم المسوق</th>
@@ -142,41 +137,50 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td><input type="text" class="effect-9" id="orderNumberInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="orderDateInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="marketerNameInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="paymentMethodInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="totalInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="phoneNumberInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="linkInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="completedDateInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" id="statusInput" (keyup)="inputsFiltersTable($event)"></td>
-                                <td><input type="text" class="effect-9" style="visibility: hidden;"></td>
+                                <td class="tdd"><input type="checkbox" id="selectAll" (click)="selectAll()"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="orderNumberInput"
+                                        (keyup)="inputsFiltersTable($event)" style="width: 100px;"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="orderDateInput"
+                                        (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="marketerNameInput"
+                                        (keyup)="inputsFiltersTable($event)"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="paymentMethodInput"
+                                        (keyup)="inputsFiltersTable($event)" style="width: 120px;"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="totalInput"
+                                        (keyup)="inputsFiltersTable($event)" style="width: 100px;"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="phoneNumberInput"
+                                        (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="linkInput"
+                                        (keyup)="inputsFiltersTable($event)"style="width: 80px;"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="completedDateInput"
+                                        (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
+                                <td class="tdd"><input type="text" class="effect-9" id="statusInput"
+                                        (keyup)="inputsFiltersTable($event)" style="width: 100px;"></td>
+                                <td class="tdd">-</td>
 
                             </tr>
                             <tr *ngFor="let x of tempOrders">
-                                <td><input type="checkbox" class="select-check" id="c,{{x.orderNumber}}"
+                                <td class="tdd"><input type="checkbox" class="select-check" id="c,{{x.orderNumber}}"
                                         (click)="selectRow($event)"></td>
-                                <td>{{x.orderNumber}}</td>
-                                <td>{{x.orderDate}}</td>
-                                <td>{{x.marketerName}}</td>
-                                <td>{{getPaymentMethodValue(x.paymentMethod)}}</td>
-                                <td>{{x.totalPrice}} د.أ</td>
-                                <td>{{x.customerPhoneNumber}}</td>
+                                <td class="tdd">{{x.orderNumber}}</td>
+                                <td class="tdd">{{x.orderDate}}</td>
+                                <td class="tdd">{{x.marketerName}}</td>
+                                <td class="tdd">{{getPaymentMethodValue(x.paymentMethod)}}</td>
+                                <td class="tdd">{{x.totalPrice}} د.أ</td>
+                                <td class="tdd">{{x.customerPhoneNumber}}</td>
 
-                                <td>
+                                <td class="tdd">
                                     <span *ngIf="x.orderLink=='' || x.orderLink==null">لا يوجد</span>
                                     <a *ngIf="x.orderLink!='' && x.orderLink!=null" [href]="x.orderLink" target="_blank"
                                         class="url"><i class="bi bi-box-arrow-up-right"></i></a>
                                 </td>
 
-                                <td>{{x.completedDate}}</td>
+                                <td class="tdd">{{x.completedDate}}</td>
 
-                                <td><span [ngStyle]="{'background-color':getCellColor(x.orderStatus)}"
+                                <td class="tdd"><span [ngStyle]="{'background-color':getCellColor(x.orderStatus)}"
                                         class="status sat">{{getStatusCellValue(x.orderStatus)}}</span></td>
 
-                                <td><span><button class="btn btn-small bg-success rd-50"
+                                <td class="tdd"><span><button class="btn btn-small bg-success rd-50"
                                             [routerLink]="['/orderdeatils',x.orderNumber]"><i class="bi bi-eye"
                                                 style="color: #fff;"></i>
                                         </button></span>
@@ -197,6 +201,9 @@
             </div>
         </div>
     </div>
+
+    <div id="pagination"></div>
+
 </div>
 
 <!-- Cancle Modal -->

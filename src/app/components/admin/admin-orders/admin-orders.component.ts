@@ -14,72 +14,60 @@ import { AdminActionRequest, Order } from 'src/app/Entities/admin/AdminOrderActi
 })
 export class AdminOrdersComponent implements OnInit {
 
-  orders: AdminOrder[] = [];
+  private orders: AdminOrder[] = [];
   tempOrders: AdminOrder[] = [];
-  clonedOrders: AdminOrder[] = [];
-  selectedOrderNumbers: string[] = [];
-  adminActionRequest: AdminActionRequest = new AdminActionRequest();
-  modalElement: HTMLElement | undefined
-  modalComponent: Modal | undefined
-  datemodalElement: HTMLElement | undefined
-  datemodalComponent: Modal | undefined
-  globalAdminOrderService: AdminOrderService
-
-  alert = new Alert();
-  modalOrderID = ""
-  isFiltered = false;
+  private clonedOrders: AdminOrder[] = [];
+  private selectedOrderNumbers: string[] = [];
+  private adminActionRequest: AdminActionRequest = new AdminActionRequest();
+  private modalElement: HTMLElement | undefined
+  private modalComponent: Modal | undefined
+  private datemodalElement: HTMLElement | undefined
+  private datemodalComponent: Modal | undefined
+  private globalAdminOrderService: AdminOrderService
+  private alert = new Alert();
+  private modalOrderID = ""
+  private isFiltered = false;
+  private currentSelectedStatus = "all";
 
   constructor(adminOrderService: AdminOrderService) {
     this.globalAdminOrderService = adminOrderService;
   }
 
-  private filterTableByOrderNumber() {
-    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes
-    for (var i = 0; i < buttonsParent.length; i++) {
-      (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff"
-    }
-
-    (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000"
-    var val = (document.getElementById("orderNumberInput") as HTMLInputElement).value
-
-    this.tempOrders = this.orders.filter((obj) => {
-      return obj.orderNumber.includes(val);
-    });
-    if (val == "") this.tempOrders = this.orders;
-  }
-
-
   filterCategoty(event: any) {
     let id = event.target.id;
     this.setFilterButtonBackground(id);
+    this.uncheckAllCheckboxes();
     switch (id) {
       case "all": {
+        this.currentSelectedStatus = "all";
         if (this.isFiltered)
           this.tempOrders = this.clonedOrders;
         else
           this.tempOrders = this.orders;
-
       } break;
 
       case "pending": {
+        this.currentSelectedStatus = "PENDING";
         this.filterData("PENDING");
       } break;
 
       case "tajheez": {
-
+        this.currentSelectedStatus = "SUSPENDED";
         this.filterData("SUSPENDED");
-
       } break;
 
       case "progress": {
+        this.currentSelectedStatus = "OTW";
         this.filterData("OTW");
       } break;
 
       case "completed": {
+        this.currentSelectedStatus = "COMPLETED";
         this.filterData("COMPLETED");
       } break;
 
       case "cancled": {
+        this.currentSelectedStatus = "CANCELLED";
         this.filterData("CANCELLED");
       } break;
     }
@@ -112,7 +100,6 @@ export class AdminOrdersComponent implements OnInit {
     this.modalComponent = new Modal(this.modalElement);
     this.modalComponent.show();
   }
-
 
   closeModal() {
     this.modalComponent?.hide();
@@ -148,6 +135,7 @@ export class AdminOrdersComponent implements OnInit {
 
   filterDate(event: any) {
     this.showHideDates("none");
+    this.uncheckAllCheckboxes();
     this.isFiltered = true;
     switch (event.target.value) {
       case "none": {
@@ -214,6 +202,7 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   filterRange() {
+    this.uncheckAllCheckboxes();
     var from = document.getElementById("fromDate") as HTMLInputElement;
     var to = document.getElementById("toDate") as HTMLInputElement;
     if (from.value != '' && to.value != '') {
@@ -290,6 +279,7 @@ export class AdminOrdersComponent implements OnInit {
 
   disableFutureDate() {
     var nextDayDate = new Date(new Date().getTime()).toISOString().split('T')[0];
+    console.log(nextDayDate);
     (document.getElementById("fromDate") as HTMLInputElement).max = nextDayDate;
     (document.getElementById("toDate") as HTMLInputElement).max = nextDayDate;
   }
@@ -372,8 +362,74 @@ export class AdminOrdersComponent implements OnInit {
       } break;
 
       case "export": {
-        Utils.exportAsExcelFile(this.orders, 'orders');
+        this.exportToExcel()
       } break;
+    }
+  }
+
+  private exportToExcel() {
+    if (this.isFiltered) {
+      if (this.selectedOrderNumbers.length == 0) {
+        switch (this.currentSelectedStatus) {
+          case "all": {
+            Utils.exportAsExcelFile(this.tempOrders, 'orders');
+          } break;
+
+          case "PENDING": {
+            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "PENDING" }), 'orders');
+          } break;
+
+          case "SUSPENDED": {
+            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "SUSPENDED" }), 'orders');
+          } break;
+
+          case "OTW": {
+            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "OTW" }), 'orders');
+          } break;
+
+          case "COMPLETED": {
+            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "COMPLETED" }), 'orders');
+          } break;
+
+          case "CANCELLED": {
+            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "CANCELLED" }), 'orders');
+          } break;
+        }
+      } else {
+        var toBeExportedList = this.tempOrders.filter(x => this.selectedOrderNumbers.indexOf(x.orderNumber) !== -1);
+        Utils.exportAsExcelFile(toBeExportedList, 'orders');
+      }
+    } else {
+      if (this.selectedOrderNumbers.length == 0) {
+        switch (this.currentSelectedStatus) {
+          case "all": {
+            Utils.exportAsExcelFile(this.orders, 'orders');
+          } break;
+
+          case "PENDING": {
+            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "PENDING" }), 'orders');
+          } break;
+
+          case "SUSPENDED": {
+            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "SUSPENDED" }), 'orders');
+          } break;
+
+          case "OTW": {
+            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "OTW" }), 'orders');
+          } break;
+
+          case "COMPLETED": {
+            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "COMPLETED" }), 'orders');
+          } break;
+
+          case "CANCELLED": {
+            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "CANCELLED" }), 'orders');
+          } break;
+        }
+      } else {
+        var toBeExportedList = this.orders.filter(x => this.selectedOrderNumbers.indexOf(x.orderNumber) !== -1);
+        Utils.exportAsExcelFile(toBeExportedList, 'orders');
+      }
     }
   }
 
@@ -386,110 +442,123 @@ export class AdminOrdersComponent implements OnInit {
     }
   }
 
-  private filterTableByOrderDate(){
-    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes
+  private filterInputTable(id: string) {
+    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes;
     for (var i = 0; i < buttonsParent.length; i++) {
-      (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff"
+      (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff";
     }
 
-    (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000"
-    var val = (document.getElementById("orderDateInput") as HTMLInputElement).value
+    (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000";
+    this.currentSelectedStatus = "all";
+    var val = (document.getElementById(id) as HTMLInputElement).value;
 
     this.tempOrders = this.orders.filter((obj) => {
-      return obj.orderDate== new Date(val);
+      switch (id) {
+        case "orderNumberInput": {
+          return obj.orderNumber.includes(val);
+
+        } break;
+
+        case "orderDateInput": {
+          return obj.orderDate == new Date(val);
+        } break;
+
+        case "marketerNameInput": {
+          return obj.marketerName.includes(val);
+        } break;
+
+        case "paymentMethodInput": {
+          return obj.paymentMethod.includes(val);
+        } break;
+
+        case "totalInput": {
+          return obj.totalPrice == Number(val);
+        } break;
+
+        case "phoneNumberInput": {
+          return obj.customerPhoneNumber.includes(val);
+        } break;
+
+        case "linkInput": {
+          return obj.orderLink.includes(val);
+        } break;
+        case "completedDateInput": {
+          return obj.completedDate == new Date(val);
+        } break;
+        case "statusInput": {
+          return obj.orderStatus.includes(val)
+        } break;
+        default: { return [] };
+      }
     });
     if (val == "") this.tempOrders = this.orders;
-  }
-
-  private filterTableByMarketerName(){
-    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes
-    for (var i = 0; i < buttonsParent.length; i++) {
-      (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff"
-    }
-
-    (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000"
-    var val = (document.getElementById("marketerNameInput") as HTMLInputElement).value
-
-    this.tempOrders = this.orders.filter((obj) => {
-      return obj.marketerName.includes(val);
-    });
-    if (val == "") this.tempOrders = this.orders;
-  }
-
-  private filterTableByPaymentMethod(){
-    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes
-    for (var i = 0; i < buttonsParent.length; i++) {
-      (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff"
-    }
-
-    (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000"
-    var val = (document.getElementById("paymentMethodInput") as HTMLInputElement).value
-
-    this.tempOrders = this.orders.filter((obj) => {
-      return obj.paymentMethod.includes(val);
-    });
-    if (val == "") this.tempOrders = this.orders;
-  }
-
-  private filterTableByTotal(){
-    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes
-    for (var i = 0; i < buttonsParent.length; i++) {
-      (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff"
-    }
-
-    (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000"
-    var val = (document.getElementById("totalInput") as HTMLInputElement).value
-
-    this.tempOrders = this.orders.filter((obj) => {
-      return obj.totalPrice==Number(val);
-    });
-    if (val == "") this.tempOrders = this.orders;
+    this.clonedOrders = this.tempOrders;
   }
 
   inputsFiltersTable(event: any) {
+    this.setIsFiltered()
+    this.uncheckAllCheckboxes();
     switch (event.target.id) {
       case "orderNumberInput": {
-        this.filterTableByOrderNumber();
-
+        this.filterInputTable("orderNumberInput");
       } break;
 
       case "orderDateInput": {
-        this.filterTableByOrderDate();
-
+        this.filterInputTable("orderDateInput");
       } break;
 
       case "marketerNameInput": {
-        this.filterTableByMarketerName();
+        this.filterInputTable("marketerNameInput");
       } break;
 
       case "paymentMethodInput": {
-        this.filterTableByPaymentMethod();
-
+        this.filterInputTable("paymentMethodInput");
       } break;
 
       case "totalInput": {
-        this.filterTableByTotal();
+        this.filterInputTable("totalInput");
 
       } break;
 
       case "phoneNumberInput": {
-
+        this.filterInputTable("phoneNumberInput");
       } break;
 
       case "linkInput": {
-
+        this.filterInputTable("linkInput");
       } break;
       case "completedDateInput": {
-
+        this.filterInputTable("completedDateInput");
       } break;
       case "statusInput": {
-
+        this.filterInputTable("statusInput");
       } break;
     }
+  }
 
+  private setIsFiltered() {
+    this.isFiltered = (document.getElementById("orderNumberInput") as HTMLInputElement).value != '' || (document.getElementById("orderDateInput") as HTMLInputElement).value != '' ||
+      (document.getElementById("marketerNameInput") as HTMLInputElement).value != '' || (document.getElementById("paymentMethodInput") as HTMLInputElement).value != '' ||
+      (document.getElementById("totalInput") as HTMLInputElement).value != '' || (document.getElementById("phoneNumberInput") as HTMLInputElement).value != '' ||
+      (document.getElementById("linkInput") as HTMLInputElement).value != '' || (document.getElementById("completedDateInput") as HTMLInputElement).value != '' ||
+      (document.getElementById("statusInput") as HTMLInputElement).value != ''
+  }
+
+  private uncheckAllCheckboxes() {
+    (document.getElementById("selectAll") as HTMLInputElement).checked = false
+    this.selectedOrderNumbers = [];
+    var inputs = document.getElementsByClassName("select-check");
+    for (var i = 0; i < inputs.length; i++) {
+      (inputs[i] as HTMLInputElement).checked = false;
+      var td = (inputs[i] as HTMLInputElement).parentElement;
+      var tr = td?.parentElement;
+      (tr as HTMLTableRowElement).style.backgroundColor = "";
+    }
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
+    this.disableFutureDate();
     let order: AdminOrder = new AdminOrder();
     order.completedDate = new Date('1/10/2022');
     order.customerPhoneNumber = "0797048997";
@@ -530,10 +599,21 @@ export class AdminOrdersComponent implements OnInit {
     order4.paymentMethod = "WALLET";
     order4.totalPrice = 20;
 
+    let order5: AdminOrder = new AdminOrder();
+    order5.completedDate = new Date('1/10/2022');
+    order5.customerPhoneNumber = "0797048997";
+    order5.marketerName = "شروخان";
+    order5.orderDate = new Date("9/10/2022");
+    order5.orderNumber = "12348";
+    order5.orderStatus = "COMPLETED";
+    order5.paymentMethod = "WALLET";
+    order5.totalPrice = 20;
+
     this.orders.push(order);
     this.orders.push(order2);
     this.orders.push(order3);
     this.orders.push(order4);
+    this.orders.push(order5);
     this.tempOrders = this.orders;
     this.clonedOrders = this.orders;
   }

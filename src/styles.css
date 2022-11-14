@@ -264,5 +264,13 @@ textarea{
   top: 2px;
 }
 
+#pagination {
+  bottom: 0;
+  right: 10px;
+  width: 200px;
+  margin: auto;
+  margin-bottom: 12px;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
