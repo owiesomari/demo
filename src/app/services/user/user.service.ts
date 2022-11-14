@@ -12,10 +12,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUser(): Observable<any> {
-    return this.http.get(new Constants().baseUrl + "/admin/users/get-user?user=anonymousUser");
+    return this.http.get(Constants.baseUrl + "/admin/users/get-user?user=anonymousUser");
   }
 
   updateUserInfo(userRequest: UserRequest): Observable<any> {
-    return this.http.patch(new Constants().baseUrl + `/admin/users/`, userRequest)
+    return this.http.patch(Constants.baseUrl + `/admin/users/`, userRequest)
   }
 }

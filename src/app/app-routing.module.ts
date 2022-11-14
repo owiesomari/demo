@@ -10,7 +10,7 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrdredetailsComponent } from './components/ordredetails/ordredetails.component';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
-
+import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 
 const routes: Routes = [
   { path: "", redirectTo: 'dashboard', pathMatch: "full" },
@@ -22,7 +22,9 @@ const routes: Routes = [
   { path: "wallet", component: WalletComponent },
   { path: "cart", component: CartComponent },
   { path: "orderdeatils/:order_number", component: OrdredetailsComponent },
-  { path: "orderConfirmation", component: OrderConfirmationComponent }
+  { path: "orderConfirmation", component: OrderConfirmationComponent },
+  { path: "adminorders", component: AdminOrdersComponent }
+
 
 ];
 

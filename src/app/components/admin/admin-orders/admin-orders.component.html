@@ -1,0 +1,226 @@
+<div style="padding: 20px; " id="content">
+
+    <h2>قائمة الطلبات</h2>
+    <div id="content margin-top-l">
+        <div id="tab">
+            <h2>الفرز</h2>
+            <div class="margin-top-xl" id="combo-tags">
+                <div class="margin-top-xl row">
+                    <div class="col-md-8 margin-top-xl">
+                        <div class="btn btn-primary-group flex-wrap" role="group" aria-label="Basic example"
+                            id="buttons">
+                            <div style="display: inline-block">
+                                <button style="background-color:#ce0000 ;" type="button"
+                                    class="filter-button btn btn-primary idButton" id="all"
+                                    (click)="filterCategoty($event)"><img id="all" class="combo-icon"
+                                        (click)="filterCategoty($event)" src="../../../assets/ic_all.png"></button>
+                                <p>الكل</p>
+                            </div>
+                            <div style="display: inline-block">
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="pending"><img (click)="filterCategoty($event)"
+                                        id="pending" class="combo-icon" src="../../../assets/ic_loading.png"></button>
+                                <p>معلقة</p>
+                            </div>
+
+                            <div style="display: inline-block">
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="tajheez"><img (click)="filterCategoty($event)"
+                                        id="tajheez" class="combo-icon" src="../../../assets/ic_box.png"></button>
+                                <p>قيد التجهيز</p>
+                            </div>
+
+                            <div style="display: inline-block">
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="progress"><img (click)="filterCategoty($event)"
+                                        id="progress" class="combo-icon" src="../../../assets/ic_delevary.png"></button>
+                                <p>قيد التسليم</p>
+                            </div>
+
+                            <div style="display: inline-block">
+
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="completed"><img
+                                        (click)="filterCategoty($event)" id="completed" class="combo-icon"
+                                        src="../../../assets/ic_completed.png"></button>
+                                <p>مكتملة</p>
+                            </div>
+
+                            <div style="display: inline-block">
+
+                                <button type="button" class="filter-button btn btn-primary idButton"
+                                    (click)="filterCategoty($event)" id="cancled"><img id="cancled" class="combo-icon"
+                                        (click)="filterCategoty($event)" src="../../../assets/ic_cancled.png"></button>
+                                <p>ملغية</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label for="daysFilter">فرز حسب التاريخ</label>
+                    <br>
+                    <select id="daysFilter" class="effect-9"
+                        style="margin-right: 0px;width:50%;height:40px;background-color: #f0f0f0;border-radius: 10px"
+                        (change)="filterDate($event)">
+                        <option value="none"></option>
+                        <option value="today">اليوم</option>
+                        <option value="yestarday">الامس</option>
+                        <option value="lastweek">اخر 7 ايام</option>
+                        <option value="lastmonth">اخر شهر</option>
+                        <option value="custom">نطاق مخصص</option>
+                    </select>
+
+                    <label id="fromDateLabel" for="fromDate"
+                        style="margin-right: 100px; margin-left: 10px;display:none ;">من</label>
+                    <input type="date" id="fromDate" class="effect-9 margin-top-s" min="2022-05-11"
+                        style="display:none ;background-color: #f0f0f0;border-radius: 10px" (change)="filterRange()">
+
+                    <label id="toDateLabel" for="toDate"
+                        style="margin-right: 70px;margin-left: 10px;display:none ;">الى</label>
+                    <input type="date" id="toDate" class="effect-9 margin-top-s" min="2020-05-11"
+                        style="display:none ;background-color: #f0f0f0;border-radius: 10px" (change)="filterRange()">
+
+                </div>
+            </div>
+            <br>
+
+            <div class="row prodTable margin-top-xl">
+                <div class="table-responsive">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <button type="button" class="btn btn-secondary toolbar" title="عرض تفاصيل الطلب"
+                                id="viewOrder" disabled (click)="toolbarBtnClick($event)"><i
+                                    class="bi bi-eye"></i></button>
+                            <button type="button" class="btn btn-secondary toolbar" title="الغاء الطلب"
+                                id="cancelOrders" disabled (click)="toolbarBtnClick($event)"><i
+                                    class="bi bi-trash"></i></button>
+
+                            <button type="button" class="btn btn-secondary toolbar" title="تعيين الحالة قيد التجهيز"
+                                disabled id="changeToTajheezBtn" (click)="toolbarBtnClick($event)"><img width="20"
+                                    height="20" src="../../../assets/ic_box.png"></button>
+
+                            <button type="button" class="btn btn-secondary toolbar" title="تعيين الحالة قيد التسليم"
+                                disabled id="changeToOtwBtn" (click)="toolbarBtnClick($event)"><img width="20"
+                                    height="20" src="../../../assets/ic_delevary.png"></button>
+
+                            <button type="button" class="btn btn-secondary toolbar" id="changeToCompletedBtn"
+                                title="تعيين الحالة مكتمل " disabled (click)="toolbarBtnClick($event)"><img width="20"
+                                    height="20" src="../../../assets/ic_completed.png"></button>
+
+                            <button type="button" class="btn btn-secondary toolbar" id="print" title="طباعة الفاتورة"
+                                disabled (click)="toolbarBtnClick($event)">
+                                <i class="bi bi-printer"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-secondary toolbar" id="export" title="تصدير الى اكسل"
+                                (click)="toolbarBtnClick($event)"><i class="bi bi-file-earmark-spreadsheet"
+                                    (click)="toolbarBtnClick($event)"></i></button>
+
+                        </div>
+                    </div>
+                    <br>
+                    <table class="table table-striped" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th scope="col"><input type="checkbox" id="selectAll" (click)="selectAll()"></th>
+                                <th scope="col">رقم الطلب</th>
+                                <th scope="col">تاريخ الطلب</th>
+                                <th scope="col">اسم المسوق</th>
+                                <th scope="col">طريقة الدفع</th>
+                                <th scope="col">الاجمالي</th>
+                                <th scope="col">رقم هاتف الزبون</th>
+                                <th scope="col">رابط الشحنة</th>
+                                <th scope="col">تاريخ التسليم </th>
+                                <th scope="col">الحالة</th>
+                                <th scope="col">الاجراءات</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" class="effect-9" id="orderNumberInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="orderDateInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="marketerNameInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="paymentMethodInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="totalInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="phoneNumberInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="linkInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="completedDateInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" id="statusInput" (keyup)="inputsFiltersTable($event)"></td>
+                                <td><input type="text" class="effect-9" style="visibility: hidden;"></td>
+
+                            </tr>
+                            <tr *ngFor="let x of tempOrders">
+                                <td><input type="checkbox" class="select-check" id="c,{{x.orderNumber}}"
+                                        (click)="selectRow($event)"></td>
+                                <td>{{x.orderNumber}}</td>
+                                <td>{{x.orderDate}}</td>
+                                <td>{{x.marketerName}}</td>
+                                <td>{{getPaymentMethodValue(x.paymentMethod)}}</td>
+                                <td>{{x.totalPrice}} د.أ</td>
+                                <td>{{x.customerPhoneNumber}}</td>
+
+                                <td>
+                                    <span *ngIf="x.orderLink=='' || x.orderLink==null">لا يوجد</span>
+                                    <a *ngIf="x.orderLink!='' && x.orderLink!=null" [href]="x.orderLink" target="_blank"
+                                        class="url"><i class="bi bi-box-arrow-up-right"></i></a>
+                                </td>
+
+                                <td>{{x.completedDate}}</td>
+
+                                <td><span [ngStyle]="{'background-color':getCellColor(x.orderStatus)}"
+                                        class="status sat">{{getStatusCellValue(x.orderStatus)}}</span></td>
+
+                                <td><span><button class="btn btn-small bg-success rd-50"
+                                            [routerLink]="['/orderdeatils',x.orderNumber]"><i class="bi bi-eye"
+                                                style="color: #fff;"></i>
+                                        </button></span>
+                                    <span *ngIf="x.orderStatus!='CANCELLED' && x.orderStatus!='COMPLETED'"><button
+                                            (click)="openModal($event)" [id]="x.orderNumber"
+                                            class="rd-50 btn btn-small bg-danger"><i (click)="openModal($event)"
+                                                [id]="x.orderNumber" class="bi bi-trash"
+                                                style="color: #fff;"></i></button></span>
+
+                                    <span *ngIf="!showEmptyAction(x.orderStatus)"><button
+                                            class="rd-50 btn btn-small bg-danger"
+                                            style="visibility: hidden;">ds</button></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancle Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    style="width: 100%">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row" style="padding: 10px">
+                    <h3 style="font-weight: 600;">الغاء الطلب #<span id="c_orderNumber">123</span></h3>
+                    <p class="text-muted">سبب الالغاء</p>
+                    <textarea class="r_textarea" placeholder="يرجى ادخال سبب الاغاء هنا" rows="3"
+                        id="r_ca_modal"></textarea>
+                    <p style="color: #ce0000;display:none;" id="cancel_hint">يرجى ادخال سبب الالغاء</p>
+                </div>
+
+                <div class="margin-top-xl">
+                    <input type="button" class="btn c_btn modal-btns margin-left-m" value="الغاء الان"
+                        (click)="cancelOrder()">
+                    <!--api call-->
+                    <input type="button" class="btn modal-btns close_btn" [id]="" (click)="closeModal()" value="إغلاق">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

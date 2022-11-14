@@ -1,4 +1,4 @@
 export class Constants{
 
-    public baseUrl= "https://dropphi.herokuapp.com/dropphi"
+    static baseUrl= "https://dropphi.herokuapp.com/dropphi"
 }

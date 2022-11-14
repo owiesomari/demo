@@ -1,0 +1,195 @@
+#tab {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.form-control {
+    background-color: #f0f0f0;
+    height: 40px;
+    border-radius: 7px;
+}
+
+button {
+    margin-right: 5px;
+}
+
+.pending {
+    background-color: #FC7383;
+}
+
+.waiting {
+    background-color: #FFB959;
+}
+
+.family {
+    background-color: #67CFA2;
+}
+
+.cancelled {
+    background-color: #CE0000;
+}
+
+.status-btn {
+    border-radius: 100px;
+    border: 1px solid darkgrey;
+    padding: 10px;
+    font-size: 12px;
+    width: 100px;
+    margin-bottom: 4px;
+}
+
+.filter-button {
+    border-radius: 100px;
+    border: 1px solid blue;
+    padding: 10px;
+    font-size: 12px;
+    width: 100px;
+    margin-bottom: 4px;
+}
+
+.status-btn:hover {
+    border: 1px solid red;
+    background-color: #fff;
+    color: red;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545 !important;
+}
+
+.bg-danger:hover {
+    background-color: #BA472E !important;
+}
+
+.bg-success:hover {
+    background-color: #1BB71B !important;
+}
+
+.bg-success {
+    background-color: #67CF94 !important;
+}
+
+.bg-danger {
+    background-color: #FC7383 !important;
+}
+
+.prodTable {
+    margin-top: 30px;
+}
+
+.btn-primary:hover {
+    background-color: #87B2ED !important;
+}
+
+label {
+    font-weight: 700;
+}
+
+.rd-50 {
+    border-radius: 50%;
+    margin-left: 4px;
+}
+
+.status {
+    font-size: 12px;
+    line-height: 1;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.url {
+    color: black;
+}
+
+.url:hover {
+    color: #87B2ED;
+}
+
+#combo-tags {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+
+.filter-button {
+    padding: 25px !important;
+    border-radius: 50% !important;
+    margin-bottom: 4px;
+    margin-left: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.idButton {
+    background-color: #fff;
+    border: 1px solid red !important;
+    color: #ce0000 !important;
+    cursor: pointer;
+}
+
+.idButton:hover {
+    background-color: #ce0000 !important;
+    color: #fff !important;
+    cursor: pointer !important;
+}
+
+.combo-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.c_btn {
+    background-color: #FC7383 !important;
+
+}
+
+.c_btn:hover {
+    background-color: #bd2130 !important;
+}
+
+.modal-btns {
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    width: 150px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.close_btn {
+    background-color: #8280FD !important;
+}
+
+.close_btn:hover {
+    background-color: #0062cc !important;
+}
+
+.r_textarea {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    border: none;
+    resize: none;
+}
+
+.toolbar {
+    background-color: #fff;
+    border: 1px solid #CE0000;
+    border-radius: 10px;
+}
+
+.toolbar i {
+    color: #000;
+}
+
+.toolbar:hover {
+    background-color: #ce0000;
+}
+
+.toolbar {
+    box-shadow: 1px 1px 1px #888888 !important;
+}

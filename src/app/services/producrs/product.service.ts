@@ -11,14 +11,14 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {
-    return this.http.get(new Constants().baseUrl + "/marketers/products");
+    return this.http.get(Constants.baseUrl + "/marketers/products");
   }
 
   deleteProduct(sku: string): Observable<any> {
-    return this.http.delete(new Constants().baseUrl + `/marketers/products/${sku}`);
+    return this.http.delete(Constants.baseUrl + `/marketers/products/${sku}`);
   }
 
   addToMyCart(sku: string): Observable<any> {
-    return this.http.post(new Constants().baseUrl + `/marketers/cart/${sku}`, "")
+    return this.http.post(Constants.baseUrl + `/marketers/cart/${sku}`, "")
   }
 }

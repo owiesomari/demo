@@ -283,7 +283,7 @@ export class OrdersComponent implements OnInit {
   }
 
   disableFutureDate() {
-    var nextDayDate = new Date(new Date().getTime() + 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    var nextDayDate = new Date(new Date().getTime()).toISOString().split('T')[0];
     (document.getElementById("fromDate") as HTMLInputElement).max = nextDayDate;
     (document.getElementById("toDate") as HTMLInputElement).max = nextDayDate;
   }

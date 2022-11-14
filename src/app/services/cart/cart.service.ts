@@ -13,16 +13,16 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
   getCartData(): Observable<any> {
-    return this.http.get(new Constants().baseUrl + `/marketers/cart`);
+    return this.http.get(Constants.baseUrl + `/marketers/cart`);
 
   }
 
   createOrder(ordersRequest: OrdersRequest): Observable<any> {
-    return this.http.post(new Constants().baseUrl + "/marketers/orders", ordersRequest)
+    return this.http.post(Constants.baseUrl + "/marketers/orders", ordersRequest)
   }
 
   removeFromCart(sku: string): Observable<any> {
-    return this.http.delete(new Constants().baseUrl + "/marketers/cart/" + sku);
+    return this.http.delete(Constants.baseUrl + "/marketers/cart/" + sku);
   }
 
 }

@@ -107,7 +107,8 @@
                                 <th scope="col">الإجمالي</th>
                                 <th scope="col">رابط الشحنة</th>
                                 <th scope="col">طريقة الدفع</th>
-                                <th scope="col">عدد المنتجات</th>
+                                <th scope="col">الربح</th>
+                                <td scope="col">تاريخ التسليم</td>
                                 <th scope="col">الحالة</th>
                                 <th scope="col">الاجراءات </th>
                             </tr>
@@ -117,14 +118,18 @@
                                 <td>{{x.orderNumber}}</td>
                                 <td>{{x.orderDate}}</td>
                                 <td>{{x.customerName}}</td>
-                                <td>{{x.totalPrice}}</td>
+                                <td>{{x.totalPrice}} د.أ</td>
                                 <td>
                                     <span *ngIf="x.orderLink=='' || x.orderLink==null">لا يوجد</span>
                                     <a *ngIf="x.orderLink!='' && x.orderLink!=null" [href]="x.orderLink" target="_blank"
                                         class="url"><i class="bi bi-box-arrow-up-right"></i></a>
                                 </td>
                                 <td>{{getPaymentMethodValue(x.paymentMethod)}}</td>
-                                <td>{{x.productsCount}}</td>
+                                <td>{{x.orderEarning}} د.أ</td>
+                                <td>
+                                    <span *ngIf="x.orderStatus!='COMPLETED'">-</span>
+                                    <span *ngIf="x.orderStatus=='COMPLETED'"> {{x.orderCompletionDate}}</span>
+                                </td>
                                 <td><span [ngStyle]="{'background-color':getCellColor(x.orderStatus)}"
                                         class="status sat">{{getStatusCellValue(x.orderStatus)}}</span></td>
 

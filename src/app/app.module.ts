@@ -25,6 +25,7 @@ import { UserService } from './services/user/user.service';
 import { DashboardService } from './services/dashboard.service';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
+import { AdminOrderService } from './services/admin/order/admin-order.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
-  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService],
+  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

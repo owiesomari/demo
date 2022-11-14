@@ -100,10 +100,22 @@ export class OrdredetailsComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
+    var personCanceled: HTMLParagraphElement = document.getElementById("personCanceled") as HTMLParagraphElement
+
     this.globalorderDeatialsService.getOrderDetails(this.orderNumber!).subscribe(res => {
       this.orderDeails = res;
       this.textAreadDisabled = this.orderDeails.orderDetails.orderStatus == "CANCELLED" || this.orderDeails.orderDetails.orderStatus == "COMPLETED"
       var contentContainer: HTMLDivElement = document.getElementById("container") as HTMLDivElement
+      if (this.orderDeails.orderDetails.orderStatus == "CANCELLED") {
+        if (this.orderDeails.orderCancelledBy == "ADMIN") {
+          personCanceled.innerText = "تم الالغاء بواسطة المشرف"
+        } else if(this.orderDeails.orderCancelledBy == "MARKETER") {
+          personCanceled.innerText = "تم الالغاء بواسطة المسوق"
+        }
+        personCanceled.style.display = "block"
+      }
+      console.log(res)
+
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
     }, err => {

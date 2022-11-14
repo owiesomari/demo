@@ -8,7 +8,6 @@ import { Constants } from '../utils/Constants';
 })
 export class CatalogService {
 
-  constants: Constants = new Constants();
 
   constructor(private http: HttpClient) { }
 
@@ -19,10 +18,10 @@ export class CatalogService {
   }
 
   addToMyProducts(sku: string): Observable<any> {
-    return this.http.post(this.constants.baseUrl + `/marketers/products/${sku}`, "")
+    return this.http.post(Constants.baseUrl + `/marketers/products/${sku}`, "")
   }
 
   addToMyCart(sku: string): Observable<any> {
-    return this.http.post(this.constants.baseUrl + `/marketers/cart/${sku}`, "")
+    return this.http.post(Constants.baseUrl + `/marketers/cart/${sku}`, "")
   }
 }

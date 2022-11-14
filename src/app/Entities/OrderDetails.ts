@@ -4,6 +4,7 @@ export class OrderDetails {
     orderDetails: OrderDetailsClass = new OrderDetailsClass();
     marketerInfo: MarketerInfo = new MarketerInfo();
     cancellationReason: string = "";
+    orderCancelledBy: string = ""
     orderBrief: OrderBrief = new OrderBrief();
 }
 
