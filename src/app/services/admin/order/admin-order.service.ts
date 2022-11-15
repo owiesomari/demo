@@ -16,7 +16,7 @@ export class AdminOrderService {
   }
 
   changeStatus(request: AdminActionRequest): Observable<any> {
-    return this.http.patch(Constants.baseUrl + '/admin/orders/', request);
+    return this.http.patch(Constants.baseUrl + '/admin/orders/status', request);
 
   }
 }

@@ -4,7 +4,8 @@ import { Alert } from 'src/app/utils/Alert';
 import { AdminOrder } from 'src/app/Entities/admin/AdminOrder';
 import { Utils } from 'src/app/utils/utils';
 import { AdminOrderService } from 'src/app/services/admin/order/admin-order.service';
-import { AdminActionRequest, Order } from 'src/app/Entities/admin/AdminOrderActionRequest';
+import { AdminActionRequest } from 'src/app/Entities/admin/AdminOrderActionRequest';
+import { AdminOrdersExcelModel } from 'src/app/Entities/admin/AdminOrdersExcelModel';
 
 @Component({
   selector: 'app-admin-orders',
@@ -333,30 +334,66 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   toolbarBtnClick(event: any) {
-    this.adminActionRequest.actionResponse = [];
+    this.adminActionRequest = new AdminActionRequest();
     switch (event.target.id) {
       case "viewOrder": {
 
       } break;
 
       case "cancelOrders": {
+        this.alert.showSpinner();
         this.fillActionRequest("CANCELLED");
-        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest).subscribe(res => {
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("s", "تمت بنجاح", `تم الغاء ${this.selectedOrderNumbers.length} طلب`);
+          Utils.refreshFterOneSecond();
+        }, err => {
+          console.log(err);
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+        });
       } break;
 
       case "changeToTajheezBtn": {
+        this.alert.showSpinner();
         this.fillActionRequest("SUSPENDED");
-        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest).subscribe(res => {
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("s", "تمت بنجاح", `تم تغيير حالة ${this.selectedOrderNumbers.length} طلب الى قيد التجهييز`);
+          Utils.refreshFterOneSecond();
+        }, err => {
+          console.log(err);
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+        });
       } break;
 
       case "changeToOtwBtn": {
+        this.alert.showSpinner();
         this.fillActionRequest("OTW");
-        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest).subscribe(res => {
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("s", "تمت بنجاح", `تم تغيير حالة ${this.selectedOrderNumbers.length} طلب الى قيد التسليم`);
+          Utils.refreshFterOneSecond();
+        }, err => {
+          console.log(err);
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+        });
       } break;
 
       case "changeToCompletedBtn": {
+        this.alert.showSpinner();
         this.fillActionRequest("COMPLETED");
-        this.globalAdminOrderService.changeStatus(this.adminActionRequest);
+        this.globalAdminOrderService.changeStatus(this.adminActionRequest).subscribe(res => {
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("s", "تمت بنجاح", `تم تغيير حالة ${this.selectedOrderNumbers.length} طلب الى مكتلمة`);
+          Utils.refreshFterOneSecond();
+        }, err => {
+          console.log(err);
+          this.alert.hideSpinner();
+          this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+        });
       } break;
 
       case "print": {
@@ -374,74 +411,85 @@ export class AdminOrdersComponent implements OnInit {
       if (this.selectedOrderNumbers.length == 0) {
         switch (this.currentSelectedStatus) {
           case "all": {
-            Utils.exportAsExcelFile(this.tempOrders, 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders), 'orders');
           } break;
 
           case "PENDING": {
-            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "PENDING" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "PENDING" })), 'orders');
           } break;
 
           case "SUSPENDED": {
-            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "SUSPENDED" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "SUSPENDED" })), 'orders');
           } break;
 
           case "OTW": {
-            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "OTW" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "OTW" })), 'orders');
           } break;
 
           case "COMPLETED": {
-            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "COMPLETED" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "COMPLETED" })), 'orders');
           } break;
 
           case "CANCELLED": {
-            Utils.exportAsExcelFile(this.tempOrders.filter((obj) => { return obj.orderStatus == "CANCELLED" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "CANCELLED" })), 'orders');
           } break;
         }
       } else {
-        var toBeExportedList = this.tempOrders.filter(x => this.selectedOrderNumbers.indexOf(x.orderNumber) !== -1);
+        var toBeExportedList = this.fillExcelArray(this.tempOrders.filter(x => this.selectedOrderNumbers.indexOf(x.orderNumber) !== -1));
         Utils.exportAsExcelFile(toBeExportedList, 'orders');
       }
     } else {
       if (this.selectedOrderNumbers.length == 0) {
         switch (this.currentSelectedStatus) {
           case "all": {
-            Utils.exportAsExcelFile(this.orders, 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.orders), 'orders');
           } break;
 
           case "PENDING": {
-            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "PENDING" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "PENDING" })), 'orders');
           } break;
 
           case "SUSPENDED": {
-            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "SUSPENDED" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "SUSPENDED" })), 'orders');
           } break;
 
           case "OTW": {
-            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "OTW" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "OTW" })), 'orders');
           } break;
 
           case "COMPLETED": {
-            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "COMPLETED" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "COMPLETED" })), 'orders');
           } break;
 
           case "CANCELLED": {
-            Utils.exportAsExcelFile(this.orders.filter((obj) => { return obj.orderStatus == "CANCELLED" }), 'orders');
+            Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "CANCELLED" })), 'orders');
           } break;
         }
       } else {
-        var toBeExportedList = this.orders.filter(x => this.selectedOrderNumbers.indexOf(x.orderNumber) !== -1);
+        var toBeExportedList = this.fillExcelArray(this.orders.filter(x => this.selectedOrderNumbers.indexOf(x.orderNumber) !== -1));
         Utils.exportAsExcelFile(toBeExportedList, 'orders');
       }
     }
   }
 
+  private fillExcelArray(orders: AdminOrder[]): AdminOrdersExcelModel[] {
+
+    var excelmodel: AdminOrdersExcelModel[] = [];
+    orders.forEach((order) => {
+      order.productsInfo.forEach((product) => {
+        excelmodel.push(new AdminOrdersExcelModel(order.orderNumber, product.sku, product.quantity, product.costPrice, product.totalPrice, product.sellingPrice, product.sellingPrice * product.quantity, 4, 4,
+          order.marketerInfo.email, order.marketerInfo.userName, order.marketerInfo.phoneNumber, order.customerShipmentDetails.customerName, order.customerShipmentDetails.phoneNumber,
+          Utils.getCountryNameArabic(order.customerShipmentDetails.country), order.customerShipmentDetails.city, order.customerShipmentDetails.address, order.orderLink, this.getStatusCellValue(order.orderStatus), order.orderDate,
+          order.orderCompletionDate))
+      })
+    });
+
+    return excelmodel;
+  }
+
   private fillActionRequest(status: string) {
-    for (var i = 0; i < this.selectedOrderNumbers.length; i++) {
-      var request = new Order();
-      request.orderNumber = this.selectedOrderNumbers[i];
-      request.orderStatus = status;
-      this.adminActionRequest.actionResponse.push(request);
-    }
+    this.adminActionRequest.ordersNumber = this.selectedOrderNumbers;
+    this.adminActionRequest.orderStatus = status;
   }
 
   private filterInputTable(id: string) {
