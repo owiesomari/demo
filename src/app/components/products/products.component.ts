@@ -157,6 +157,7 @@ export class ProductsComponent implements OnInit {
     this.alert.showSpinner();
     this.globalProductService.getProducts().subscribe(res => {
       this.products = res;
+      this.products.reverse();
       this.tempProducts = this.products;
       var contentContainer: HTMLDivElement = document.getElementById("content_continer") as HTMLDivElement
       this.alert.hideSpinner();

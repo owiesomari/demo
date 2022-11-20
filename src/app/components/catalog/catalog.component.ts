@@ -13,18 +13,18 @@ import { Alert } from 'src/app/utils/Alert';
 })
 export class CatalogComponent implements OnInit {
 
-  catalogs: Catalog = new Catalog();
-  isFiltered: Boolean = false;
-  NUMBER_OF_CARDS_PAIR_PAGE = 12;
-  currentSelectedPage = 1;
-  pages: number = 0;
+  private catalogs: Catalog = new Catalog();
   tempCatalogs: AllProduct[] = [];
-  tempFilteredCatalogs: AllProduct[] = [];
-  modalElement: HTMLElement | undefined
-  modalComponent: Modal | undefined
-  modalProductSku = ""
-  globalcatalogService: CatalogService
-  alert = new Alert();
+  private tempFilteredCatalogs: AllProduct[] = [];
+  private isFiltered: Boolean = false;
+  private NUMBER_OF_CARDS_PAIR_PAGE = 12;
+  private currentSelectedPage = 1;
+  pages: number = 0;
+  private modalElement: HTMLElement | undefined
+  private modalComponent: Modal | undefined
+  private modalProductSku = ""
+  private globalcatalogService: CatalogService
+  private alert = new Alert();
 
   constructor(catalogService: CatalogService) {
     this.globalcatalogService = catalogService
@@ -409,7 +409,6 @@ export class CatalogComponent implements OnInit {
       jszip.file(`${currentProduct.name} ${i + 1}.${currentProduct.images[i].type.split("/")[1]}`, image)
       if (i === (currentProduct.images.length - 1)) {
         jszip.generateAsync({ type: 'blob' }).then(function (content) {
-          // see FileSaver.js
           saveAs(content, currentProduct.name);
         });
       }
@@ -424,6 +423,7 @@ export class CatalogComponent implements OnInit {
       this.catalogs.allProducts = this.catalogs.allProducts.filter((obj) => {
         return obj.active
       });
+      this.catalogs.allProducts.reverse();
       this.tempCatalogs = this.catalogs.allProducts;
       this.pages = Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE);
       var contentContainer: HTMLDivElement = document.getElementById("contentContainer") as HTMLDivElement

@@ -59,7 +59,7 @@ export class OrdersComponent implements OnInit {
 
       case "tajheez": {
 
-        this.filterData("SUSPENDED");
+        this.filterData("PROCESSING");
 
       } break;
 
@@ -224,7 +224,7 @@ export class OrdersComponent implements OnInit {
       case "PENDING": {
         return "#FC7383";
       }
-      case "SUSPENDED": {
+      case "PROCESSING": {
         return "#DAB7FB";
       }
       case "OTW": {
@@ -245,7 +245,7 @@ export class OrdersComponent implements OnInit {
       case "PENDING": {
         return "معلقة";
       }
-      case "SUSPENDED": {
+      case "PROCESSING": {
         return "قيد التجهيز";
       }
       case "OTW": {
@@ -291,8 +291,9 @@ export class OrdersComponent implements OnInit {
     this.alert.showSpinner();
     this.globalOrdersService.getOrders().subscribe(res => {
       this.orders = res;
-      this.tempOrders = res;
-      this.clonedOrders = res;
+      this.orders.reverse();
+      this.tempOrders = this.orders;
+      this.clonedOrders = this.orders;
       var contentContainer: HTMLDivElement = document.getElementById("content") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";

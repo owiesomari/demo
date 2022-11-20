@@ -51,8 +51,8 @@ export class AdminOrdersComponent implements OnInit {
       } break;
 
       case "tajheez": {
-        this.currentSelectedStatus = "SUSPENDED";
-        this.filterData("SUSPENDED");
+        this.currentSelectedStatus = "PROCESSING";
+        this.filterData("PROCESSING");
       } break;
 
       case "progress": {
@@ -220,7 +220,7 @@ export class AdminOrdersComponent implements OnInit {
       case "PENDING": {
         return "#FC7383";
       }
-      case "SUSPENDED": {
+      case "PROCESSING": {
         return "#DAB7FB";
       }
       case "OTW": {
@@ -241,7 +241,7 @@ export class AdminOrdersComponent implements OnInit {
       case "PENDING": {
         return "معلقة";
       }
-      case "SUSPENDED": {
+      case "PROCESSING": {
         return "قيد التجهيز";
       }
       case "OTW": {
@@ -356,7 +356,7 @@ export class AdminOrdersComponent implements OnInit {
 
       case "changeToTajheezBtn": {
         this.alert.showSpinner();
-        this.fillActionRequest("SUSPENDED");
+        this.fillActionRequest("PROCESSING");
         this.globalAdminOrderService.changeStatus(this.adminActionRequest).subscribe(res => {
           this.alert.hideSpinner();
           this.alert.setupAlertDiv("s", "تمت بنجاح", `تم تغيير حالة ${this.selectedOrderNumbers.length} طلب الى قيد التجهييز`);
@@ -418,8 +418,8 @@ export class AdminOrdersComponent implements OnInit {
             Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "PENDING" })), 'orders');
           } break;
 
-          case "SUSPENDED": {
-            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "SUSPENDED" })), 'orders');
+          case "PROCESSING": {
+            Utils.exportAsExcelFile(this.fillExcelArray(this.tempOrders.filter((obj) => { return obj.orderStatus == "PROCESSING" })), 'orders');
           } break;
 
           case "OTW": {
@@ -449,8 +449,8 @@ export class AdminOrdersComponent implements OnInit {
             Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "PENDING" })), 'orders');
           } break;
 
-          case "SUSPENDED": {
-            Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "SUSPENDED" })), 'orders');
+          case "PROCESSING": {
+            Utils.exportAsExcelFile(this.fillExcelArray(this.orders.filter((obj) => { return obj.orderStatus == "PROCESSING" })), 'orders');
           } break;
 
           case "OTW": {
@@ -611,8 +611,9 @@ export class AdminOrdersComponent implements OnInit {
     this.alert.showSpinner();
     this.globalAdminOrderService.getOrders().subscribe(res => {
       this.orders = res;
-      this.tempOrders = res;
-      this.clonedOrders = res;
+      this.orders.reverse();
+      this.tempOrders = this.orders;
+      this.clonedOrders = this.orders;
       var contentContainer: HTMLDivElement = document.getElementById("content") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";

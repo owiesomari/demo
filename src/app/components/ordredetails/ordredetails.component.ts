@@ -58,7 +58,7 @@ export class OrdredetailsComponent implements OnInit {
       case "PENDING": {
         return "معلقة";
       }
-      case "SUSPENDED": {
+      case "PROCESSING": {
         return "قيد التجهيز";
       }
       case "OTW": {
