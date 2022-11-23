@@ -7,5 +7,5 @@ import { CacheManager } from './utils/CasheManager';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'test-app';
+  title = 'dropphi';
 }
