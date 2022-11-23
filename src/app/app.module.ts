@@ -28,6 +28,7 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
 import { AdminOrderService } from './services/admin/order/admin-order.service';
 import { AddProductComponent } from './components/admin/products/add-product/add-product.component';
 import { AdminProductService } from './services/admin/product/admin-product.service';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,9 @@ import { AdminProductService } from './services/admin/product/admin-product.serv
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
-  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService, AdminProductService],
+  providers: [
+    {provide : LocationStrategy , useClass: HashLocationStrategy},
+    CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService, AdminProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

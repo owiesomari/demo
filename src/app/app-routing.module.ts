@@ -14,7 +14,7 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
 import { AddProductComponent } from './components/admin/products/add-product/add-product.component';
 
 const routes: Routes = [
-  { path: "/", redirectTo: 'dashboard', pathMatch: "full" },
+  { path: "", redirectTo: 'dashboard', pathMatch: "full" },
   { path: "products", component: ProductsComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "catalog", component: CatalogComponent },
