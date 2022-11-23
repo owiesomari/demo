@@ -55,16 +55,16 @@ export class ProductsComponent implements OnInit {
     (document.getElementById("title") as HTMLHeadingElement).innerText = a.name;
     (document.getElementById("cost") as HTMLHeadingElement).innerText = a.costPrice.toString() + " د.أ";
     (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.weight.toString();
-     (document.getElementById("sku") as HTMLTableCellElement).innerText = a.sku.toString();
-     (document.getElementById("place") as HTMLTableCellElement).innerText = a.madeIn.toString();
-     (document.getElementById("quality") as HTMLTableCellElement).innerText = a.quality.toString();
-     (document.getElementById("siling") as HTMLTableCellElement).innerText = a.suggestedPrice.toString()+ " د.أ";
-     (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.warranty.toString();
-     (document.getElementById("orginal") as HTMLTableCellElement).innerText =  a.original?'نعم':'لا';
-     (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
-     (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
+    (document.getElementById("sku") as HTMLTableCellElement).innerText = a.sku.toString();
+    (document.getElementById("place") as HTMLTableCellElement).innerText = a.madeIn.toString();
+    (document.getElementById("quality") as HTMLTableCellElement).innerText = a.quality.toString();
+    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.suggestedPrice.toString() + " د.أ";
+    (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.warranty.toString();
+    (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original ? 'نعم' : 'لا';
+    (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
+    (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
 
-     if (a.marketingVideoUrl != null && a.marketingVideoUrl != "") {
+    if (a.marketingVideoUrl != null && a.marketingVideoUrl != "") {
       (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
 
     } else {
@@ -119,11 +119,11 @@ export class ProductsComponent implements OnInit {
 
   removeProduct() {
     this.alert.showSpinner();
-    this.globalProductService.deleteProduct(this.removedProductID).subscribe(res =>{
+    this.globalProductService.deleteProduct(this.removedProductID).subscribe(res => {
       this.alert.hideSpinner();
-      this.alert.setupAlertDiv("s", "تمت بنجاح","تم حذف المنتج بنجاح");
+      this.alert.setupAlertDiv("s", "تمت بنجاح", "تم حذف المنتج بنجاح");
       this.hideCloseModal();
-    },err =>{
+    }, err => {
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
       this.hideCloseModal();
@@ -136,7 +136,7 @@ export class ProductsComponent implements OnInit {
     return active ? 'فعال' : 'ملغية';
   }
 
-  getStatusColor(active:boolean){
+  getStatusColor(active: boolean) {
     return active ? '#67CFA2' : '#CE0000';
   }
 
@@ -157,7 +157,7 @@ export class ProductsComponent implements OnInit {
     this.alert.showSpinner();
     this.globalProductService.getProducts().subscribe(res => {
       this.products = res;
-      this.products.reverse();
+      if (this.products.length > 0) this.products.reverse();
       this.tempProducts = this.products;
       var contentContainer: HTMLDivElement = document.getElementById("content_continer") as HTMLDivElement
       this.alert.hideSpinner();

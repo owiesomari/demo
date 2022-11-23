@@ -1,8 +1,4 @@
-export class Catalog {
-    allProducts: AllProduct[] = [];
-}
-
-export class AllProduct {
+export class ProductRequest {
     name: string = "";
     categories: string[] = [];
     costPrice: number = 0;
@@ -13,11 +9,10 @@ export class AllProduct {
     show: boolean = false;
     markAsSpecial: boolean = false;
     limited: boolean = false;
-    //marketers:         string[];
+    marketers: string[] = [];
     description: string = "";
     sku: string = "";
     weight: number = 0;
-    images: Image[] = [];
     warranty: string = "";
     madeIn: string = "";
     original: boolean = false;
@@ -28,11 +23,16 @@ export class AllProduct {
     marketingVideoUrl: string = "";
     tutorialVideoUrl: string = "";
     active: boolean = false;
+    images: Image[] = [];
+
+    costPriceOnDropphi:number=0;
+    preparationPeriod:string="";
+    shippedFrom:string="";
+
 }
 
 export class Image {
-    id: string = "";
-    name: string = "";
-    type: string = "";
-    image: string[] = [];
+    name: string | undefined = "";
+    type: string | undefined = "";
+    image: string | undefined = "";
 }

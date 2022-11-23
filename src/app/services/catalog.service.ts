@@ -11,10 +11,8 @@ export class CatalogService {
 
   constructor(private http: HttpClient) { }
 
-  //testing -- remove it
-
   getProducts(): Observable<any> {
-    return this.http.get("https://dropphi.herokuapp.com/dropphi/admin/products");
+    return this.http.get(Constants.baseUrl + '/marketers/products/all');
   }
 
   addToMyProducts(sku: string): Observable<any> {

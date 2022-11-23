@@ -1,0 +1,109 @@
+
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+
+label {
+    font-weight: 700;
+}
+
+#idButton {
+    background-color: #fff;
+    border: 1px solid red;
+    color: #ce0000;
+}
+
+#idButton:hover {
+    background-color: #ce0000 !important;
+    color: #fff !important;
+}
+
+input,textarea {
+    background-color: #f0f0f0;
+    margin-top: 8px;
+}
+
+
+#drop-region {
+	background-color: #fff;
+	border-radius:20px;
+	box-shadow:0 0 35px rgba(0,0,0,0.05);
+	width:400px;
+	padding:60px 40px;
+	text-align: center;
+	cursor:pointer;
+	transition:.3s;
+}
+#drop-region:hover {
+	box-shadow:0 0 45px rgba(0,0,0,0.1);
+}
+
+#image-preview {
+	margin-top:20px;
+}
+#image-preview .image-view {
+    display: inline-block;
+	position:relative;
+	margin-right: 13px;
+	margin-bottom: 13px;
+}
+#image-preview .image-view img {
+    max-width: 100px;
+    max-height: 100px;
+}
+#image-preview .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background: rgba(255,255,255,0.5);
+}
+
+#result{
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .thumbnail {
+    height: 200px;
+  }

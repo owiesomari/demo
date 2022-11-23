@@ -1,0 +1,230 @@
+<div style="padding: 30px" id="content_continer">
+    <h2>اضافة منتج جديد</h2>
+
+    <div class=" rounded bg-white mt-5 mb-5">
+        <form onsubmit="return false;">
+            <div class="row">
+
+
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">تفاصيل المنتج</h4>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="labels">العنوان *</label>
+                                <input id="productTitle" type="text" class="form-control"
+                                    placeholder="ادخل عنوان المنتج هنا" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">سعر التكلفة على دروبيفاي*</label>
+                                <input type="number" class="form-control" id="costOnDroppi"
+                                    placeholder="ادخل سعر التكلفة على دروبيفاي هنا" required>
+
+                            </div>
+
+                           
+                        </div>
+                        <div class="row mt-3">
+
+                           
+                            <div class="col-md-6">
+                                <label class="labels">سعر التكلفة على المسوق *</label>
+                                <input type="number" class="form-control" placeholder="ادخل سعر التكلفة على المسوق هنا"
+                                    id="costOnMarketer" required>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="labels">سعر البيع بالسوق*</label>
+                                <input type="number" class="form-control" placeholder="ادخل سعر البيع المقترح هنا"
+                                    id="sellPrice" required>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">سعر التخفيض</label>
+                                <input type="number" class="form-control" placeholder="ادخل سعر التخفيض هنا"
+                                    id="discountPrice">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">كمية المخزون</label>
+                                <input type="number" class="form-control" placeholder="ادخل كمية المخزون هنا"
+                                    id="count">
+                            </div>
+
+                            <div class=" col-md-12" style="margin-top: 8px;">
+                                <label for="category" class="labels">التصنيف*</label>
+                                <select name="shipping_city" class="form-control " id="category" multiple
+                                    style="background-color: #f0f0f0;">
+                                    <option value="phone">هواتف</option>
+                                    <option value="house">ادوات منزلية</option>
+                                    <option value="cosmetic">عناية شخصية</option>
+                                    <option value="gaming">العاب</option>
+                                    <option value="watch">ساعات</option>
+                                    <option value="pafrum">عطور</option>
+                                    <option value="solar">طاقة شمسية</option>
+                                    <option value="electricity">ادوات كهربائية</option>
+                                    <option value="others">اخرى</option>
+                                </select>
+                            </div>
+                           
+
+
+                            <div class="col-md-12">
+                                <label class="labels">تحديد المسوقين</label>
+                                <input type="text" class="form-control" id="filterMarketers">
+                            </div>
+
+                          
+
+                            <div class="col-md-12">
+                                <label class="labels">وصف المنتج</label>
+                                <textarea class="form-control" rows="5" placeholder="ادخل وصف المنتج هنا"
+                                    id="productDescription"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div style="margin-right: 60px;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">خصائص المنتج</h4>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label class="labels">SKU*</label>
+                                    <input type="text" class="form-control" placeholder="ادخل sku هنا" id="productSku"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels">الوزن </label>
+                                    <input type="number" class="form-control" id="productWieght"
+                                        placeholder="ادخل الوزن هنا " >
+                                </div>
+
+
+                                <div class=" col-md-6" style="margin-top: 8px;">
+                                    <label for="shipFrom" class="labels">تشحن من </label>
+                                    <select name="shipping_city" class="form-control " id="shipFrom"
+                                        style="background-color: #f0f0f0;">
+                                        <option value="jordan">الاردن</option>
+                                        <option value="egypt">مصر</option>
+                                        <option value="ksa">السعودية</option>
+                                        <option value="algeria">الجزائر</option>
+                                        <option value="tunisia">تونس</option>
+                                        <option value="palestine">فلسطين</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">زمن التجهيز</label>
+                                    <input type="number" class="form-control" id="time"
+                                        placeholder="ادخل زمن التجهيز هنا" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">الكفالة</label>
+                                    <input type="text" class="form-control" id="woranty" placeholder="ادخل الكفالة هنا">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">بلد المنشأ</label>
+                                    <input type="text" class="form-control" placeholder="ادخل بلد المنشأ هنا"
+                                        id="countryOfMini">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">الجودة</label>
+                                    <input type="text" class="form-control" id="quarinty"
+                                        placeholder="ادخل نوع الجودة هنا">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">اللون</label>
+                                    <input type="text" class="form-control" id="color" placeholder="ادخل اللون هنا">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">الماركة</label>
+                                    <input type="text" class="form-control" id="brand" placeholder="ادخل الماركة هنا">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">ابعاد المنتج</label>
+                                    <input type="text" class="form-control" id="productDimentions"
+                                        placeholder="ادخل ابعاد المنتج هنا">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">فيديو تسويقي للمنتج</label>
+                                    <input type="text" class="form-control" id="video1"
+                                        placeholder="فيديو تسويقي للمنتج">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="labels">فيديو شرح للمنتج</label>
+                                    <input type="text" class="form-control" id="video2" placeholder="فيديو شرح للمنتج">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <br>
+                                    <label class="toggle labels">
+                                        <span class="toggle-label" style="margin-right:10px;"> عرض المنتج </span>
+                                        <input class="toggle-checkbox form-control" type="checkbox" id="show">
+                                        <div class="toggle-switch"></div>
+                                    </label>
+                                </div>
+    
+    
+                                <div class="col-md-6">
+    
+                                    <br>
+                                    <label class="toggle labels">
+                                        <span class="toggle-label" style="margin-right:10px;"> تحديد كمميز </span>
+                                        <input class="toggle-checkbox form-control" type="checkbox" id="isSpecial">
+                                        <div class="toggle-switch"></div>
+                                    </label>
+    
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <br>
+                                    <label class="toggle labels">
+                                        <span class="toggle-label" style="margin-right:10px;"> المنتج اصلي </span>
+                                        <input class="toggle-checkbox form-control" type="checkbox" id="origin">
+                                        <div class="toggle-switch"></div>
+                                    </label>
+    
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <br>
+                                    <label class="toggle labels">
+                                        <span class="toggle-label" style="margin-right:10px;"> كمية محدودة </span>
+                                        <input class="toggle-checkbox form-control" type="checkbox" id="limeted">
+                                        <div class="toggle-switch"></div>
+                                    </label>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 border-right" id="uploadImages" style="margin-right: 10px">
+                    <label for="files">صور المنتج</label><br>
+                    <input id="files" type="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+                    <output id="result"></output>
+                </div>
+            </div>
+            <div class="mt-5 text-center" style="width: 200px; margin:auto">
+                <button style="width:100%" id="idButton" class="btn" type="submit" (click)="addProduct()">حفظ</button>
+            </div>
+        </form>
+        <br>
+        <br>
+    </div>
+</div>

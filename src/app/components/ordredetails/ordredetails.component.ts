@@ -114,8 +114,6 @@ export class OrdredetailsComponent implements OnInit {
         }
         personCanceled.style.display = "block"
       }
-      console.log(res)
-
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
     }, err => {

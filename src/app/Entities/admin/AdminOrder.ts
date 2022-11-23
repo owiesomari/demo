@@ -36,4 +36,5 @@ export class ProductsInfo {
     costPrice: number = 0;
     quantity: number = 0;
     totalPrice: number = 0;
+    costPriceOnDropphi: number = 0;
 }

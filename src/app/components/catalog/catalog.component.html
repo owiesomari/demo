@@ -103,7 +103,12 @@
   <div class="row margin-top-xl" style="margin-bottom: 35px">
     <div class="col-md-3" *ngFor="let c of tempCatalogs">
       <div class="card margin-top-xl">
-        <span *ngIf="c.active" class="featured-badge"><i class="bi bi-star-fill" style="color:#ce0000;"></i> مميز</span>
+        <span *ngIf="c.markAsSpecial" class="featured-badge"><i class="bi bi-star-fill" style="color:#ce0000;"></i>
+          مميز</span>
+
+          <span *ngIf="c.limited" class="limetted"><i class="bi bi-hand-thumbs-up-fill" style="color:#ce0000;"></i>
+            كمية محدودة</span>
+
         <img [id]="c.sku" class="card-img-top" width="200px" height="200px"
           src="data:{{c.images[0].type}};base64,{{c.images[0].image}}" alt="Card image cap" (click)="openModal($event)"
           style="cursor: pointer;">
@@ -137,7 +142,7 @@
                   class="bi bi-plus"></i>
                 أضف إلى منتجاتي</button>
               <button class="btn btn-primary idButton" [id]="c.sku" (click)="addToCart(c.sku)"><i
-                  class="bi bi-cart-plus" ></i></button>
+                  class="bi bi-cart-plus"></i></button>
             </div>
           </div>
         </div>
@@ -165,7 +170,7 @@
             <!-- images-->
             <img src="../../../assets/cat1.jpeg" id="mainImg" height="400" style="width: 80%;" />
 
-            <img src="../../../assets/cat2.jpeg" id="img1" width="100" height="100" class="margin-top-xl" style="display: none;">
+            <img id="img1" width="100" height="100" class="margin-top-xl" style="display: none;">
             <img src="../../../assets/cat2.jpeg" id="img2" width="100" height="100" style="display: none;">
             <img src="../../../assets/cat2.jpeg" id="img3" width="100" height="100" style="display: none;">
 
@@ -179,6 +184,14 @@
             <img src="../../../assets/cat2.jpeg" id="img9" width="100" height="100" style="display: none;">
             <img src="../../../assets/cat2.jpeg" id="img10" width="100" height="100" style="display: none;">
 
+            <img src="../../../assets/cat2.jpeg" id="im11" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img12" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img13" width="100" height="100" style="display: none;">
+
+            <img src="../../../assets/cat2.jpeg" id="img14" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img15" width="100" height="100" style="display: none;">
+            <img src="../../../assets/cat2.jpeg" id="img16" width="100" height="100" style="display: none;">
+
           </div><!-- End images-->
 
           <div class="col-md-8 col-sm-8 col-lg-8 margin-top-xl">
@@ -189,7 +202,7 @@
 
               <div class="col-md-6">
                 <table>
-                  <tr>
+                  <tr id="wtr" style="display: none;">
                     <td>
                       <h5 style="color: green">الوزن</h5>
                     </td>
@@ -203,14 +216,14 @@
                     <td class="text-muted" id="sku">PC-m1-01</td>
                   </tr>
 
-                  <tr>
+                  <tr id="madeInTr" style="display: none">
                     <td>
                       <h5 style="color: green; width: 80px;">بلد المنشا</h5>
                     </td>
                     <td class="text-muted" id="place">الصين</td>
                   </tr>
 
-                  <tr>
+                  <tr id="qualityRow" style="display: none">
                     <td>
                       <h5 style="color: green">الجودة</h5>
                     </td>
@@ -228,7 +241,7 @@
                     <td class="text-muted" id="siling">15 د.ا</td>
                   </tr>
 
-                  <tr>
+                  <tr id="quarantyRow" style="display: none">
                     <td>
                       <h5 style="color: green">الكفالة</h5>
                     </td>
@@ -242,27 +255,41 @@
                     <td class="text-muted" id="orginal">نعم</td>
                   </tr>
 
-                  <tr>
+                  <tr id="dimentionsRow" style="display: none">
                     <td>
                       <h5 style="color: green">ابعاد المنتج</h5>
                     </td>
                     <td class="text-muted" id="dimentions">20X40X56 مم</td>
                   </tr>
 
-                  <tr id="totoriulRow">
+                  <tr id="marketingRow" style="display: none;">
 
                     <td>
                       <h5 style="color: green">فيديو تسويقي للمنتج</h5>
                     </td>
 
-                    <td class="text-muted"><a target="_blank" id="totoriul"><i class="bi bi-box-arrow-up-right"></i></a>
+                    <td class="text-muted"><a target="_blank" id="marketingRowul"><i class="bi bi-box-arrow-up-right"
+                          style="margin-right: 4px;"></i></a>
                     </td>
                   </tr>
+
+                  <tr id="totoriulRow" style="display: none;">
+
+                    <td>
+                      <h5 style="color: green">فيديو شرح للمنتج</h5>
+                    </td>
+
+                    <td class="text-muted"><a target="_blank" id="totoriul"><i class="bi bi-box-arrow-up-right"
+                          style="margin-right: 4px;"></i></a>
+                    </td>
+                  </tr>
+
+
                 </table>
               </div>
             </div>
-            <button id="downloadPhotos" class="btn  margin-top-xl" (click)="downloadProductImages()"> <i class="bi bi-download"
-                style="margin-left: 10px"></i>تحميل صور المنتج</button>
+            <button id="downloadPhotos" class="btn  margin-top-xl" (click)="downloadProductImages()"> <i
+                class="bi bi-download" style="margin-left: 10px"></i>تحميل صور المنتج</button>
 
             <h4 class="margin-top-xxl" style="font-weight: 500;">الوصف</h4>
             <textarea style="width: 100%; border-radius: 5px;" rows="8" id="description" class="form-control"
@@ -277,7 +304,6 @@
 
           </div>
           <!--End Content-->
-
         </div>
       </div>
     </div>

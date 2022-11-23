@@ -93,36 +93,14 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   openModal(event: any) {
-    this.modalOrderID = event?.target.id
-    this.fillModal(this.modalOrderID)
     this.modalElement = document.getElementById('modal') as HTMLElement;
     this.modalComponent = new Modal(this.modalElement);
-    this.modalComponent.show();
-  }
-
-  closeModal() {
-    this.modalComponent?.hide();
-    window.location.reload();
-  }
-
-  cancelOrder() {
-    var textArea = (document.getElementById("r_ca_modal") as HTMLTextAreaElement);
-    if (textArea.value == '') {
-      (document.getElementById("cancel_hint") as HTMLParagraphElement).style.display = "block";
-      return;
+    if (event != "cancelOrders") {
+      this.modalOrderID = event?.target.id
+      this.fillModal(this.modalOrderID)
+      this.selectedOrderNumbers.push(this.modalOrderID);
     }
-    this.alert.showSpinner();
-    /*this.globalOrdersService.deleteOrder(this.modalOrderID, textArea.value).subscribe(res => {
-      this.alert.hideSpinner();
-      this.closeModal();
-      this.alert.setupAlertDiv("s", "تمت بنجاح", "تم الالغاء بنجاح");
-      setTimeout(function () {
-        window.location.reload();
-      }, 1000);
-    }, err => {
-      this.alert.hideSpinner();
-      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
-    })*/
+    this.modalComponent.show();
   }
 
   private fillModal(id: string) {
@@ -130,6 +108,33 @@ export class AdminOrdersComponent implements OnInit {
       return obj.orderNumber.toString() == id;
     })[0];
     (document.getElementById("c_orderNumber") as HTMLSpanElement).innerText = a.orderNumber.toString();
+  }
+
+  closeModal() {
+    this.selectedOrderNumbers = [];
+    this.modalComponent?.hide();
+    window.location.reload();
+  }
+
+  cancelOrder() {
+    this.alert.showSpinner();
+    var textArea = (document.getElementById("r_ca_modal") as HTMLTextAreaElement);
+    if (textArea.value == '') {
+      (document.getElementById("cancel_hint") as HTMLParagraphElement).style.display = "block";
+      return;
+    }
+
+    this.fillActionRequest("CANCELLED", textArea.value);
+    this.globalAdminOrderService.changeStatus(this.adminActionRequest).subscribe(res => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("s", "تمت بنجاح", `تم الغاء ${this.selectedOrderNumbers.length} طلب`);
+      this.selectedOrderNumbers = [];
+      Utils.refreshFterOneSecond();
+    }, err => {
+      this.alert.hideSpinner();
+      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+      this.selectedOrderNumbers = [];
+    });
   }
 
   filterDate(event: any) {
@@ -186,7 +191,6 @@ export class AdminOrdersComponent implements OnInit {
     (document.getElementById("fromDate") as HTMLInputElement).style.display = state;
     (document.getElementById("toDateLabel") as HTMLLabelElement).style.display = state;
     (document.getElementById("toDate") as HTMLInputElement).style.display = state;
-
   }
 
   filterByDays(days: number) {
@@ -278,7 +282,6 @@ export class AdminOrdersComponent implements OnInit {
 
   disableFutureDate() {
     var nextDayDate = new Date(new Date().getTime()).toISOString().split('T')[0];
-    console.log(nextDayDate);
     (document.getElementById("fromDate") as HTMLInputElement).max = nextDayDate;
     (document.getElementById("toDate") as HTMLInputElement).max = nextDayDate;
   }
@@ -341,17 +344,7 @@ export class AdminOrdersComponent implements OnInit {
       } break;
 
       case "cancelOrders": {
-        this.alert.showSpinner();
-        this.fillActionRequest("CANCELLED");
-        this.globalAdminOrderService.changeStatus(this.adminActionRequest).subscribe(res => {
-          this.alert.hideSpinner();
-          this.alert.setupAlertDiv("s", "تمت بنجاح", `تم الغاء ${this.selectedOrderNumbers.length} طلب`);
-          Utils.refreshFterOneSecond();
-        }, err => {
-          console.log(err);
-          this.alert.hideSpinner();
-          this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
-        });
+        this.openModal("cancelOrders");
       } break;
 
       case "changeToTajheezBtn": {
@@ -362,7 +355,6 @@ export class AdminOrdersComponent implements OnInit {
           this.alert.setupAlertDiv("s", "تمت بنجاح", `تم تغيير حالة ${this.selectedOrderNumbers.length} طلب الى قيد التجهييز`);
           Utils.refreshFterOneSecond();
         }, err => {
-          console.log(err);
           this.alert.hideSpinner();
           this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
         });
@@ -376,7 +368,6 @@ export class AdminOrdersComponent implements OnInit {
           this.alert.setupAlertDiv("s", "تمت بنجاح", `تم تغيير حالة ${this.selectedOrderNumbers.length} طلب الى قيد التسليم`);
           Utils.refreshFterOneSecond();
         }, err => {
-          console.log(err);
           this.alert.hideSpinner();
           this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
         });
@@ -390,7 +381,6 @@ export class AdminOrdersComponent implements OnInit {
           this.alert.setupAlertDiv("s", "تمت بنجاح", `تم تغيير حالة ${this.selectedOrderNumbers.length} طلب الى مكتلمة`);
           Utils.refreshFterOneSecond();
         }, err => {
-          console.log(err);
           this.alert.hideSpinner();
           this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
         });
@@ -477,19 +467,19 @@ export class AdminOrdersComponent implements OnInit {
     var excelmodel: AdminOrdersExcelModel[] = [];
     orders.forEach((order) => {
       order.productsInfo.forEach((product) => {
-        excelmodel.push(new AdminOrdersExcelModel(order.orderNumber, product.sku, product.quantity, product.costPrice, product.totalPrice, product.sellingPrice, product.sellingPrice * product.quantity, 4, 4,
-          order.marketerInfo.email, order.marketerInfo.userName, order.marketerInfo.phoneNumber, order.customerShipmentDetails.customerName, order.customerShipmentDetails.phoneNumber,
+        excelmodel.push(new AdminOrdersExcelModel(order.orderNumber, product.sku, product.quantity, product.costPrice, product.totalPrice, product.sellingPrice, product.sellingPrice * product.quantity, product.costPriceOnDropphi,
+          product.costPriceOnDropphi * product.quantity, order.marketerInfo.email, order.marketerInfo.userName, order.marketerInfo.phoneNumber, order.customerShipmentDetails.customerName, order.customerShipmentDetails.phoneNumber,
           Utils.getCountryNameArabic(order.customerShipmentDetails.country), order.customerShipmentDetails.city, order.customerShipmentDetails.address, order.orderLink, this.getStatusCellValue(order.orderStatus), order.orderDate,
           order.orderCompletionDate))
       })
     });
-
     return excelmodel;
   }
 
-  private fillActionRequest(status: string) {
+  private fillActionRequest(status: string, reson: string = "") {
     this.adminActionRequest.ordersNumber = this.selectedOrderNumbers;
     this.adminActionRequest.orderStatus = status;
+    this.adminActionRequest.cancellationReason = reson;
   }
 
   private filterInputTable(id: string) {

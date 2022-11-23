@@ -26,7 +26,8 @@ import { DashboardService } from './services/dashboard.service';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { AdminOrderService } from './services/admin/order/admin-order.service';
-
+import { AddProductComponent } from './components/admin/products/add-product/add-product.component';
+import { AdminProductService } from './services/admin/product/admin-product.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { AdminOrderService } from './services/admin/order/admin-order.service';
     CartComponent,
     OrdredetailsComponent,
     OrderConfirmationComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,7 @@ import { AdminOrderService } from './services/admin/order/admin-order.service';
     BrowserAnimationsModule,
     NgxPaginationModule
   ],
-  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService],
+  providers: [CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService, AdminProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

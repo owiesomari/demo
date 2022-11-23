@@ -11,7 +11,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {
-    return this.http.get(Constants.baseUrl + "/marketers/products");
+    return this.http.get(Constants.baseUrl + "/marketers/products/");
   }
 
   deleteProduct(sku: string): Observable<any> {

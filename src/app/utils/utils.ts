@@ -15,7 +15,6 @@ export class Utils {
 
         var templateToExcel: string[][] = [header, json];
 
-        console.log(templateToExcel);
         const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json, { skipHeader: true })
         const workbook: XLSX.WorkBook = { Workbook: { Views: [{ RTL: true }] }, Sheets: { 'الطلبات': worksheet }, SheetNames: ['الطلبات'] };
         XLSX.utils.sheet_add_json(worksheet, json);

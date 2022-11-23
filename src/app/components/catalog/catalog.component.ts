@@ -14,20 +14,20 @@ import { Alert } from 'src/app/utils/Alert';
 export class CatalogComponent implements OnInit {
 
   private catalogs: Catalog = new Catalog();
-  tempCatalogs: AllProduct[] = [];
   private tempFilteredCatalogs: AllProduct[] = [];
   private isFiltered: Boolean = false;
   private NUMBER_OF_CARDS_PAIR_PAGE = 12;
   private currentSelectedPage = 1;
-  pages: number = 0;
-  private modalElement: HTMLElement | undefined
-  private modalComponent: Modal | undefined
-  private modalProductSku = ""
-  private globalcatalogService: CatalogService
+  private modalElement: HTMLElement | undefined;
+  private modalComponent: Modal | undefined;
+  private modalProductSku = "";
+  private globalcatalogService: CatalogService;
   private alert = new Alert();
+  tempCatalogs: AllProduct[] = [];
+  pages: number = 0;
 
   constructor(catalogService: CatalogService) {
-    this.globalcatalogService = catalogService
+    this.globalcatalogService = catalogService;
   }
 
   createPagination(pages: number, page: number) {
@@ -227,29 +227,57 @@ export class CatalogComponent implements OnInit {
     var a = this.catalogs.allProducts.filter((obj) => {
       return obj.sku == sku;
     })[0];
+
+    (document.getElementById("sku") as HTMLTableCellElement).innerText = a.sku.toString();
+    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.suggestedPrice.toString() + " د.أ";
+    (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original ? 'نعم' : 'لا';
+    (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
     (document.getElementById("title") as HTMLHeadingElement).innerText = a.name.toString();
     (document.getElementById("cost") as HTMLHeadingElement).innerText = a.costPrice.toString() + " د.أ";
-    (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.weight.toString();
-    (document.getElementById("sku") as HTMLTableCellElement).innerText = a.sku.toString();
-    (document.getElementById("place") as HTMLTableCellElement).innerText = a.madeIn.toString();
-    (document.getElementById("quality") as HTMLTableCellElement).innerText = a.quality.toString();
-    (document.getElementById("siling") as HTMLTableCellElement).innerText = a.suggestedPrice.toString() + " د.أ";
-    (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.warranty.toString();//change
-    (document.getElementById("orginal") as HTMLTableCellElement).innerText = a.original ? 'نعم' : 'لا';
-    (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString();
-    (document.getElementById("description") as HTMLTextAreaElement).value = a.description.toString();
+
+    if (a.weight != 0 && a.weight != null) {
+      (document.getElementById("wtr") as HTMLTableCellElement).style.display = "block";
+      (document.getElementById("wieght") as HTMLTableCellElement).innerText = a.weight.toString() + " كغ";
+    }
+    if (a.dimension != "" && a.dimension != null) {
+      (document.getElementById("dimentionsRow") as HTMLTableCellElement).style.display = "block";
+      (document.getElementById("dimentions") as HTMLTableCellElement).innerText = a.dimension.toString() + " سم";
+    }
+
+    if (a.madeIn != "" && a.madeIn != null) {
+      (document.getElementById("madeInTr") as HTMLTableCellElement).style.display = "block";
+      (document.getElementById("place") as HTMLTableCellElement).innerText = a.madeIn.toString();
+    }
+
+    if (a.quality != "" && a.quality != null) {
+      (document.getElementById("qualityRow") as HTMLTableCellElement).style.display = "block";
+      (document.getElementById("quality") as HTMLTableCellElement).innerText = a.quality.toString();
+    }
+
+    if (a.warranty != "" && a.warranty != null) {
+      (document.getElementById("quarantyRow") as HTMLTableCellElement).style.display = "block";
+      (document.getElementById("quaranty") as HTMLTableCellElement).innerText = a.warranty.toString();
+    }
 
     if (a.marketingVideoUrl != null && a.marketingVideoUrl != "") {
-      (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
+      (document.getElementById("marketingRow") as HTMLTableRowElement).style.display = 'block';
+      (document.getElementById("marketingRowul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
+    }
 
-    } else {
-      (document.getElementById("totoriulRow") as HTMLTableRowElement).style.display = 'none'
+    if (a.marketingVideoUrl != null && a.marketingVideoUrl != "") {
+      (document.getElementById("totoriulRow") as HTMLTableRowElement).style.display = 'block';
+      (document.getElementById("totoriul") as HTMLAnchorElement).href = a.marketingVideoUrl.toString();
     }
 
     let imagesParent = document.getElementById("catalogImages") as HTMLDivElement;
     let images = imagesParent.childNodes;
     let mainImage = document.getElementById("mainImg") as HTMLImageElement;
     mainImage.src = `data:${a.images[0].type};base64,${a.images[0].image}`;
+
+    for (var i = 1; i < 10; i++) {
+      (images[i] as HTMLImageElement).style.display = "none";
+    }
+
     for (var i = 1; i < a.images.length; i++) {
       (images[i] as HTMLImageElement).style.display = "inline";
       if (images[i] != mainImage) {
@@ -283,7 +311,6 @@ export class CatalogComponent implements OnInit {
 
   closeModal() {
     this.modalComponent?.hide();
-
   }
 
   filterCategoty(event: any) {
@@ -339,29 +366,29 @@ export class CatalogComponent implements OnInit {
   private filterData(filterText: string) {
     this.isFiltered = true;
     this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
-      return obj.category == filterText
+      return obj.categories.includes(filterText)
     });
     this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
     this.displayCards(this.tempCatalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
   }
 
   private setFilterButtonBackground(id: string) {
-    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes
+    let buttonsParent = (document.getElementById("buttons") as HTMLDivElement).childNodes;
     for (var i = 0; i < buttonsParent.length; i++) {
       if ((buttonsParent[i].childNodes[0] as HTMLButtonElement).id != "clear")
-        (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff"
+        (buttonsParent[i].childNodes[0] as HTMLButtonElement).style.background = "#fff";
     }
     if ((document.getElementById(id) as HTMLButtonElement).id != "clear")
-      (document.getElementById(id) as HTMLButtonElement).style.background = "#ce0000"
+      (document.getElementById(id) as HTMLButtonElement).style.background = "#ce0000";
 
   }
 
   isCatalogsEmpty(): Boolean {
-    return this.tempCatalogs.length == 0
+    return this.tempCatalogs.length == 0;
   }
 
   getmodalProductSku(): string {
-    return this.modalProductSku
+    return this.modalProductSku;
   }
 
   addToMyProducts(sku: string) {
@@ -369,12 +396,12 @@ export class CatalogComponent implements OnInit {
     this.globalcatalogService.addToMyProducts(sku).subscribe(res => {
       this.closeModal();
       this.alert.hideSpinner();
-      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى منتجاتك بنجاح")
+      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى منتجاتك بنجاح");
 
-    }, err => {
+    }, () => {
       this.alert.hideSpinner();
       this.closeModal();
-      this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
+      this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح");
     })
   }
 
@@ -383,9 +410,9 @@ export class CatalogComponent implements OnInit {
     this.globalcatalogService.addToMyCart(sku).subscribe(res => {
       this.closeModal();
       this.alert.hideSpinner();
-      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح")
+      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح");
 
-    }, err => {
+    }, () => {
       this.alert.hideSpinner();
       this.closeModal();
       this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
@@ -419,20 +446,21 @@ export class CatalogComponent implements OnInit {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
     this.globalcatalogService.getProducts().subscribe(res => {
+      console.log(res);
       this.catalogs = res;
       this.catalogs.allProducts = this.catalogs.allProducts.filter((obj) => {
-        return obj.active
+        return obj.active;
       });
       this.catalogs.allProducts.reverse();
       this.tempCatalogs = this.catalogs.allProducts;
       this.pages = Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE);
-      var contentContainer: HTMLDivElement = document.getElementById("contentContainer") as HTMLDivElement
+      var contentContainer: HTMLDivElement = document.getElementById("contentContainer") as HTMLDivElement;
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
       this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
       this.displayCards(this.catalogs.allProducts, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
 
-    }, err => {
+    }, () => {
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })

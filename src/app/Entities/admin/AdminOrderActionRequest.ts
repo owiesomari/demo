@@ -1,4 +1,5 @@
 export class AdminActionRequest {
-    ordersNumber: string[] = [];;
+    ordersNumber: string[] = [];
     orderStatus: string = "";
+    cancellationReason: string= "";
 }
