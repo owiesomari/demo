@@ -118,7 +118,143 @@
                         </div>
                     </div>
                     <br>
-                    <table class="table table-striped" style="text-align: center;">
+
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-top: 20px;">
+
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox [checked]="selection.hasValue()&& isAllSelected()"
+                                    (change)="$event ? selectAll() : null"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"></mat-checkbox>
+
+                            </th>
+                            <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+                                <mat-checkbox (change)="selectRow(element)" (click)="$event.stopPropagation()"
+                                    [checked]="selection.isSelected(element)"></mat-checkbox>
+
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="رقم الطلب">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> رقم الطلب
+                                <input type="text" class="effect-9" id="orderNumberInput"
+                                    (keyup)="inputsFiltersTable($event)">
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.orderNumber}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="تاريخ الطلب">
+                            <th mat-header-cell *matHeaderCellDef> تاريخ الطلب
+                                <input type="text" class="effect-9" id="orderDateInput"
+                                    (keyup)="inputsFiltersTable($event)">
+
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.orderDate}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="اسم المسوق">
+                            <th mat-header-cell *matHeaderCellDef> اسم المسوق
+                                <input type="text" class="effect-9" id="marketerNameInput"
+                                    (keyup)="inputsFiltersTable($event)">
+
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.marketerInfo.userName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="طريقة الدفع">
+                            <th mat-header-cell *matHeaderCellDef> طريقة الدفع
+                                <input type="text" class="effect-9" id="paymentMethodInput"
+                                    (keyup)="inputsFiltersTable($event)">
+
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{getPaymentMethodValue(element.paymentMethod)}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="الاجمالي">
+                            <th mat-header-cell *matHeaderCellDef> الاجمالي
+                                <input type="text" class="effect-9" id="totalInput"
+                                    (keyup)="inputsFiltersTable($event)">
+
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.totalProductsCostPrice}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="رقم هاتف الزبون">
+                            <th mat-header-cell *matHeaderCellDef> رقم هاتف الزبون
+                                <input type="text" class="effect-9" id="phoneNumberInput"
+                                    (keyup)="inputsFiltersTable($event)">
+
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.customerShipmentDetails.phoneNumber}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="رابط الشحنة">
+                            <th mat-header-cell *matHeaderCellDef> رابط الشحنة
+                                <input type="text" class="effect-9" id="linkInput" (keyup)="inputsFiltersTable($event)">
+
+                            </th>
+
+                            <td mat-cell *matCellDef="let element"> <span
+                                    *ngIf="element.orderLink=='' || element.orderLink==null">لا يوجد</span>
+                                <a *ngIf="element.orderLink!='' && element.orderLink!=null" [href]="element.orderLink"
+                                    target="_blank" class="url"><i class="bi bi-box-arrow-up-right"></i></a>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="تاريخ التسليم">
+                            <th mat-header-cell *matHeaderCellDef> تاريخ التسليم
+                                <input type="text" class="effect-9" id="completedDateInput"
+                                    (keyup)="inputsFiltersTable($event)">
+
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.orderCompletionDate}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="الحالة">
+                            <th mat-header-cell *matHeaderCellDef> الحالة                           
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+
+                                <span [ngStyle]="{'background-color':getCellColor(element.orderStatus)}"
+                                    class="status sat">{{getStatusCellValue(element.orderStatus)}}</span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="الاجراءات">
+                            <th mat-header-cell *matHeaderCellDef> الاجراءات </th>
+                            <td mat-cell *matCellDef="let element">
+
+                                <span><button class="btn btn-small bg-success rd-50"
+                                        [routerLink]="['/orderdeatils',element.orderNumber]"><i class="bi bi-eye"
+                                            style="color: #fff;"></i>
+                                    </button></span>
+                                <span
+                                    *ngIf="element.orderStatus!='CANCELLED' && element.orderStatus!='COMPLETED'"><button
+                                        (click)="openModal($event)" [id]="element.orderNumber"
+                                        class="rd-50 btn btn-small bg-danger"><i (click)="openModal($event)"
+                                            [id]="element.orderNumber" class="bi bi-trash"
+                                            style="color: #fff;"></i></button></span>
+
+                                <span *ngIf="!showEmptyAction(element.orderStatus)"><button
+                                        class="rd-50 btn btn-small bg-danger"
+                                        style="visibility: hidden;">ds</button></span>
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[2, 10, 20,50,100]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+
+
+                    <!--          <table class="table table-striped" style="text-align: center;">
                         <thead>
                             <tr>
                                 <th scope="col"></th>
@@ -137,25 +273,15 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="tdd"><input type="checkbox" id="selectAll" (click)="selectAll()"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="orderNumberInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 100px;"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="orderDateInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="marketerNameInput"
-                                        (keyup)="inputsFiltersTable($event)"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="paymentMethodInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 120px;"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="totalInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 100px;"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="phoneNumberInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="linkInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 80px;"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="completedDateInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 150px;"></td>
-                                <td class="tdd"><input type="text" class="effect-9" id="statusInput"
-                                        (keyup)="inputsFiltersTable($event)" style="width: 100px;"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
+                                <td class="tdd"></td>
                                 <td class="tdd">-</td>
 
                             </tr>
@@ -196,7 +322,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>-->
                 </div>
             </div>
         </div>

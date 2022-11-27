@@ -96,7 +96,7 @@ export class AddProductComponent implements OnInit {
     debugger
   }
 
-  private fillCataegories(){
+  private fillCataegories() {
     let result: string[] = [];
     let option;
     for (let i = 0; i < this.category!.options.length; i++) {
@@ -166,7 +166,6 @@ export class AddProductComponent implements OnInit {
 
 
     (document.querySelector("#files") as HTMLInputElement).addEventListener("change", (e: any) => {
-
       if (window.File && window.FileReader && window.FileList && window.Blob) {
         const files = e.target.files;
         const output = document.querySelector("#result") as HTMLOutputElement;
@@ -189,10 +188,3 @@ export class AddProductComponent implements OnInit {
     });
   }
 }
-
-class ProductImage {
-  image: string | undefined = "";
-  title: string | undefined = "";
-  type: string | undefined = "";
-}
-

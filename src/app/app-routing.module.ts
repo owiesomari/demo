@@ -12,6 +12,8 @@ import { OrdredetailsComponent } from './components/ordredetails/ordredetails.co
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { AddProductComponent } from './components/admin/products/add-product/add-product.component';
+import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
+import { EditProductComponent } from './components/admin/manage-products/editproduct/edit-product/edit-product.component';
 
 const routes: Routes = [
   { path: "", redirectTo: 'dashboard', pathMatch: "full" },
@@ -25,7 +27,10 @@ const routes: Routes = [
   { path: "orderdeatils/:order_number", component: OrdredetailsComponent },
   { path: "orderConfirmation", component: OrderConfirmationComponent },
   { path: "adminorders", component: AdminOrdersComponent },
-  { path: "addProduct", component: AddProductComponent }
+  { path: "addProduct", component: AddProductComponent },
+  { path: "manageProducts", component: ManageProductsComponent },
+  { path: "editProduct/:sku", component: EditProductComponent }
+
 
 ];
 

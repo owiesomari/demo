@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Modal } from 'bootstrap';
 import * as saveAs from 'file-saver';
 import * as JSZip from 'jszip';
 import { AllProduct, Catalog, Image } from 'src/app/Entities/Catalog';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Alert } from 'src/app/utils/Alert';
+import { SnakBar } from 'src/app/utils/SnakBar';
 
 @Component({
   selector: 'app-catalog',
@@ -23,10 +25,12 @@ export class CatalogComponent implements OnInit {
   private modalProductSku = "";
   private globalcatalogService: CatalogService;
   private alert = new Alert();
+  private snakbar: MatSnackBar;
   tempCatalogs: AllProduct[] = [];
   pages: number = 0;
 
-  constructor(catalogService: CatalogService) {
+  constructor(catalogService: CatalogService, snackBar: MatSnackBar) {
+    this.snakbar = snackBar;
     this.globalcatalogService = catalogService;
   }
 
@@ -410,7 +414,9 @@ export class CatalogComponent implements OnInit {
     this.globalcatalogService.addToMyCart(sku).subscribe(res => {
       this.closeModal();
       this.alert.hideSpinner();
-      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح");
+
+      new SnakBar(this.snakbar).openSnackBar("تمت الاضافة بنجاح")
+      //this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح");
 
     }, () => {
       this.alert.hideSpinner();
@@ -446,7 +452,6 @@ export class CatalogComponent implements OnInit {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
     this.globalcatalogService.getProducts().subscribe(res => {
-      console.log(res);
       this.catalogs = res;
       this.catalogs.allProducts = this.catalogs.allProducts.filter((obj) => {
         return obj.active;

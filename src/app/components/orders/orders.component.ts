@@ -299,7 +299,6 @@ export class OrdersComponent implements OnInit {
       contentContainer.style.display = "block";
       this.disableFutureDate();
     }, err => {
-      console.log(err)
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })

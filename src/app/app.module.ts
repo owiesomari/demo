@@ -28,7 +28,12 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
 import { AdminOrderService } from './services/admin/order/admin-order.service';
 import { AddProductComponent } from './components/admin/products/add-product/add-product.component';
 import { AdminProductService } from './services/admin/product/admin-product.service';
-import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
+import { MaterialModule } from './material-module';
+import { ManageProductsService } from './services/admin/manageproducts/manage-products.service';
+import { EditProductService } from './services/admin/editProduct/edit-product.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,18 +50,20 @@ import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
     OrdredetailsComponent,
     OrderConfirmationComponent,
     AdminOrdersComponent,
-    AddProductComponent
+    AddProductComponent,
+    ManageProductsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MaterialModule
   ],
   providers: [
-    {provide : LocationStrategy , useClass: HashLocationStrategy},
-    CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService, AdminProductService],
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService, AdminProductService, ManageProductsService, EditProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

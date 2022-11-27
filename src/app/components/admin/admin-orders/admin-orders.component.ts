@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Modal } from 'bootstrap';
 import { Alert } from 'src/app/utils/Alert';
 import { AdminOrder } from 'src/app/Entities/admin/AdminOrder';
@@ -6,13 +6,20 @@ import { Utils } from 'src/app/utils/utils';
 import { AdminOrderService } from 'src/app/services/admin/order/admin-order.service';
 import { AdminActionRequest } from 'src/app/Entities/admin/AdminOrderActionRequest';
 import { AdminOrdersExcelModel } from 'src/app/Entities/admin/AdminOrdersExcelModel';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 
 @Component({
   selector: 'app-admin-orders',
   templateUrl: './admin-orders.component.html',
   styleUrls: ['./admin-orders.component.css']
 })
-export class AdminOrdersComponent implements OnInit {
+export class AdminOrdersComponent implements OnInit, AfterViewInit {
 
   private orders: AdminOrder[] = [];
   tempOrders: AdminOrder[] = [];
@@ -26,6 +33,17 @@ export class AdminOrdersComponent implements OnInit {
   private modalOrderID = ""
   private isFiltered = false;
   private currentSelectedStatus = "all";
+  dataSource = new MatTableDataSource<AdminOrder>(this.tempOrders);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator
+  }
+
+  displayedColumns: string[] = ['select', 'رقم الطلب', 'تاريخ الطلب', 'اسم المسوق', 'طريقة الدفع', 'الاجمالي', 'رقم هاتف الزبون', 'رابط الشحنة', 'تاريخ التسليم', 'الحالة', 'الاجراءات'];
+
+  selection = new SelectionModel<AdminOrder>(true, []);
 
   constructor(adminOrderService: AdminOrderService) {
     this.globalAdminOrderService = adminOrderService;
@@ -38,10 +56,14 @@ export class AdminOrdersComponent implements OnInit {
     switch (id) {
       case "all": {
         this.currentSelectedStatus = "all";
-        if (this.isFiltered)
+        if (this.isFiltered) {
           this.tempOrders = this.clonedOrders;
-        else
+          this.dataSource.data = this.tempOrders;
+        }
+        else {
           this.tempOrders = this.orders;
+          this.dataSource.data = this.tempOrders
+        }
 
       } break;
 
@@ -82,6 +104,8 @@ export class AdminOrdersComponent implements OnInit {
         return obj.orderStatus == filterText
       });
     }
+    debugger
+    this.dataSource.data = this.tempOrders;
   }
 
   private setFilterButtonBackground(id: string) {
@@ -184,6 +208,7 @@ export class AdminOrdersComponent implements OnInit {
       } break;
     }
     this.clonedOrders = this.tempOrders;
+    this.dataSource.data = this.tempOrders
   }
 
   showHideDates(state: string) {
@@ -202,6 +227,7 @@ export class AdminOrdersComponent implements OnInit {
       if (TotalDays == days) return obj
       else return null
     });
+    this.dataSource.data = this.tempOrders
   }
 
   filterRange() {
@@ -216,6 +242,7 @@ export class AdminOrdersComponent implements OnInit {
       });
     }
     this.clonedOrders = this.tempOrders;
+    this.dataSource.data = this.tempOrders
   }
 
   getCellColor(status: string): string {
@@ -286,47 +313,52 @@ export class AdminOrdersComponent implements OnInit {
     (document.getElementById("toDate") as HTMLInputElement).max = nextDayDate;
   }
 
-  selectAll() {
-    var isSelectAllChecked = (document.getElementById("selectAll") as HTMLInputElement).checked
-    this.selectedOrderNumbers = [];
-    var inputs = document.getElementsByClassName("select-check");
-    for (var i = 0; i < inputs.length; i++) {
-      (inputs[i] as HTMLInputElement).checked = isSelectAllChecked;
-      if (isSelectAllChecked) {
-        this.selectedOrderNumbers.push((inputs[i] as HTMLInputElement).id.split(",")[1]);
-        var td = (inputs[i] as HTMLInputElement).parentElement;
-        var tr = td?.parentElement;
-        (tr as HTMLTableRowElement).style.backgroundColor = "#F4F0F7";
-      } else {
-        var td = (inputs[i] as HTMLInputElement).parentElement;
-        var tr = td?.parentElement;
-        (tr as HTMLTableRowElement).style.backgroundColor = "";
-      }
-    }
-    (document.getElementById("viewOrder") as HTMLButtonElement).disabled = (isSelectAllChecked || this.selectedOrderNumbers.length == 0);
-    (document.getElementById("cancelOrders") as HTMLButtonElement).disabled = !(isSelectAllChecked);
-    (document.getElementById("changeToTajheezBtn") as HTMLButtonElement).disabled = !(isSelectAllChecked);
-    (document.getElementById("changeToOtwBtn") as HTMLButtonElement).disabled = !(isSelectAllChecked);
-    (document.getElementById("changeToCompletedBtn") as HTMLButtonElement).disabled = !(isSelectAllChecked);
-    (document.getElementById("print") as HTMLButtonElement).disabled = !(isSelectAllChecked);
+
+  isAllSelected() {
+    return this.selection.selected.length === this.dataSource.data.length;
   }
 
-  selectRow(event: any) {
-    var id = event.target.id;
-    var isElementChecked = (document.getElementById(id) as HTMLInputElement).checked;
-    var td = (document.getElementById(id) as HTMLInputElement).parentElement;
-    var tr = td?.parentElement;
-    //remove
-    if (this.selectedOrderNumbers.indexOf(id.split(",")[1]) != -1)
-      this.selectedOrderNumbers.splice(this.selectedOrderNumbers.indexOf(id.split(",")[1]), 1);
-    if (isElementChecked) {
-      this.selectedOrderNumbers.push(id.split(",")[1]);
-      (tr as HTMLTableRowElement).style.backgroundColor = "#F4F0F7";
+
+
+  selectAll() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      this.selectedOrderNumbers = [];
+    } else {
+      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.selectedOrderNumbers = this.selection.selected.map((obj) => { return obj.orderNumber });
     }
-    else {
-      (document.getElementById("selectAll") as HTMLInputElement).checked = false;
-      (tr as HTMLTableRowElement).style.backgroundColor = "";
-    }
+
+
+    /* var isSelectAllChecked = (document.getElementById("selectAll") as HTMLInputElement).checked
+     this.selectedOrderNumbers = [];
+     var inputs = document.getElementsByClassName("select-check");
+     for (var i = 0; i < inputs.length; i++) {
+       (inputs[i] as HTMLInputElement).checked = isSelectAllChecked;
+       if (isSelectAllChecked) {
+         this.selectedOrderNumbers.push((inputs[i] as HTMLInputElement).id.split(",")[1]);
+         var td = (inputs[i] as HTMLInputElement).parentElement;
+         var tr = td?.parentElement;
+         (tr as HTMLTableRowElement).style.backgroundColor = "#F4F0F7";
+       } else {
+         var td = (inputs[i] as HTMLInputElement).parentElement;
+         var tr = td?.parentElement;
+         (tr as HTMLTableRowElement).style.backgroundColor = "";
+       }
+     }*/
+
+    (document.getElementById("viewOrder") as HTMLButtonElement).disabled = (this.isAllSelected() || this.selectedOrderNumbers.length == 0);
+    (document.getElementById("cancelOrders") as HTMLButtonElement).disabled = !(this.isAllSelected());
+    (document.getElementById("changeToTajheezBtn") as HTMLButtonElement).disabled = !(this.isAllSelected());
+    (document.getElementById("changeToOtwBtn") as HTMLButtonElement).disabled = !(this.isAllSelected());
+    (document.getElementById("changeToCompletedBtn") as HTMLButtonElement).disabled = !(this.isAllSelected());
+    (document.getElementById("print") as HTMLButtonElement).disabled = !(this.isAllSelected());
+  }
+
+  selectRow(order: AdminOrder) {
+    debugger
+    this.selection.toggle(order);
+    this.selectedOrderNumbers = this.selection.selected.map((obj) => { return obj.orderNumber });
 
     (document.getElementById("viewOrder") as HTMLButtonElement).disabled = (this.selectedOrderNumbers.length > 1 || this.selectedOrderNumbers.length == 0);
     (document.getElementById("cancelOrders") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
@@ -334,6 +366,31 @@ export class AdminOrdersComponent implements OnInit {
     (document.getElementById("changeToOtwBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
     (document.getElementById("changeToCompletedBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
     (document.getElementById("print") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
+
+
+
+    /* var id = "1"//event.target.id;
+     var isElementChecked = (document.getElementById(id) as HTMLInputElement).checked;
+     var td = (document.getElementById(id) as HTMLInputElement).parentElement;
+     var tr = td?.parentElement;
+     //remove
+     if (this.selectedOrderNumbers.indexOf(id.split(",")[1]) != -1)
+       this.selectedOrderNumbers.splice(this.selectedOrderNumbers.indexOf(id.split(",")[1]), 1);
+     if (isElementChecked) {
+       this.selectedOrderNumbers.push(id.split(",")[1]);
+       (tr as HTMLTableRowElement).style.backgroundColor = "#F4F0F7";
+     }
+     else {
+       (document.getElementById("selectAll") as HTMLInputElement).checked = false;
+       (tr as HTMLTableRowElement).style.backgroundColor = "";
+     }
+ 
+     (document.getElementById("viewOrder") as HTMLButtonElement).disabled = (this.selectedOrderNumbers.length > 1 || this.selectedOrderNumbers.length == 0);
+     (document.getElementById("cancelOrders") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
+     (document.getElementById("changeToTajheezBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
+     (document.getElementById("changeToOtwBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
+     (document.getElementById("changeToCompletedBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
+     (document.getElementById("print") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);*/
   }
 
   toolbarBtnClick(event: any) {
@@ -491,7 +548,6 @@ export class AdminOrdersComponent implements OnInit {
     (document.getElementById("all") as HTMLButtonElement).style.background = "#ce0000";
     this.currentSelectedStatus = "all";
     var val = (document.getElementById(id) as HTMLInputElement).value;
-
     this.tempOrders = this.orders.filter((obj) => {
       switch (id) {
         case "orderNumberInput": {
@@ -533,6 +589,8 @@ export class AdminOrdersComponent implements OnInit {
     });
     if (val == "") this.tempOrders = this.orders;
     this.clonedOrders = this.tempOrders;
+    debugger
+    this.dataSource.data = this.tempOrders;
   }
 
   inputsFiltersTable(event: any) {
@@ -585,15 +643,14 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   private uncheckAllCheckboxes() {
-    (document.getElementById("selectAll") as HTMLInputElement).checked = false
+    this.selection.clear();
     this.selectedOrderNumbers = [];
-    var inputs = document.getElementsByClassName("select-check");
-    for (var i = 0; i < inputs.length; i++) {
-      (inputs[i] as HTMLInputElement).checked = false;
-      var td = (inputs[i] as HTMLInputElement).parentElement;
-      var tr = td?.parentElement;
-      (tr as HTMLTableRowElement).style.backgroundColor = "";
-    }
+    (document.getElementById("viewOrder") as HTMLButtonElement).disabled = true;
+     (document.getElementById("cancelOrders") as HTMLButtonElement).disabled = true;
+     (document.getElementById("changeToTajheezBtn") as HTMLButtonElement).disabled = true;
+     (document.getElementById("changeToOtwBtn") as HTMLButtonElement).disabled = true;
+     (document.getElementById("changeToCompletedBtn") as HTMLButtonElement).disabled = true;
+     (document.getElementById("print") as HTMLButtonElement).disabled = true;
   }
 
   ngOnInit(): void {
@@ -604,6 +661,7 @@ export class AdminOrdersComponent implements OnInit {
       this.orders.reverse();
       this.tempOrders = this.orders;
       this.clonedOrders = this.orders;
+      this.dataSource.data = this.tempOrders
       var contentContainer: HTMLDivElement = document.getElementById("content") as HTMLDivElement
       this.alert.hideSpinner();
       contentContainer.style.display = "block";

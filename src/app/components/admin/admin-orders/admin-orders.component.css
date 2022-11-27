@@ -202,3 +202,23 @@ label {
     border: 1px solid #c5c3c3;
     border-collapse: collapse;
 }
+
+table {
+    width: 100%;
+}
+
+td {
+    width: 140px;
+    text-align: center;
+}
+
+th {
+    text-align: center !important;
+}
+
+input[type=text]{
+    width: 80%;
+    margin-bottom: 8px;
+    margin-top: 4px;
+
+}
