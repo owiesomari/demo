@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AllProduct, ManageProductsResponse } from 'src/app/Entities/admin/ManageProductsResponse';
+import { ManageProductsResponse } from 'src/app/Entities/admin/ManageProductsResponse';
 import { ManageProductsService } from 'src/app/services/admin/manageproducts/manage-products.service';
 import { Alert } from 'src/app/utils/Alert';
 
@@ -13,9 +13,9 @@ import { Alert } from 'src/app/utils/Alert';
 export class ManageProductsComponent implements OnInit, AfterViewInit {
 
   private globalManageProductsService: ManageProductsService
-  private products: ManageProductsResponse = new ManageProductsResponse();
+  private products: ManageProductsResponse[] = [];
   alert = new Alert();
-  dataSource = new MatTableDataSource<AllProduct>(this.products.allProducts);
+  dataSource = new MatTableDataSource<ManageProductsResponse>(this.products);
 
   displayedColumns: string[] = ['#', 'الصورة', 'الاسم', 'التصنيف', 'سعر التكلفة', 'المخزون', 'حالة المنتج', 'تاريخ الاضافة', 'الاجراءات'];
   constructor(manageProductsService: ManageProductsService) {
@@ -30,7 +30,7 @@ export class ManageProductsComponent implements OnInit, AfterViewInit {
   }
 
   isProductsEmpty(): Boolean {
-    return this.products.allProducts.length == 0
+    return this.products.length == 0
   }
 
   getCategoriesNames(categoriesList: string[]): string {
@@ -82,12 +82,12 @@ export class ManageProductsComponent implements OnInit, AfterViewInit {
   filterTable(event: any) {
     let filterText = (document.getElementById(event.target.id) as HTMLInputElement).value;
     console.log(filterText)
-    this.dataSource.data = this.products.allProducts.filter((obj) => {
+    this.dataSource.data = this.products.filter((obj) => {
       return obj.name.includes(filterText) || obj.sku.includes(filterText);
     });
 
     if (filterText == "") {
-      this.dataSource.data = this.products.allProducts;
+      this.dataSource.data = this.products;
     }
   }
 
@@ -99,24 +99,24 @@ export class ManageProductsComponent implements OnInit, AfterViewInit {
     return active ? '#67CFA2' : '#CE0000';
   }
 
-  getProductNumber(product: AllProduct): number {
-    return this.products.allProducts.indexOf(product) + 1
+  getProductNumber(product: ManageProductsResponse): number {
+    return this.products.indexOf(product) + 1
   }
 
-  changeToNotActive(element: AllProduct) {
+  changeToNotActive(element: ManageProductsResponse) {
     element.active = false;
     element.show = false;
     this.updateProduct(element)
 
   }
 
-  changeToActive(element: AllProduct) {
+  changeToActive(element: ManageProductsResponse) {
     element.active = true;
     element.show = true;
     this.updateProduct(element)
   }
 
-  private updateProduct(element: AllProduct) {
+  private updateProduct(element: ManageProductsResponse) {
 
   }
 
@@ -125,8 +125,8 @@ export class ManageProductsComponent implements OnInit, AfterViewInit {
     this.alert.showSpinner();
     this.globalManageProductsService.getAllProducts().subscribe(res => {
       this.products = res;
-      if (this.products.allProducts.length > 1) this.products.allProducts.reverse();
-      this.dataSource.data = this.products.allProducts;
+      if (this.products.length > 1) this.products.reverse();
+      this.dataSource.data = this.products;
 
       var contentContainer: HTMLDivElement = document.getElementById("contentContainer") as HTMLDivElement
       this.alert.hideSpinner();

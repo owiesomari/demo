@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Modal } from 'bootstrap';
 import * as saveAs from 'file-saver';
 import * as JSZip from 'jszip';
-import { AllProduct, Catalog, Image } from 'src/app/Entities/Catalog';
+import {  Catalog, Image } from 'src/app/Entities/Catalog';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Alert } from 'src/app/utils/Alert';
 import { SnakBar } from 'src/app/utils/SnakBar';
@@ -15,8 +15,8 @@ import { SnakBar } from 'src/app/utils/SnakBar';
 })
 export class CatalogComponent implements OnInit {
 
-  private catalogs: Catalog = new Catalog();
-  private tempFilteredCatalogs: AllProduct[] = [];
+  private catalogs: Catalog[] = [];
+  private tempFilteredCatalogs: Catalog[] = [];
   private isFiltered: Boolean = false;
   private NUMBER_OF_CARDS_PAIR_PAGE = 12;
   private currentSelectedPage = 1;
@@ -26,7 +26,7 @@ export class CatalogComponent implements OnInit {
   private globalcatalogService: CatalogService;
   private alert = new Alert();
   private snakbar: MatSnackBar;
-  tempCatalogs: AllProduct[] = [];
+  tempCatalogs: Catalog[] = [];
   pages: number = 0;
 
   constructor(catalogService: CatalogService, snackBar: MatSnackBar) {
@@ -142,7 +142,7 @@ export class CatalogComponent implements OnInit {
   page_onclick(event: any) {
     if (!(this.isFiltered)) {
       this.currentSelectedPage = event.target.id.split("_")[1];
-      this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE)
+      this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE)
     }
     else {
       if (this.isFiltered && this.tempFilteredCatalogs.length != 0) {
@@ -154,7 +154,7 @@ export class CatalogComponent implements OnInit {
     }
   }
 
-  displayCards(data_: AllProduct[], start: number, lenght: number) {
+  displayCards(data_: Catalog[], start: number, lenght: number) {
 
     if (data_.length == 0) {
       return;
@@ -170,7 +170,7 @@ export class CatalogComponent implements OnInit {
     if (!(this.isFiltered)) {
       this.tempCatalogs = [];
       for (var i = start; i < end; i++) {
-        this.tempCatalogs.push(this.catalogs.allProducts[i]);
+        this.tempCatalogs.push(this.catalogs[i]);
       }
     }
     else {
@@ -185,14 +185,14 @@ export class CatalogComponent implements OnInit {
 
   filterCatalogs(event: any) {
     if (event.target.value == "") {
-      this.tempCatalogs = this.catalogs.allProducts;
+      this.tempCatalogs = this.catalogs;
       this.isFiltered = false;
-      this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
-      this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
+      this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+      this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
       return;
     } else {
       this.isFiltered = true;
-      this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
+      this.tempCatalogs = this.catalogs.filter((obj) => {
         return obj.name.includes(event.target.value);
       });
       this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
@@ -202,15 +202,15 @@ export class CatalogComponent implements OnInit {
 
   filterSpecialCatalogs(event: any) {
     if (!event.target.checked) {
-      this.tempCatalogs = this.catalogs.allProducts;
+      this.tempCatalogs = this.catalogs;
       this.isFiltered = false;
-      this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
-      this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
+      this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+      this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
       return;
     }
     else {
       this.isFiltered = true;
-      this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
+      this.tempCatalogs = this.catalogs.filter((obj) => {
         return obj.markAsSpecial;
       });
       this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
@@ -228,7 +228,7 @@ export class CatalogComponent implements OnInit {
   }
 
   private fillModal(sku: string) {
-    var a = this.catalogs.allProducts.filter((obj) => {
+    var a = this.catalogs.filter((obj) => {
       return obj.sku == sku;
     })[0];
 
@@ -359,17 +359,17 @@ export class CatalogComponent implements OnInit {
 
 
       case "clear": {
-        this.tempCatalogs = this.catalogs.allProducts;
+        this.tempCatalogs = this.catalogs;
         this.isFiltered = false;
-        this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
-        this.displayCards(this.catalogs.allProducts, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
+        this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+        this.displayCards(this.catalogs, (this.currentSelectedPage - 1) * this.NUMBER_OF_CARDS_PAIR_PAGE, this.NUMBER_OF_CARDS_PAIR_PAGE);
       } break;
     }
   }
 
   private filterData(filterText: string) {
     this.isFiltered = true;
-    this.tempCatalogs = this.catalogs.allProducts.filter((obj) => {
+    this.tempCatalogs = this.catalogs.filter((obj) => {
       return obj.categories.includes(filterText)
     });
     this.createPagination(Math.ceil(this.tempCatalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), 1);
@@ -426,7 +426,7 @@ export class CatalogComponent implements OnInit {
   }
 
   downloadProductImages() {
-    var currentProduct = this.catalogs.allProducts.filter((obj) => {
+    var currentProduct = this.catalogs.filter((obj) => {
       return obj.sku == this.modalProductSku;
     })[0];
     const jszip = new JSZip();
@@ -452,18 +452,19 @@ export class CatalogComponent implements OnInit {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
     this.globalcatalogService.getProducts().subscribe(res => {
+      console.log(res);
       this.catalogs = res;
-      this.catalogs.allProducts = this.catalogs.allProducts.filter((obj) => {
+      this.catalogs = this.catalogs.filter((obj) => {
         return obj.active;
       });
-      this.catalogs.allProducts.reverse();
-      this.tempCatalogs = this.catalogs.allProducts;
-      this.pages = Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE);
+      this.catalogs.reverse();
+      this.tempCatalogs = this.catalogs;
+      this.pages = Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE);
       var contentContainer: HTMLDivElement = document.getElementById("contentContainer") as HTMLDivElement;
       this.alert.hideSpinner();
       contentContainer.style.display = "block";
-      this.createPagination(Math.ceil(this.catalogs.allProducts.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
-      this.displayCards(this.catalogs.allProducts, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
+      this.createPagination(Math.ceil(this.catalogs.length / this.NUMBER_OF_CARDS_PAIR_PAGE), this.currentSelectedPage);
+      this.displayCards(this.catalogs, 0, this.NUMBER_OF_CARDS_PAIR_PAGE);
 
     }, () => {
       this.alert.hideSpinner();

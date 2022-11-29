@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { EditProductRequest } from 'src/app/Entities/admin/EditProductRequest';
-import { AllProduct, Image } from 'src/app/Entities/admin/ManageProductsResponse';
+import {  Image, ManageProductsResponse } from 'src/app/Entities/admin/ManageProductsResponse';
 import { EditProductService } from 'src/app/services/admin/editProduct/edit-product.service';
 import { Alert } from 'src/app/utils/Alert';
 import { SnakBar } from 'src/app/utils/SnakBar';
@@ -46,7 +46,7 @@ export class EditProductComponent implements OnInit {
 
   private globalEditProductService: EditProductService;
   private imgs: Image[] = [];
-  private product: AllProduct = new AllProduct();
+  private product: ManageProductsResponse = new ManageProductsResponse();
   private request: EditProductRequest = new EditProductRequest();
 
   sku: string | undefined = "";
@@ -95,12 +95,12 @@ export class EditProductComponent implements OnInit {
   updateProduct() {
     this.fillRequest();
     this.alert.showSpinner();
+    debugger
     this.globalEditProductService.editProduct(this.request).subscribe(res => {
       this.alert.hideSpinner();
       new SnakBar(this.snakbar).openSnackBar("تم تعديل المنتج بنجاح")
     }, err => {
       this.alert.hideSpinner();
-
     })
 
   }
@@ -121,7 +121,7 @@ export class EditProductComponent implements OnInit {
     this.request.markAsSpecial = this.isSpecial!.checked;
     this.request.description = this.description!.value;
     this.request.newSku = this.skuInput!.value;
-    this.request.oldSku != this.sku;
+    this.request.oldSku = this.sku!;
     this.request.warranty = this.woranty!.value;
     this.request.madeIn = this.countryOfMini!.value;
     this.request.original = this.origin!.checked;

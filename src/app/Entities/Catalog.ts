@@ -1,8 +1,4 @@
 export class Catalog {
-    allProducts: AllProduct[] = [];
-}
-
-export class AllProduct {
     name: string = "";
     categories: string[] = [];
     costPrice: number = 0;

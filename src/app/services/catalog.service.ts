@@ -12,7 +12,7 @@ export class CatalogService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<any> {
-    return this.http.get(Constants.baseUrl + '/marketers/products/all');
+    return this.http.get(Constants.baseUrl + '/admin/products/products/all');
   }
 
   addToMyProducts(sku: string): Observable<any> {

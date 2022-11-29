@@ -1,8 +1,4 @@
 export class ManageProductsResponse {
-    allProducts: AllProduct[] = [];
-}
-
-export class AllProduct {
     name: string = "";
     categories: string[] = [];
     costPrice: number = 0;
@@ -32,6 +28,7 @@ export class AllProduct {
     tutorialVideoUrl: string = "";
     active: boolean = false;
 }
+
 
 export class Image {
     name: string = "";
