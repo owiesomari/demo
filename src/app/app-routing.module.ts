@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HomeComponent } from './components/home/home.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { ProductsComponent } from './components/products/products.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -14,9 +13,14 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
 import { AddProductComponent } from './components/admin/products/add-product/add-product.component';
 import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
 import { EditProductComponent } from './components/admin/manage-products/editproduct/edit-product/edit-product.component';
+import { LoginComponent } from './components/prelogin/login/login/login.component';
+import { RegistrationComponent } from './components/prelogin/registration/registration/registration.component';
+import { HomeComponent } from './components/prelogin/home/home/home.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: 'dashboard', pathMatch: "full" },
+  { path: "", component: HomeComponent },
+  { path: "login", component: LoginComponent, pathMatch: 'full' },
+  { path: "registration", component: RegistrationComponent },
   { path: "products", component: ProductsComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "catalog", component: CatalogComponent },
@@ -30,8 +34,6 @@ const routes: Routes = [
   { path: "addProduct", component: AddProductComponent },
   { path: "manageProducts", component: ManageProductsComponent },
   { path: "editProduct/:sku", component: EditProductComponent }
-
-
 ];
 
 @NgModule({

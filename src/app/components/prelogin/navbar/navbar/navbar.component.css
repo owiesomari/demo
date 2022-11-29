@@ -1,0 +1,44 @@
+.opt5 {
+    width: 100%;
+    z-index: 3;
+    margin-top: 0;
+}
+
+.navbar-light {
+    background: white;
+    border: none;
+    margin-bottom: 0px;
+    padding: 0px;
+    padding-left: 5%;
+}
+
+.navbar-brand {
+    max-width: 192px;
+}
+
+.navbar-nav {
+    padding-left: 5%;
+}
+
+ .navbar-light .navbar-nav > li {
+    text-transform: uppercase;
+}
+
+ .nav-link {
+    color: black !important;
+} 
+
+.nav-item {
+    font-weight: 600;
+    list-style: none;
+} 
+
+
+.nav-link:hover {
+    color:#ce0000 !important
+} 
+
+
+.nav-link {
+    text-decoration: none;
+}

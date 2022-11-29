@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { Dashboard } from 'src/app/Entities/Dashboard';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { Alert } from 'src/app/utils/Alert';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +18,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(dashboardService: DashboardService) {
     this.globalDashboardService = dashboardService;
+    CacheManager.getInstance().isLogin = true; 
   }
 
   showDropphiSupport(event: any) {

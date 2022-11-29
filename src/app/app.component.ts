@@ -8,4 +8,8 @@ import { CacheManager } from './utils/CasheManager';
 })
 export class AppComponent {
   title = 'dropphi';
+
+  cacheManager:CacheManager = CacheManager.getInstance()
+
+  
 }

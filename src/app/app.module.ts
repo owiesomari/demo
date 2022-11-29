@@ -33,6 +33,9 @@ import { ManageProductsComponent } from './components/admin/manage-products/mana
 import { MaterialModule } from './material-module';
 import { ManageProductsService } from './services/admin/manageproducts/manage-products.service';
 import { EditProductService } from './services/admin/editProduct/edit-product.service';
+import { LoginComponent } from './components/prelogin/login/login/login.component';
+import { RegistrationComponent } from './components/prelogin/registration/registration/registration.component';
+import { NavbarComponent } from './components/prelogin/navbar/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { EditProductService } from './services/admin/editProduct/edit-product.se
     OrderConfirmationComponent,
     AdminOrdersComponent,
     AddProductComponent,
-    ManageProductsComponent
+    ManageProductsComponent,
+    LoginComponent,
+    RegistrationComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

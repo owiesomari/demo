@@ -1,4 +1,5 @@
-<app-sidenav></app-sidenav>
+<app-sidenav *ngIf="cacheManager.isLogin"></app-sidenav>
+<app-navbar *ngIf="!cacheManager.isLogin"></app-navbar>
 <div class="alert" id="alertDiv"
     style="display: none; padding: 16px;position:fixed;z-index: 1; color: white; background-color: #67CF94 !important;width: 300px;">
     <h4 id="alertTitle"></h4>

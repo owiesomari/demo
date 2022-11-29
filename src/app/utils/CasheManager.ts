@@ -1,7 +1,8 @@
 export class CacheManager {
 
     private static instance: CacheManager;
-    static isAdmin: Boolean = false;
+     isAdmin: Boolean = false;
+     isLogin = false;
 
     private constructor() { }
 
