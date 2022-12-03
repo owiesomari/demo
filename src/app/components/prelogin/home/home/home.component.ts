@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, RouterModule} from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 
 @Component({
@@ -9,14 +10,17 @@ import {Router, RouterModule} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) {
+    CacheManager.getInstance().isLogin = false;
+    CacheManager.getInstance().isAdmin = false;
+  }
 
-  navigateToSignup(){
+  navigateToSignup() {
     this.router.navigateByUrl("/registration")
   }
 
   ngOnInit(): void {
-    scrollTo(0,0);
+    scrollTo(0, 0);
   }
 
 }

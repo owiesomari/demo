@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/Entities/prelogin/LoginRequest';
 import { LoginService } from 'src/app/services/prelogin/login.service';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ export class LoginComponent implements OnInit {
   globalLoginService: LoginService;
 
   constructor(private router: Router, loginService: LoginService) {
+    CacheManager.getInstance().isLogin=false;
+    CacheManager.getInstance().isAdmin=false;
     this.globalLoginService = loginService;
   }
 
@@ -23,6 +26,8 @@ export class LoginComponent implements OnInit {
 
     this.globalLoginService.login(request).subscribe(res => {
       console.log(res);
+      CacheManager.getInstance().isAdmin = res.isAdmin
+      CacheManager.getInstance().isLogin = true;
       this.router.navigateByUrl("/dashboard")
     }, err => {
       console.log(err)
