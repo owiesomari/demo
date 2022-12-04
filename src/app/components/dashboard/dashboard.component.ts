@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
     this.idInfoVisibile = event.target.checked
   }
 
-
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.alert.showSpinner();
@@ -37,7 +36,5 @@ export class DashboardComponent implements OnInit {
       this.alert.hideSpinner();
       this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
     })
-
   }
-
 }

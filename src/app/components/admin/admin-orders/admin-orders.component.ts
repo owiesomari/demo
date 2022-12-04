@@ -104,7 +104,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
         return obj.orderStatus == filterText
       });
     }
-    debugger
     this.dataSource.data = this.tempOrders;
   }
 
@@ -318,8 +317,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
     return this.selection.selected.length === this.dataSource.data.length;
   }
 
-
-
   selectAll() {
     if (this.isAllSelected()) {
       this.selection.clear();
@@ -356,7 +353,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
   }
 
   selectRow(order: AdminOrder) {
-    debugger
     this.selection.toggle(order);
     this.selectedOrderNumbers = this.selection.selected.map((obj) => { return obj.orderNumber });
 
@@ -366,31 +362,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
     (document.getElementById("changeToOtwBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
     (document.getElementById("changeToCompletedBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
     (document.getElementById("print") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
-
-
-
-    /* var id = "1"//event.target.id;
-     var isElementChecked = (document.getElementById(id) as HTMLInputElement).checked;
-     var td = (document.getElementById(id) as HTMLInputElement).parentElement;
-     var tr = td?.parentElement;
-     //remove
-     if (this.selectedOrderNumbers.indexOf(id.split(",")[1]) != -1)
-       this.selectedOrderNumbers.splice(this.selectedOrderNumbers.indexOf(id.split(",")[1]), 1);
-     if (isElementChecked) {
-       this.selectedOrderNumbers.push(id.split(",")[1]);
-       (tr as HTMLTableRowElement).style.backgroundColor = "#F4F0F7";
-     }
-     else {
-       (document.getElementById("selectAll") as HTMLInputElement).checked = false;
-       (tr as HTMLTableRowElement).style.backgroundColor = "";
-     }
- 
-     (document.getElementById("viewOrder") as HTMLButtonElement).disabled = (this.selectedOrderNumbers.length > 1 || this.selectedOrderNumbers.length == 0);
-     (document.getElementById("cancelOrders") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
-     (document.getElementById("changeToTajheezBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
-     (document.getElementById("changeToOtwBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
-     (document.getElementById("changeToCompletedBtn") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);
-     (document.getElementById("print") as HTMLButtonElement).disabled = !(this.selectedOrderNumbers.length >= 1);*/
   }
 
   toolbarBtnClick(event: any) {

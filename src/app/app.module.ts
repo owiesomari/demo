@@ -36,6 +36,8 @@ import { EditProductService } from './services/admin/editProduct/edit-product.se
 import { LoginComponent } from './components/prelogin/login/login/login.component';
 import { RegistrationComponent } from './components/prelogin/registration/registration/registration.component';
 import { NavbarComponent } from './components/prelogin/navbar/navbar/navbar.component';
+import { ManageMarketersComponent } from './components/admin/marketers/manage/manage-marketers/manage-marketers.component';
+import { MarketersServiceService } from './services/admin/marketer/marketers-service.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { NavbarComponent } from './components/prelogin/navbar/navbar/navbar.comp
     ManageProductsComponent,
     LoginComponent,
     RegistrationComponent,
-    NavbarComponent
+    NavbarComponent,
+    ManageMarketersComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,7 @@ import { NavbarComponent } from './components/prelogin/navbar/navbar/navbar.comp
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService, AdminProductService, ManageProductsService, EditProductService],
+    CatalogService, OrderdetailsService, OrdersService, ProductService, CartService, UserService, DashboardService, AdminOrderService, AdminProductService, ManageProductsService, EditProductService, MarketersServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
