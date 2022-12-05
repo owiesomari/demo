@@ -312,7 +312,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
     (document.getElementById("toDate") as HTMLInputElement).max = nextDayDate;
   }
 
-
   isAllSelected() {
     return this.selection.selected.length === this.dataSource.data.length;
   }
@@ -325,25 +324,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
       this.dataSource.data.forEach(row => this.selection.select(row));
       this.selectedOrderNumbers = this.selection.selected.map((obj) => { return obj.orderNumber });
     }
-
-
-    /* var isSelectAllChecked = (document.getElementById("selectAll") as HTMLInputElement).checked
-     this.selectedOrderNumbers = [];
-     var inputs = document.getElementsByClassName("select-check");
-     for (var i = 0; i < inputs.length; i++) {
-       (inputs[i] as HTMLInputElement).checked = isSelectAllChecked;
-       if (isSelectAllChecked) {
-         this.selectedOrderNumbers.push((inputs[i] as HTMLInputElement).id.split(",")[1]);
-         var td = (inputs[i] as HTMLInputElement).parentElement;
-         var tr = td?.parentElement;
-         (tr as HTMLTableRowElement).style.backgroundColor = "#F4F0F7";
-       } else {
-         var td = (inputs[i] as HTMLInputElement).parentElement;
-         var tr = td?.parentElement;
-         (tr as HTMLTableRowElement).style.backgroundColor = "";
-       }
-     }*/
-
     (document.getElementById("viewOrder") as HTMLButtonElement).disabled = (this.isAllSelected() || this.selectedOrderNumbers.length == 0);
     (document.getElementById("cancelOrders") as HTMLButtonElement).disabled = !(this.isAllSelected());
     (document.getElementById("changeToTajheezBtn") as HTMLButtonElement).disabled = !(this.isAllSelected());

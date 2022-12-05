@@ -38,6 +38,7 @@ import { RegistrationComponent } from './components/prelogin/registration/regist
 import { NavbarComponent } from './components/prelogin/navbar/navbar/navbar.component';
 import { ManageMarketersComponent } from './components/admin/marketers/manage/manage-marketers/manage-marketers.component';
 import { MarketersServiceService } from './services/admin/marketer/marketers-service.service';
+import { MarketersDetailsComponent } from './components/admin/marketers/marketerDetails/marketers-details/marketers-details.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { MarketersServiceService } from './services/admin/marketer/marketers-ser
     LoginComponent,
     RegistrationComponent,
     NavbarComponent,
-    ManageMarketersComponent
+    ManageMarketersComponent,
+    MarketersDetailsComponent
   ],
   imports: [
     BrowserModule,

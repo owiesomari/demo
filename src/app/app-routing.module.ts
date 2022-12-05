@@ -16,6 +16,8 @@ import { EditProductComponent } from './components/admin/manage-products/editpro
 import { LoginComponent } from './components/prelogin/login/login/login.component';
 import { RegistrationComponent } from './components/prelogin/registration/registration/registration.component';
 import { HomeComponent } from './components/prelogin/home/home/home.component';
+import { ManageMarketersComponent } from './components/admin/marketers/manage/manage-marketers/manage-marketers.component';
+import { MarketersDetailsComponent } from './components/admin/marketers/marketerDetails/marketers-details/marketers-details.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -33,7 +35,10 @@ const routes: Routes = [
   { path: "adminorders", component: AdminOrdersComponent },
   { path: "addProduct", component: AddProductComponent },
   { path: "manageProducts", component: ManageProductsComponent },
-  { path: "editProduct/:sku", component: EditProductComponent }
+  { path: "editProduct/:sku", component: EditProductComponent },
+  { path: "marketers", component: ManageMarketersComponent }  ,
+  { path: "marketerDetails", component: MarketersDetailsComponent }  
+
 ];
 
 @NgModule({

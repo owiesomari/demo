@@ -1,18 +1,21 @@
 <div class="container-fluid">
-    <div class="container-fluid search_div" id="contentContainer" style="display: none;">
+    <div class="container-fluid search_div" id="contentContainer" >
         <div class="search" style="margin-top: 35px">
             <h2>البحث السريع</h2>
             <div class="input-group margin-top-xl">
                 <input style="background-color: #f0f0f0;" type="text" class="form-control" id="searchField"
-                    placeholder="ادخل كلمات البحث هنا" aria-label="search" aria-describedby="basic-addon2"
+                    placeholder="ابحث عن المسوق" aria-label="search" aria-describedby="basic-addon2"
                     (keyup)="filterTable($event)">
             </div>
         </div>
         <br>
+        <div>
+            <button class="btn export-marketers" (click)="exportToExcel()">تصدير المسوقين</button>
+        </div>
+        <br>
+        <br>
         <h3 style="text-align: center; color:#727272; margin-top: 16px;" *ngIf="">لا يوجد منتجات </h3>
-
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-top: 20px;">
-
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox [checked]="selection.hasValue()&& isAllSelected()"
@@ -36,16 +39,12 @@
 
             <ng-container matColumnDef="البريد الاكتروني">
                 <th mat-header-cell *matHeaderCellDef> البريد الاكتروني
-
-
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.email}}</td>
             </ng-container>
 
             <ng-container matColumnDef="رقم الهاتف">
                 <th mat-header-cell *matHeaderCellDef>رقم الهاتف
-
-
                 </th>
                 <td mat-cell *matCellDef="let element"> {{element.phoneNumber}}</td>
             </ng-container>
@@ -61,27 +60,20 @@
             <ng-container matColumnDef="تاريخ الانضمام">
                 <th mat-header-cell *matHeaderCellDef> تاريخ الانضمام
 
-
                 </th>
                 <td mat-cell *matCellDef="let element"> </td>
             </ng-container>
-
-
             <ng-container matColumnDef="الاجراءات">
                 <th mat-header-cell *matHeaderCellDef> الاجراءات </th>
                 <td mat-cell *matCellDef="let element">
 
-                    <span><button class="btn btn-small bg-success rd-50"
-                            [routerLink]="['/orderdeatils',element.orderNumber]"><i class="bi bi-eye"
-                                style="color: #fff;"></i>
+                    <span><button title="تفاصيل المسوق" class="btn btn-small bg-success rd-50"
+                            [routerLink]="['/orderdeatils',element.orderNumber]"><i class="bi bi-person-fill"></i>
                         </button></span>
-                    <span><button class="rd-50 btn btn-small bg-danger"><i ( class="bi bi-trash"
-                                style="color: #fff;"></i></button></span>
+                    <span><button title="حذف المسوق" class="rd-50 btn btn-small bg-danger"><i class="bi bi-trash"></i></button></span>
 
-                    <span><button class="rd-50 btn btn-small bg-danger" style="visibility: hidden;">ds</button></span>
                 </td>
             </ng-container>
-
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

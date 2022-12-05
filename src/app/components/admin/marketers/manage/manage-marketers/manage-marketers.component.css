@@ -1,0 +1,47 @@
+table{
+    width: 100%;
+}
+
+td {
+    width: 140px;
+    text-align: center;
+}
+
+th {
+    text-align: center !important;
+}
+
+.export-marketers{
+    background-color: #ce0000;
+    color: white;
+    padding: 12px;
+    width: 200px;
+    border-radius: 20px;
+    float: left;
+}
+
+.rd-50 {
+    border-radius: 50%;
+    margin-left: 4px;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545 !important;
+}
+
+.bg-danger:hover {
+    background-color: #BA472E !important;
+}
+
+.bg-success:hover {
+    background-color: #1BB71B !important;
+}
+
+.bg-success {
+    background-color: #67CF94 !important;
+}
+
+.bg-danger {
+    background-color: #FC7383 !important;
+}

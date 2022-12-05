@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(dashboardService: DashboardService) {
     this.globalDashboardService = dashboardService;
+    CacheManager.getInstance().isLogin=true;
   }
 
   showDropphiSupport(event: any) {

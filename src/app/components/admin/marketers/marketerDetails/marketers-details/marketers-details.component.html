@@ -1,0 +1,106 @@
+<div class="main">
+    <div class="column-1">
+      <ul class="vertical-menu">
+          <li (click)="viewMode ='tab1'" [ngClass]="{'active':viewMode =='tab1'}">تفاصيل الحساب</li>
+          <li (click)="viewMode ='tab2'" [ngClass]="{'active':viewMode =='tab2'}">المعاملات المالية</li>
+          <li (click)="viewMode ='tab3'" [ngClass]="{'active':viewMode =='tab3'}">روابط المتاجر</li>
+          <li (click)="viewMode ='tab4'" [ngClass]="{'active':viewMode =='tab4'}">احصائيات المسوق</li>
+      </ul>
+    </div>
+    <div class="column-2" [ngSwitch]="viewMode">
+      <div *ngSwitchCase="'tab1'" class="tab-content">
+        <h2>تفاصيل الحساب</h2>
+        <br>
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> الاسم</div>
+            <div class="col-md-1"> owies</div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> الدولة</div>
+            <div class="col-md-1"> الاردن</div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> المدينة</div>
+            <div class="col-md-1"> عمان</div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> المنطقة</div>
+            <div class="col-md-1"> جبل الحسين</div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> العنوان 1</div>
+            <div class="col-md-1"> </div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> العنوان 2</div>
+            <div class="col-md-1"> </div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> الرمز البريدي</div>
+            <div class="col-md-1"> 9962</div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted">الشركة</div>
+            <div class="col-md-1"> البنك العربي</div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted"> رقم الهاتف</div>
+            <div class="col-md-1"> 0797048997</div>
+        </div>
+
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted">البريد الاكتروني</div>
+            <div class="col-md-1"> owies.omari3@gmail.com</div>
+        </div>
+      </div>
+      <div *ngSwitchCase="'tab2'" class="tab-content">
+        <h2>المعاملات المالية</h2>
+        <br>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis fugiat velit saepe 
+            repudiandae obcaecati! Hic dicta harum autem odio amet dignissimos doloribus, quae, 
+            reprehenderit ratione, ea nulla molestias repellat ut!</p>
+      </div>
+      <div *ngSwitchCase="'tab3'" class="tab-content">
+        <h2>روابط المتاجر</h2>
+        <br>
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted">شوبيفاي:</div>
+            <div class="col-md-1"> owies.omari3@gmail.com</div>
+        </div>
+    
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted">فيسبوك: </div>
+            <div class="col-md-1"> owies.omari3@gmail.com</div>
+        </div>
+    
+        <div class="row mg-t-8">
+            <div class="col-md-2 text-muted">انستجرام:</div>
+            <div class="col-md-1"> owies.omari3@gmail.com</div>
+      </div>
+      </div>
+      <div *ngSwitchCase="'tab4'" class="tab-content">
+        <h2>احصائيات المسوق</h2>
+        <br>
+        <div>
+            <i class="bi bi-bar-chart-line-fill wallet-icon"></i>
+             <span class="wallet-span">اجمالي المبيعات:</span> <span class="wallet-value" id="total">25 د.أ</span>
+        </div>
+
+        <div>
+            <i class="bi bi-graph-up wallet-icon"></i>  <span class="wallet-span">اجمالي الارباح:</span> <span class="wallet-value" id="total">25 د.أ</span>
+        </div>
+
+        <div>
+            <i class="bi bi-wallet2 wallet-icon"></i>  <span class="wallet-span">اجمالي الرصيد المتاح:</span> <span class="wallet-value" id="total">25 د.أ</span>
+        </div>
+     
+    </div>
+    </div>
