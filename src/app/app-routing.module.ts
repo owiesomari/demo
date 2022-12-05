@@ -18,6 +18,7 @@ import { RegistrationComponent } from './components/prelogin/registration/regist
 import { HomeComponent } from './components/prelogin/home/home/home.component';
 import { ManageMarketersComponent } from './components/admin/marketers/manage/manage-marketers/manage-marketers.component';
 import { MarketersDetailsComponent } from './components/admin/marketers/marketerDetails/marketers-details/marketers-details.component';
+import { AdminWalletComponent } from './components/admin/wallet/admin-wallet/admin-wallet.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: "manageProducts", component: ManageProductsComponent },
   { path: "editProduct/:sku", component: EditProductComponent },
   { path: "marketers", component: ManageMarketersComponent }  ,
-  { path: "marketerDetails", component: MarketersDetailsComponent }  
+  { path: "marketerDetails", component: MarketersDetailsComponent } ,
+  { path: "adminwallet", component: AdminWalletComponent }  
 
 ];
 

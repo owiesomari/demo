@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -8,7 +9,10 @@ import { Router } from '@angular/router';
 })
 export class OrderConfirmationComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
+  }
 
   navigateToCatalogs() {
     this.router.navigateByUrl('/orders')

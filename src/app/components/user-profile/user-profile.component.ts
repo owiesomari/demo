@@ -3,6 +3,7 @@ import { User } from 'src/app/Entities/User';
 import { DropphiLink, UserRequest } from 'src/app/Entities/UserRequest';
 import { UserService } from 'src/app/services/user/user.service';
 import { Alert } from 'src/app/utils/Alert';
+import { CacheManager } from 'src/app/utils/CasheManager';
 import { Validator } from 'src/app/utils/Valitator';
 
 @Component({
@@ -23,6 +24,8 @@ export class UserProfileComponent implements OnInit {
   constructor(userService: UserService) {
     this.validator = new Validator();
     this.globalUserService = userService;
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
   }
 
   uploadImage = async (event: any) => {

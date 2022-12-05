@@ -1,0 +1,12 @@
+table {
+    width: 100%;
+}
+
+td {
+    width: 140px;
+    text-align: center;
+}
+
+th {
+    text-align: center !important;
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 
 @Component({
@@ -15,7 +16,10 @@ export class WalletComponent implements OnInit {
   walletForm: HTMLFormElement | undefined
   WestrnForm: HTMLFormElement | undefined
 
-  constructor() { }
+  constructor() { 
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
+  }
 
   withdrowClick() {
     let infoText: HTMLParagraphElement = document.getElementById("infotext") as HTMLParagraphElement

@@ -6,6 +6,7 @@ import * as JSZip from 'jszip';
 import {  Catalog, Image } from 'src/app/Entities/Catalog';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { Alert } from 'src/app/utils/Alert';
+import { CacheManager } from 'src/app/utils/CasheManager';
 import { SnakBar } from 'src/app/utils/SnakBar';
 
 @Component({
@@ -32,6 +33,8 @@ export class CatalogComponent implements OnInit {
   constructor(catalogService: CatalogService, snackBar: MatSnackBar) {
     this.snakbar = snackBar;
     this.globalcatalogService = catalogService;
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
   }
 
   createPagination(pages: number, page: number) {

@@ -3,6 +3,7 @@ import { Product } from 'src/app/Entities/Product';
 import { Modal } from 'bootstrap';
 import { ProductService } from 'src/app/services/producrs/product.service';
 import { Alert } from 'src/app/utils/Alert';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 @Component({
   selector: 'app-products',
@@ -24,6 +25,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(productService: ProductService) {
     this.globalProductService = productService;
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
   }
 
   filterTable(event: any) {

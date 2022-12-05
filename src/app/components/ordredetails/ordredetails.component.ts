@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { OrderDetails } from 'src/app/Entities/OrderDetails';
 import { OrderdetailsService } from 'src/app/services/orderdetails/orderdetails.service';
 import { Alert } from 'src/app/utils/Alert';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 @Component({
   selector: 'app-ordredetails',
@@ -21,6 +22,8 @@ export class OrdredetailsComponent implements OnInit {
   constructor(private _Activatedroute: ActivatedRoute, orderDeatialsService: OrderdetailsService) {
     this.orderNumber = this._Activatedroute.snapshot.paramMap.get("order_number")?.toString()
     this.globalorderDeatialsService = orderDeatialsService
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
   }
 
   print() {

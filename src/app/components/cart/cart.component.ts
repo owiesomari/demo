@@ -7,6 +7,7 @@ import { CartService } from 'src/app/services/cart/cart.service';
 import { Alert } from 'src/app/utils/Alert';
 
 import { CustomerShipmentDetails, OrdersRequest, ProductInfo } from 'src/app/Entities/OrdersRequest';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 @Component({
   selector: 'app-cart',
@@ -32,6 +33,8 @@ export class CartComponent implements OnInit {
   constructor(private router: Router, cartService: CartService) {
     this.validator = new Validator();
     this.globalCartServicd = cartService;
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
   }
 
   remove(event: any) {

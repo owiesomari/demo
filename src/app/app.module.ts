@@ -39,6 +39,7 @@ import { NavbarComponent } from './components/prelogin/navbar/navbar/navbar.comp
 import { ManageMarketersComponent } from './components/admin/marketers/manage/manage-marketers/manage-marketers.component';
 import { MarketersServiceService } from './services/admin/marketer/marketers-service.service';
 import { MarketersDetailsComponent } from './components/admin/marketers/marketerDetails/marketers-details/marketers-details.component';
+import { AdminWalletComponent } from './components/admin/wallet/admin-wallet/admin-wallet.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { MarketersDetailsComponent } from './components/admin/marketers/marketer
     RegistrationComponent,
     NavbarComponent,
     ManageMarketersComponent,
-    MarketersDetailsComponent
+    MarketersDetailsComponent,
+    AdminWalletComponent
   ],
   imports: [
     BrowserModule,

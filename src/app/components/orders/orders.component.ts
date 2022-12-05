@@ -3,6 +3,7 @@ import { Order } from 'src/app/Entities/Order';
 import { Modal } from 'bootstrap';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { Alert } from 'src/app/utils/Alert';
+import { CacheManager } from 'src/app/utils/CasheManager';
 
 @Component({
   selector: 'app-orders',
@@ -24,6 +25,8 @@ export class OrdersComponent implements OnInit {
 
   constructor(ordersService: OrdersService) {
     this.globalOrdersService = ordersService
+    CacheManager.getInstance().isLogin = true;
+    CacheManager.getInstance().isAdmin = false;
   }
 
   filterTable(event: any) {
