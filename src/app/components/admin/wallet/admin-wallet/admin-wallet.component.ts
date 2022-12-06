@@ -11,7 +11,7 @@ export class AdminWalletComponent implements OnInit {
 
   constructor() { }
 
-  dataSource = new MatTableDataSource<any>([]);//change
+  dataSource = new MatTableDataSource<any>(["1", "12/12/12", "owies", "20 jod", "online", "pending"]);//change
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -51,6 +51,22 @@ export class AdminWalletComponent implements OnInit {
       }
     }
     return "";
+  }
+
+  filterTable(type: string) {
+    switch (type) {
+      case "COMPLETED": {
+
+      } break;
+
+      case "PENDDING": {
+
+      } break;
+
+      case "CANCELED": {
+
+      } break;
+    }
   }
 
   ngOnInit(): void {
