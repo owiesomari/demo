@@ -1,106 +1,231 @@
-<div class="main">
-    <div class="column-1">
-      <ul class="vertical-menu">
-          <li (click)="viewMode ='tab1'" [ngClass]="{'active':viewMode =='tab1'}">تفاصيل الحساب</li>
-          <li (click)="viewMode ='tab2'" [ngClass]="{'active':viewMode =='tab2'}">المعاملات المالية</li>
-          <li (click)="viewMode ='tab3'" [ngClass]="{'active':viewMode =='tab3'}">روابط المتاجر</li>
-          <li (click)="viewMode ='tab4'" [ngClass]="{'active':viewMode =='tab4'}">احصائيات المسوق</li>
-      </ul>
+<div class="container">
+    <br>
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                class="rounded-circle" width="150">
+                            <div class="mt-3">
+                                <h4>Owies Alomari</h4>
+                                <p class="text-secondary mb-1">Owies.omari3@gmail.com</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <h3 style="margin-right: 20px;margin-top: 20px;">روابط المتاجر</h3><br>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">شوبيفاي</h6>
+                            <span class="text-secondary">https://bootdey.com</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">فيسبوك</h6>
+                            <span class="text-secondary">bootdey</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">انستجرام</h6>
+                            <span class="text-secondary">@bootdey</span>
+                        </li>
+                    </ul>
+                </div>
+                <br>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3>احصائيات المسوق</h3>
+                            <br><br>
+                            <div class="col-sm-9">
+
+                                <i class="bi bi-bar-chart-line-fill wallet-icon"></i>
+                                <span class="wallet-span">اجمالي المبيعات:</span>
+
+                            </div>
+                            <div class="col-sm-3 text-secondary">
+                                <span class="wallet-value" id="total">25 د.أ</span>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <i class="bi bi-graph-up wallet-icon"></i> <span class="wallet-span">اجمالي
+                                    الارباح:</span>
+
+                            </div>
+                            <div class="col-sm-3 text-secondary wallet-value">
+                                <span class="wallet-value" id="total">25 د.أ</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <i class="bi bi-wallet2 wallet-icon"></i> <span class="wallet-span">اجمالي الرصيد
+                                    المتاح:</span>
+                            </div>
+                            <div class="col-sm-3 text-secondary">
+                                <span class="wallet-value" id="total">25 د.أ</span>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3>تفاصيل الحساب</h3>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">الاسم</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Kenneth Valdez
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">الدولة</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                fip@jukmuh.al
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">المدينة</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                (239) 816-9029
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">المنطقة</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                (320) 380-4539
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">العنوان 1</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">العنوان 2</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">الرمز البريدي</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">الشركة</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">رقم الهاتف </h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">البريد الاكتروني</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Bay Area, San Francisco, CA
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row gutters-sm">
+
+                    <div class="col-sm-12 mb-3">
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h3>المعاملات المالية</h3><br><br>
+                                    <div class="col-sm-9">
+
+                                        <i class="bi bi-bar-chart-line-fill wallet-icon"></i>
+                                        <span class="wallet-span">اجمالي المبيعات:</span>
+
+                                    </div>
+                                    <div class="col-sm-3 text-secondary">
+                                        <span class="wallet-value" id="total">25 د.أ</span>
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <i class="bi bi-graph-up wallet-icon"></i> <span class="wallet-span">اجمالي
+                                            الارباح:</span>
+
+                                    </div>
+                                    <div class="col-sm-3 text-secondary wallet-value">
+                                        <span class="wallet-value" id="total">25 د.أ</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <i class="bi bi-wallet2 wallet-icon"></i> <span class="wallet-span">اجمالي
+                                            الرصيد
+                                            المتاح:</span>
+                                    </div>
+                                    <div class="col-sm-3 text-secondary">
+                                        <span class="wallet-value" id="total">25 د.أ</span>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="column-2" [ngSwitch]="viewMode">
-      <div *ngSwitchCase="'tab1'" class="tab-content">
-        <h2>تفاصيل الحساب</h2>
-        <br>
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> الاسم</div>
-            <div class="col-md-1"> owies</div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> الدولة</div>
-            <div class="col-md-1"> الاردن</div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> المدينة</div>
-            <div class="col-md-1"> عمان</div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> المنطقة</div>
-            <div class="col-md-1"> جبل الحسين</div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> العنوان 1</div>
-            <div class="col-md-1"> </div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> العنوان 2</div>
-            <div class="col-md-1"> </div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> الرمز البريدي</div>
-            <div class="col-md-1"> 9962</div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted">الشركة</div>
-            <div class="col-md-1"> البنك العربي</div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted"> رقم الهاتف</div>
-            <div class="col-md-1"> 0797048997</div>
-        </div>
-
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted">البريد الاكتروني</div>
-            <div class="col-md-1"> owies.omari3@gmail.com</div>
-        </div>
-      </div>
-      <div *ngSwitchCase="'tab2'" class="tab-content">
-        <h2>المعاملات المالية</h2>
-        <br>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis fugiat velit saepe 
-            repudiandae obcaecati! Hic dicta harum autem odio amet dignissimos doloribus, quae, 
-            reprehenderit ratione, ea nulla molestias repellat ut!</p>
-      </div>
-      <div *ngSwitchCase="'tab3'" class="tab-content">
-        <h2>روابط المتاجر</h2>
-        <br>
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted">شوبيفاي:</div>
-            <div class="col-md-1"> owies.omari3@gmail.com</div>
-        </div>
-    
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted">فيسبوك: </div>
-            <div class="col-md-1"> owies.omari3@gmail.com</div>
-        </div>
-    
-        <div class="row mg-t-8">
-            <div class="col-md-2 text-muted">انستجرام:</div>
-            <div class="col-md-1"> owies.omari3@gmail.com</div>
-      </div>
-      </div>
-      <div *ngSwitchCase="'tab4'" class="tab-content">
-        <h2>احصائيات المسوق</h2>
-        <br>
-        <div>
-            <i class="bi bi-bar-chart-line-fill wallet-icon"></i>
-             <span class="wallet-span">اجمالي المبيعات:</span> <span class="wallet-value" id="total">25 د.أ</span>
-        </div>
-
-        <div>
-            <i class="bi bi-graph-up wallet-icon"></i>  <span class="wallet-span">اجمالي الارباح:</span> <span class="wallet-value" id="total">25 د.أ</span>
-        </div>
-
-        <div>
-            <i class="bi bi-wallet2 wallet-icon"></i>  <span class="wallet-span">اجمالي الرصيد المتاح:</span> <span class="wallet-value" id="total">25 د.أ</span>
-        </div>
-     
-    </div>
-    </div>
+</div>
