@@ -403,12 +403,11 @@ export class CatalogComponent implements OnInit {
     this.globalcatalogService.addToMyProducts(sku).subscribe(res => {
       this.closeModal();
       this.alert.hideSpinner();
-      this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى منتجاتك بنجاح");
-
+      new SnakBar(this.snakbar).openSnackBar("تمت الاضافة الى منتجاتك بنجاح","sucess")
     }, () => {
       this.alert.hideSpinner();
       this.closeModal();
-      this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح");
+      new SnakBar(this.snakbar).openSnackBar("لم تتم الاضافة بنجاح","error")
     })
   }
 
@@ -417,14 +416,12 @@ export class CatalogComponent implements OnInit {
     this.globalcatalogService.addToMyCart(sku).subscribe(res => {
       this.closeModal();
       this.alert.hideSpinner();
-
-      new SnakBar(this.snakbar).openSnackBar("تمت الاضافة بنجاح")
-      //this.alert.setupAlertDiv("s", "تمت اضافة المنتجات", "تمت الاضافة الى سلة مشترياتك بنجاح");
-
+      new SnakBar(this.snakbar).openSnackBar("تمت الاضافة الى سلة مشترياتك بنجاح","sucess")
     }, () => {
       this.alert.hideSpinner();
       this.closeModal();
-      this.alert.setupAlertDiv("f", "حدث خطأ", "لم تتم الاضافة بنجاح")
+      new SnakBar(this.snakbar).openSnackBar("لم تتم الاضافة بنجاح","error")
+
     })
   }
 
@@ -471,7 +468,7 @@ export class CatalogComponent implements OnInit {
 
     }, () => {
       this.alert.hideSpinner();
-      this.alert.setupAlertDiv("e", "حدث خطأ", "حدث خطأ، الرجاء المحاولة لاحقاً");
+      new SnakBar(this.snakbar).openSnackBar("حدث خطأ، الرجاء المحاولة لاحقاً","error")
     })
   }
 }

@@ -98,7 +98,7 @@ export class EditProductComponent implements OnInit {
     debugger
     this.globalEditProductService.editProduct(this.request).subscribe(res => {
       this.alert.hideSpinner();
-      new SnakBar(this.snakbar).openSnackBar("تم تعديل المنتج بنجاح")
+      new SnakBar(this.snakbar).openSnackBar("تم تعديل المنتج بنجاح","success")
     }, err => {
       this.alert.hideSpinner();
     })
@@ -218,6 +218,7 @@ export class EditProductComponent implements OnInit {
       this.product = res;
       this.fillForm();
     }, err => {
+      new SnakBar(this.snakbar).openSnackBar("حدث خطأ، الرجاء المحاولة لاحقاً","error")
       this.alert.hideSpinner();
     })
   }

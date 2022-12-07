@@ -276,14 +276,25 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .green-snackbar {
-  background: #67CF94;
+  background: #67CF94 !important;
+  border : 2px solid green
+
 }
 
 .red-snackbar{
-  
+  background: #f8d7da !important;
+  color:black;
+  border : 2px solid red
 }
 
 .mat-paginator-range-label{
   direction: ltr;
+
+}
+
+.my-custom-snackbar {
+  position: fixed;
+  top: 60px;
+  right: 10px;
 
 }
